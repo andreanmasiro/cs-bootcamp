@@ -12,6 +12,12 @@ final class MoviesListDataSource: NSObject, UICollectionViewDataSource {
     
     private unowned let collectionView: UICollectionView
     
+    var viewModels: [MovieCollectionViewCell.ViewModel] = [] {
+        didSet {
+            collectionView.reloadData()
+        }
+    }
+    
     init(collectionView: UICollectionView) {
         
         self.collectionView = collectionView

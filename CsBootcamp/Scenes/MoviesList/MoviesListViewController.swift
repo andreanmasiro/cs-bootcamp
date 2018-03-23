@@ -43,6 +43,10 @@ final class MoviesListViewController: UIViewController {
     
     func setup(state: State) {
         
+        switch state {
+            
+        case .list(let viewModels): dataSource.viewModels = viewModels
+        }
     }
     
     func displayMovies(viewModels: [MovieCollectionViewCell.ViewModel]) {

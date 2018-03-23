@@ -13,6 +13,8 @@ protocol MoviesListView: class {
 
 final class MoviesListPresenter: MoviesListPresenterType {
     
+    private typealias ViewModel = MovieCollectionViewCell.ViewModel
+    
     unowned let view: MoviesListView
     
     init(view: MoviesListView) {
@@ -20,8 +22,14 @@ final class MoviesListPresenter: MoviesListPresenterType {
         self.view = view
     }
     
-    func presentMovies() {
+    func presentMovies(_ movies: [Movie]) {
         
+        let viewModel = movies.map { movie in
+            
+            ViewModel(imageURL: movie.posterUrl,
+                      title: movie.title)
+        }
         
+        view.displayMovies(viewModels: viewModel)
     }
 }
