@@ -28,7 +28,7 @@ final class MoviesListDataSource: NSObject, UICollectionViewDataSource {
     }
     
     private func registerCells(in collectionView: UICollectionView) {
-        collectionView.register(MovieCollectionViewCell.self, forCellWithReuseIdentifier: "MoviesCell")
+        collectionView.register(MovieCollectionViewCell.self)
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -37,7 +37,7 @@ final class MoviesListDataSource: NSObject, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MoviesCell", for: indexPath) as? MovieCollectionViewCell else {
+        guard let cell = collectionView.dequeueReusableCell(MovieCollectionViewCell.self, for: indexPath) else {
             
             return UICollectionViewCell()
         }
