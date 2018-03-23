@@ -33,6 +33,7 @@ final class MoviesListViewController: UIViewController {
     
     init() {
         super.init(nibName: nil, bundle: nil)
+        self.title = "Movies"
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -61,7 +62,12 @@ final class MoviesListViewController: UIViewController {
     
     private func setupConstraints() {
         
-        // todo: constraints
+        collectionView
+            .topAnchor(equalTo: view.bottomAnchor)
+            .bottomAnchor(equalTo: view.bottomAnchor)
+            .trailingAnchor(equalTo: view.trailingAnchor)
+            .leadingAnchor(equalTo: view.leadingAnchor)
+        
     }
 }
 
