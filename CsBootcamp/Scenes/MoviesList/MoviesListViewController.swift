@@ -15,10 +15,19 @@ protocol MoviesListInteractorType {
 
 final class MoviesListViewController: UIViewController, MoviesListView {
     
+    lazy var activityIndicator: UIActivityIndicatorView = {
+        
+        let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+        activityIndicator.hidesWhenStopped = true
+        activityIndicator.stopAnimating()
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        
+        return activityIndicator
+    }()
+    
     lazy var collectionView: UICollectionView = {
         
         let flowLayout = UICollectionViewFlowLayout()
-        
         flowLayout.sectionInset.left = 16
         flowLayout.sectionInset.right = 16
         
@@ -30,6 +39,7 @@ final class MoviesListViewController: UIViewController, MoviesListView {
     }()
     
     lazy var dataSource = {
+        
         MoviesListDataSource(collectionView: collectionView)
     }()
     
@@ -40,6 +50,7 @@ final class MoviesListViewController: UIViewController, MoviesListView {
     var interactor: MoviesListInteractorType?
     
     init() {
+        
         super.init(nibName: nil, bundle: nil)
         title = "Movies"
         
@@ -52,25 +63,39 @@ final class MoviesListViewController: UIViewController, MoviesListView {
     override func viewWillAppear(_ animated: Bool) {
         
         super.viewWillAppear(animated)
-        interactor?.fetchMovies()
+        fetchMovies()
     }
     
-    func setup(state: State) {
+    private func fetchMovies() {
         
-        switch state {
-            
-        case .list(let viewModels): dataSource.viewModels = viewModels
-        }
+        interactor?.fetchMovies()
+        setup(state: .loading)
     }
+    
+    // MARK: MoviesListView conforms
     
     func displayMovies(viewModels: [MovieCollectionViewCell.ViewModel]) {
         
-        self.setup(state: .list(viewModels))
+        setup(state: .list(viewModels))
+    }
+    
+    // MARK: Setups
+    
+    private func setup(state: State) {
+        
+        if case let .list(viewModels) = state {
+            
+            dataSource.viewModels = viewModels
+        }
+        
+        collectionView.isHidden = state.hidesCollectionView
+        state.activityIndicatorAction(activityIndicator)()
     }
     
     private func setupViewHierarchy() {
         
         view.addSubview(collectionView)
+        view.addSubview(activityIndicator)
     }
     
     private func setupConstraints() {
@@ -80,6 +105,10 @@ final class MoviesListViewController: UIViewController, MoviesListView {
             .bottomAnchor(equalTo: view.bottomAnchor)
             .trailingAnchor(equalTo: view.trailingAnchor)
             .leadingAnchor(equalTo: view.leadingAnchor)
+        
+        activityIndicator
+            .centerXAnchor(equalTo: view.centerXAnchor)
+            .centerYAnchor(equalTo: view.centerYAnchor)
     }
 }
 
@@ -88,5 +117,22 @@ extension MoviesListViewController {
     enum State {
         
         case list([MovieCollectionViewCell.ViewModel])
+        case loading
+        
+        var hidesCollectionView: Bool {
+            
+            switch self {
+            case .list: return false
+            case .loading: return true
+            }
+        }
+        
+        var activityIndicatorAction: (UIActivityIndicatorView) -> () -> () {
+            
+            switch self {
+            case .list: return UIActivityIndicatorView.stopAnimating
+            case .loading: return UIActivityIndicatorView.startAnimating
+            }
+        }
     }
 }
