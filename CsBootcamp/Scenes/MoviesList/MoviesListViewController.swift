@@ -8,6 +8,11 @@
 
 import UIKit
 
+protocol MoviesListInteractorType {
+    
+    func fetchMovies()
+}
+
 final class MoviesListViewController: UIViewController {
     
     unowned let collectionView: UICollectionView = {
@@ -24,13 +29,25 @@ final class MoviesListViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    var interactor: MoviesListInteractorType?
+    
     init() {
-        
         super.init(nibName: nil, bundle: nil)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        
+        super.viewWillAppear(animated)
+//        interactor.fetchMovies()
     }
     
     func setup(state: State) {
         
+    }
+    
+    func displayMovies(viewModels: [MovieCollectionViewCell.ViewModel]) {
+        
+        self.setup(state: .list(viewModels))
     }
     
     private func setupViewHierarchy() {
