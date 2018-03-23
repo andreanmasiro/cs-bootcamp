@@ -13,11 +13,14 @@ protocol MoviesListInteractorType {
     func fetchMovies()
 }
 
-final class MoviesListViewController: UIViewController {
+final class MoviesListViewController: UIViewController, MoviesListView {
     
-    unowned let collectionView: UICollectionView = {
+    lazy var collectionView: UICollectionView = {
         
-        let collectionView = UICollectionView()
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.backgroundColor = .clear
+        
         return collectionView
     }()
     
@@ -33,13 +36,18 @@ final class MoviesListViewController: UIViewController {
     
     init() {
         super.init(nibName: nil, bundle: nil)
-        self.title = "Movies"
+        title = "Movies"
+        
+        setupViewHierarchy()
+        setupConstraints()
+        
+        view.backgroundColor = .white
     }
     
     override func viewWillAppear(_ animated: Bool) {
         
         super.viewWillAppear(animated)
-//        interactor.fetchMovies()
+        interactor?.fetchMovies()
     }
     
     func setup(state: State) {
@@ -63,7 +71,7 @@ final class MoviesListViewController: UIViewController {
     private func setupConstraints() {
         
         collectionView
-            .topAnchor(equalTo: view.bottomAnchor)
+            .topAnchor(equalTo: view.topAnchor)
             .bottomAnchor(equalTo: view.bottomAnchor)
             .trailingAnchor(equalTo: view.trailingAnchor)
             .leadingAnchor(equalTo: view.leadingAnchor)

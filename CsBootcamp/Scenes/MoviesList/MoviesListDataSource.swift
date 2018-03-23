@@ -21,21 +21,29 @@ final class MoviesListDataSource: NSObject, UICollectionViewDataSource {
     init(collectionView: UICollectionView) {
         
         self.collectionView = collectionView
-        
         super.init()
         registerCells(in: collectionView)
+        collectionView.dataSource = self
+        collectionView.reloadData()
     }
     
     private func registerCells(in collectionView: UICollectionView) {
-        
+        collectionView.register(MovieCollectionViewCell.self, forCellWithReuseIdentifier: "MoviesCell")
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 0
+        return viewModels.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        return UICollectionViewCell()
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MoviesCell", for: indexPath) as? MovieCollectionViewCell else {
+            
+            return UICollectionViewCell()
+        }
+        
+        cell.setup(viewModel: viewModels[indexPath.item])
+        
+        return cell
     }
 }

@@ -10,17 +10,19 @@ import UIKit
 
 class MovieCollectionViewCell: UICollectionViewCell {
     
-    unowned let imageView: UIImageView = {
+    let imageView: UIImageView = {
         
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
+        imageView.translatesAutoresizingMaskIntoConstraints = false
         
         return imageView
     }()
     
-    unowned let titleLabel: UILabel = {
+    let titleLabel: UILabel = {
         
         let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
     }()
@@ -37,7 +39,7 @@ class MovieCollectionViewCell: UICollectionViewCell {
     }
     
     func setup(viewModel: ViewModel) {
-        // todo
+        titleLabel.text = viewModel.title
     }
     
     private func setupViewHierarchy() {
