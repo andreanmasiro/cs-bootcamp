@@ -18,6 +18,7 @@
 		BA1824B8206563CF004405A3 /* MoviesListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1824B7206563CF004405A3 /* MoviesListPresenter.swift */; };
 		BA1824BB20656847004405A3 /* Genre.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1824BA20656847004405A3 /* Genre.swift */; };
 		BA1824BD2065684D004405A3 /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1824BC2065684D004405A3 /* Movie.swift */; };
+		BA1824BF206587C3004405A3 /* ImageFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1824BE206587C3004405A3 /* ImageFetcher.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 		BA1824B7206563CF004405A3 /* MoviesListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesListPresenter.swift; sourceTree = "<group>"; };
 		BA1824BA20656847004405A3 /* Genre.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Genre.swift; sourceTree = "<group>"; };
 		BA1824BC2065684D004405A3 /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
+		BA1824BE206587C3004405A3 /* ImageFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFetcher.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +76,7 @@
 		BA18249520654743004405A3 /* CsBootcamp */ = {
 			isa = PBXGroup;
 			children = (
+				BA1824C2206588F4004405A3 /* ImageFetcher */,
 				BA1824B92065683E004405A3 /* Models */,
 				BA1824AA20655E47004405A3 /* Scenes */,
 				62F1D33C206579670036977E /* Extensions */,
@@ -128,6 +131,14 @@
 				BA1824BC2065684D004405A3 /* Movie.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		BA1824C2206588F4004405A3 /* ImageFetcher */ = {
+			isa = PBXGroup;
+			children = (
+				BA1824BE206587C3004405A3 /* ImageFetcher.swift */,
+			);
+			path = ImageFetcher;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -210,6 +221,7 @@
 				BA1824B8206563CF004405A3 /* MoviesListPresenter.swift in Sources */,
 				BA1824BD2065684D004405A3 /* Movie.swift in Sources */,
 				BA1824BB20656847004405A3 /* Genre.swift in Sources */,
+				BA1824BF206587C3004405A3 /* ImageFetcher.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -339,6 +351,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 83C3V38WSB;
 				INFOPLIST_FILE = CsBootcamp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = cs.CsBootcamp;
@@ -353,6 +366,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 83C3V38WSB;
 				INFOPLIST_FILE = CsBootcamp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = cs.CsBootcamp;
