@@ -32,6 +32,8 @@ final class MoviesListInteractor: MoviesListInteractorType {
                   posterUrl: URL(string: "https://www.elastic.co/assets/bltada7771f270d08f6/enhanced-buzz-1492-1379411828-15.jpg")!)
         }
         
-        presenter.presentMovies(movies)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            self.presenter.presentMovies(movies)
+        }
     }
 }
