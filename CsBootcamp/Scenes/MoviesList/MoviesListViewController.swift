@@ -15,6 +15,13 @@ protocol MoviesListInteractorType {
 
 final class MoviesListViewController: UIViewController, MoviesListView {
     
+    var interactor: MoviesListInteractorType?
+    
+    lazy var dataSource = {
+        MoviesListDataSource(collectionView: collectionView)
+    }()
+    
+    
     lazy var collectionView: UICollectionView = {
         
         let flowLayout = UICollectionViewFlowLayout()
@@ -29,15 +36,10 @@ final class MoviesListViewController: UIViewController, MoviesListView {
         return collectionView
     }()
     
-    lazy var dataSource = {
-        MoviesListDataSource(collectionView: collectionView)
-    }()
-    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    var interactor: MoviesListInteractorType?
     
     init() {
         super.init(nibName: nil, bundle: nil)
