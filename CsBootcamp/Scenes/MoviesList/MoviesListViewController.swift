@@ -17,7 +17,12 @@ final class MoviesListViewController: UIViewController, MoviesListView {
     
     lazy var collectionView: UICollectionView = {
         
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+        let flowLayout = UICollectionViewFlowLayout()
+        
+        flowLayout.sectionInset.left = 16
+        flowLayout.sectionInset.right = 16
+        
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.backgroundColor = .clear
         
@@ -75,7 +80,6 @@ final class MoviesListViewController: UIViewController, MoviesListView {
             .bottomAnchor(equalTo: view.bottomAnchor)
             .trailingAnchor(equalTo: view.trailingAnchor)
             .leadingAnchor(equalTo: view.leadingAnchor)
-        
     }
 }
 
