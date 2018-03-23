@@ -13,7 +13,7 @@ class MovieCollectionViewCell: UICollectionViewCell {
     static var cellSize: CGSize {
         
         let width = CGFloat(165).proportionalToWidth
-        let height = CGFloat(230).proportionalToWidth
+        let height = CGFloat(247).proportionalToWidth
         
         return CGSize(width: width, height: height)
     }
@@ -35,6 +35,7 @@ class MovieCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
+        label.textColor = UIColor.Bootcamp.yellow
         
         return label
     }()
@@ -43,8 +44,9 @@ class MovieCollectionViewCell: UICollectionViewCell {
         super.init(frame: frame)
         setupViewHierarchy()
         setupConstraints()
+        
+        contentView.backgroundColor = UIColor.Bootcamp.darkBlue
     }
-    
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -63,7 +65,7 @@ class MovieCollectionViewCell: UICollectionViewCell {
     }
     
     private func setupConstraints() {
-       
+        
         imageView
             .topAnchor(equalTo: contentView.topAnchor)
             .leadingAnchor(equalTo: contentView.leadingAnchor)
