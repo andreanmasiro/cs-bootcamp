@@ -10,6 +10,14 @@ import UIKit
 
 class MovieCollectionViewCell: UICollectionViewCell {
     
+    static var cellSize: CGSize {
+        
+        let width = CGFloat(165).proportionalToWidth
+        let height = CGFloat(207).proportionalToWidth
+        
+        return CGSize(width: width, height: height)
+    }
+    
     private let imageFetcher: ImageFetcher = ImageFetcherStub()
     
     let imageView: UIImageView = {
@@ -17,6 +25,7 @@ class MovieCollectionViewCell: UICollectionViewCell {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.clipsToBounds = true
         
         return imageView
     }()
@@ -25,6 +34,7 @@ class MovieCollectionViewCell: UICollectionViewCell {
         
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.textAlignment = .center
         
         return label
     }()

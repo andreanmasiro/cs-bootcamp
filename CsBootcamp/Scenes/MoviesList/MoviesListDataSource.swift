@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class MoviesListDataSource: NSObject, UICollectionViewDataSource {
+final class MoviesListDataSource: NSObject, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     private unowned let collectionView: UICollectionView
     
@@ -24,12 +24,15 @@ final class MoviesListDataSource: NSObject, UICollectionViewDataSource {
         super.init()
         registerCells(in: collectionView)
         collectionView.dataSource = self
+        collectionView.delegate = self
         collectionView.reloadData()
     }
     
     private func registerCells(in collectionView: UICollectionView) {
         collectionView.register(MovieCollectionViewCell.self)
     }
+    
+    // Mark: UICollectionViewDataSource conforms
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return viewModels.count
@@ -45,5 +48,12 @@ final class MoviesListDataSource: NSObject, UICollectionViewDataSource {
         cell.setup(viewModel: viewModels[indexPath.item])
         
         return cell
+    }
+    
+    // Mark: UICollectionViewDelegateFlowLayout conforms
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        return MovieCollectionViewCell.cellSize
     }
 }

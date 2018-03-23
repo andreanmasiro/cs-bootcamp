@@ -23,10 +23,10 @@ final class MoviesListInteractor: MoviesListInteractorType {
     
     func fetchMovies() {
      
-        let movies = (0..<5).map { _ in
+        let movies = (0..<10).map { _ in
             Movie(id: 0,
                   genreIds: [],
-                  title: "Title",
+                  title: "Avengers",
                   overview: "Some overview",
                   releaseDate: Date(),
                   posterUrl: URL(string: "https://www.elastic.co/assets/bltada7771f270d08f6/enhanced-buzz-1492-1379411828-15.jpg")!)
