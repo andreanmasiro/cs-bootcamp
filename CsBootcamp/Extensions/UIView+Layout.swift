@@ -40,4 +40,13 @@ extension UIView {
         return self
     }
     
+    @discardableResult func centerXAnchor(equalTo anchor: NSLayoutXAxisAnchor, constant: CGFloat = 0) -> Self {
+        centerXAnchor.constraint(equalTo: anchor, constant: constant).isActive = true
+        return self
+    }
+    
+    @discardableResult func centerYAnchor(equalTo anchor: NSLayoutYAxisAnchor, constant: CGFloat = 0) -> Self {
+        centerYAnchor.constraint(equalTo: anchor, constant: constant).isActive = true
+        return self
+    }
 }
