@@ -6,4 +6,17 @@
 //  Copyright © 2018 Bootcampers. All rights reserved.
 //
 
-import Foundation
+import UIKit
+
+extension UICollectionView {
+    
+    func register<T: UICollectionViewCell>(_ cellType: T.Type) {
+        
+        register(cellType, forCellWithReuseIdentifier: cellType.reuseIdentifier)
+    }
+    
+    func dequeueReusableCell<T: UICollectionViewCell>(_ cellType: T.Type, for indexPath: IndexPath) -> T? {
+        
+        return dequeueReusableCell(withReuseIdentifier: T.reuseIdentifier, for: indexPath) as? T
+    }
+}
