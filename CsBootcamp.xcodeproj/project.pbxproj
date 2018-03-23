@@ -24,6 +24,7 @@
 		BA1824C920658A01004405A3 /* UICollectionView+ReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1824C820658A01004405A3 /* UICollectionView+ReusableView.swift */; };
 		BA1824CB20658C53004405A3 /* UIScreen+Proportions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1824CA20658C53004405A3 /* UIScreen+Proportions.swift */; };
 		BA1824CD20658CB7004405A3 /* CGFloat+Proportions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1824CC20658CB7004405A3 /* CGFloat+Proportions.swift */; };
+		BA1824D020659035004405A3 /* UIColor+App.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1824CF20659035004405A3 /* UIColor+App.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +47,7 @@
 		BA1824C820658A01004405A3 /* UICollectionView+ReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+ReusableView.swift"; sourceTree = "<group>"; };
 		BA1824CA20658C53004405A3 /* UIScreen+Proportions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScreen+Proportions.swift"; sourceTree = "<group>"; };
 		BA1824CC20658CB7004405A3 /* CGFloat+Proportions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGFloat+Proportions.swift"; sourceTree = "<group>"; };
+		BA1824CF20659035004405A3 /* UIColor+App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+App.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +90,7 @@
 		BA18249520654743004405A3 /* CsBootcamp */ = {
 			isa = PBXGroup;
 			children = (
+				BA1824CE20659025004405A3 /* Colors */,
 				BA1824C320658989004405A3 /* ReusableView */,
 				BA1824C2206588F4004405A3 /* ImageFetcher */,
 				BA1824B92065683E004405A3 /* Models */,
@@ -162,6 +165,14 @@
 				BA1824C820658A01004405A3 /* UICollectionView+ReusableView.swift */,
 			);
 			path = ReusableView;
+			sourceTree = "<group>";
+		};
+		BA1824CE20659025004405A3 /* Colors */ = {
+			isa = PBXGroup;
+			children = (
+				BA1824CF20659035004405A3 /* UIColor+App.swift */,
+			);
+			path = Colors;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -240,6 +251,7 @@
 				BA1824C7206589B5004405A3 /* UIView+ReusableView.swift in Sources */,
 				BA1824B12065608D004405A3 /* MoviesListDataSource.swift in Sources */,
 				BA1824B420656154004405A3 /* MovieCollectionViewCell.swift in Sources */,
+				BA1824D020659035004405A3 /* UIColor+App.swift in Sources */,
 				BA1824CB20658C53004405A3 /* UIScreen+Proportions.swift in Sources */,
 				BA1824C520658998004405A3 /* ReusableView.swift in Sources */,
 				BA1824C920658A01004405A3 /* UICollectionView+ReusableView.swift in Sources */,
