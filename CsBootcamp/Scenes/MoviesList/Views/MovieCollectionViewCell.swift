@@ -10,6 +10,8 @@ import UIKit
 
 class MovieCollectionViewCell: UICollectionViewCell {
     
+    private let imageFetcher: ImageFetcher = ImageFetcherStub()
+    
     let imageView: UIImageView = {
         
         let imageView = UIImageView()
@@ -39,7 +41,9 @@ class MovieCollectionViewCell: UICollectionViewCell {
     }
     
     func setup(viewModel: ViewModel) {
+        
         titleLabel.text = viewModel.title
+        imageFetcher.fetchImage(from: viewModel.imageURL, to: imageView) { }
     }
     
     private func setupViewHierarchy() {
@@ -61,9 +65,7 @@ class MovieCollectionViewCell: UICollectionViewCell {
             .leadingAnchor(equalTo: contentView.leadingAnchor)
             .trailingAnchor(equalTo: contentView.trailingAnchor)
             .bottomAnchor(equalTo: contentView.bottomAnchor)
-       
     }
-
 }
 
 extension MovieCollectionViewCell {
