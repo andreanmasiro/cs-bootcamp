@@ -25,9 +25,43 @@ class MovieCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupViewHierarchy()
+        setupConstraints()
+    }
+    
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     func setup(viewModel: ViewModel) {
         // todo
     }
+    
+    private func setupViewHierarchy() {
+        
+        contentView.addSubview(imageView)
+        contentView.addSubview(titleLabel)
+    }
+    
+    private func setupConstraints() {
+       
+        imageView
+            .topAnchor(equalTo: contentView.topAnchor)
+            .leadingAnchor(equalTo: contentView.leadingAnchor)
+            .trailingAnchor(equalTo: contentView.trailingAnchor)
+            .heightAnchor(equalTo: bounds.width*160/167)
+        
+        titleLabel
+            .topAnchor(equalTo: imageView.bottomAnchor)
+            .leadingAnchor(equalTo: contentView.leadingAnchor)
+            .trailingAnchor(equalTo: contentView.trailingAnchor)
+            .bottomAnchor(equalTo: contentView.bottomAnchor)
+       
+    }
+
 }
 
 extension MovieCollectionViewCell {
