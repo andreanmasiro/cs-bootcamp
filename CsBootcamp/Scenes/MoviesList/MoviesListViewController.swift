@@ -28,6 +28,8 @@ final class MoviesListViewController: UIViewController, MoviesListView {
     lazy var collectionView: UICollectionView = {
         
         let flowLayout = UICollectionViewFlowLayout()
+        flowLayout.sectionInset.top = 8
+        flowLayout.sectionInset.bottom = 8
         flowLayout.sectionInset.left = 8
         flowLayout.sectionInset.right = 8
         
