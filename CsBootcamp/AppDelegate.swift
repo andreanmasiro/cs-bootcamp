@@ -15,14 +15,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
-        window = UIWindow(frame: UIScreen.main.bounds)
-        
         let rootViewController = MoviesListViewController()
         let presenter = MoviesListPresenter(view: rootViewController)
         let interactor = MoviesListInteractor(presenter: presenter)
         rootViewController.interactor = interactor
-        
-        window?.rootViewController = rootViewController
+        let navigationController = UINavigationController(rootViewController: rootViewController)
+        navigationController.navigationBar.barTintColor = UIColor.Bootcamp.yellow
+        navigationController.navigationBar.isTranslucent = false
+        let screen = UIScreen.main
+        window = UIWindow(frame: screen.bounds)
+        window?.rootViewController = navigationController
+        window?.backgroundColor = UIColor.white
         window?.makeKeyAndVisible()
         
         return true

@@ -12,8 +12,8 @@ class MovieCollectionViewCell: UICollectionViewCell {
     
     static var cellSize: CGSize {
         
-        let width = CGFloat(165).proportionalToWidth
-        let height = CGFloat(247).proportionalToWidth
+        let width = CGFloat(125).proportionalToWidth
+        let height = CGFloat(207).proportionalToWidth
         
         return CGSize(width: width, height: height)
     }
