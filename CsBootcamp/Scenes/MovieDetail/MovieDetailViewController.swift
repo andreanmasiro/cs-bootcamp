@@ -31,7 +31,13 @@ final class MovieDetailViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    //TODO: setup() {}
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+    }
+    
+    private func setup() {
+    
+    }
     
     private func setupViewHierarchy() {
         view.addSubview(tableView)

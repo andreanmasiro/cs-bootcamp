@@ -19,7 +19,7 @@ final class MovieDetailDataSource: NSObject, UITableViewDataSource {
     }
     
     private func registerCells(in tavleView: UITableView) {
-        tableView.register(MovieTableViewCell.self)
+        tableView.register(MoviePosterTableViewCell.self)
     }
     
     
@@ -28,7 +28,7 @@ final class MovieDetailDataSource: NSObject, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(MovieTableViewCell.self, for: indexPath) else {
+        guard let cell = tableView.dequeueReusableCell(MoviePosterTableViewCell.self, for: indexPath) else {
             return UITableViewCell()
         }
         return cell
