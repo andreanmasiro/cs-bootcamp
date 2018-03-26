@@ -22,16 +22,19 @@ class MoviePosterTableViewCell: UITableViewCell {
     
     lazy var posterImageView: UIImageView = {
         let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
     
     lazy var titleLabel: UILabel = {
         let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     lazy var favoriteButton: UIButton = {
         let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
@@ -45,9 +48,14 @@ class MoviePosterTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func setup(viewModel: ViewModel) {
-        self.titleLabel.text = viewModel.title
-        imageFetcher.fetchImage(from: viewModel.imageURL, to: self.posterImageView) {}
+//    func setup(viewModel: ViewModel) {
+//        self.titleLabel.text = viewModel.title
+//        imageFetcher.fetchImage(from: viewModel.imageURL, to: self.posterImageView) {}
+//    }
+    
+    func setup(movie: Movie) {
+        self.titleLabel.text = movie.title
+        imageFetcher.fetchImage(from: movie.posterUrl, to: self.posterImageView) {}
     }
     
     private func setupViewHierarchy() {
