@@ -12,8 +12,8 @@ class MovieCollectionViewCell: UICollectionViewCell {
     
     static var cellSize: CGSize {
         
-        let width = CGFloat(125).proportionalToWidth
-        let height = CGFloat(207).proportionalToWidth
+        let width = CGFloat(160).proportionalToWidth
+        let height = width * 1.45
         
         return CGSize(width: width, height: height)
     }
@@ -70,7 +70,7 @@ class MovieCollectionViewCell: UICollectionViewCell {
             .topAnchor(equalTo: contentView.topAnchor)
             .leadingAnchor(equalTo: contentView.leadingAnchor)
             .trailingAnchor(equalTo: contentView.trailingAnchor)
-            .heightAnchor(equalTo: bounds.width*200/165)
+            .heightAnchor(equalTo: bounds.width * 1.25)
         
         titleLabel
             .topAnchor(equalTo: imageView.bottomAnchor)
