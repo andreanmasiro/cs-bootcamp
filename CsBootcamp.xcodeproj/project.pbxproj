@@ -37,6 +37,16 @@
 		BA1824D020659035004405A3 /* UIColor+App.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1824CF20659035004405A3 /* UIColor+App.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		BA1824E9206AC417004405A3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BA18248B20654743004405A3 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BA18249220654743004405A3;
+			remoteInfo = CsBootcamp;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		0EA903D4194E1F50597B3496 /* Pods-CsBootcamp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CsBootcamp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CsBootcamp/Pods-CsBootcamp.debug.xcconfig"; sourceTree = "<group>"; };
 		5CFFC637639AFFE2473BB025 /* Pods_CsBootcamp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CsBootcamp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -69,6 +79,8 @@
 		BA1824CA20658C53004405A3 /* UIScreen+Proportions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScreen+Proportions.swift"; sourceTree = "<group>"; };
 		BA1824CC20658CB7004405A3 /* CGFloat+Proportions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGFloat+Proportions.swift"; sourceTree = "<group>"; };
 		BA1824CF20659035004405A3 /* UIColor+App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+App.swift"; sourceTree = "<group>"; };
+		BA1824E4206AC417004405A3 /* CsBootcampTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CsBootcampTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		BA1824E8206AC417004405A3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EA514EECE86A59895FB20516 /* Pods-CsBootcamp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CsBootcamp.release.xcconfig"; path = "Pods/Target Support Files/Pods-CsBootcamp/Pods-CsBootcamp.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -78,6 +90,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				1328BC2AA2C806C6618CCB51 /* Pods_CsBootcamp.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BA1824E1206AC417004405A3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -138,6 +157,7 @@
 			isa = PBXGroup;
 			children = (
 				BA18249520654743004405A3 /* CsBootcamp */,
+				BA1824E5206AC417004405A3 /* CsBootcampTests */,
 				BA18249420654743004405A3 /* Products */,
 				612FDC807AAE40981509A5D5 /* Pods */,
 				2A9A6610162BEEE0A523631B /* Frameworks */,
@@ -148,6 +168,7 @@
 			isa = PBXGroup;
 			children = (
 				BA18249320654743004405A3 /* CsBootcamp.app */,
+				BA1824E4206AC417004405A3 /* CsBootcampTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -242,6 +263,14 @@
 			path = Colors;
 			sourceTree = "<group>";
 		};
+		BA1824E5206AC417004405A3 /* CsBootcampTests */ = {
+			isa = PBXGroup;
+			children = (
+				BA1824E8206AC417004405A3 /* Info.plist */,
+			);
+			path = CsBootcampTests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -265,6 +294,24 @@
 			productReference = BA18249320654743004405A3 /* CsBootcamp.app */;
 			productType = "com.apple.product-type.application";
 		};
+		BA1824E3206AC417004405A3 /* CsBootcampTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BA1824ED206AC417004405A3 /* Build configuration list for PBXNativeTarget "CsBootcampTests" */;
+			buildPhases = (
+				BA1824E0206AC417004405A3 /* Sources */,
+				BA1824E1206AC417004405A3 /* Frameworks */,
+				BA1824E2206AC417004405A3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				BA1824EA206AC417004405A3 /* PBXTargetDependency */,
+			);
+			name = CsBootcampTests;
+			productName = CsBootcampTests;
+			productReference = BA1824E4206AC417004405A3 /* CsBootcampTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -278,6 +325,11 @@
 					BA18249220654743004405A3 = {
 						CreatedOnToolsVersion = 9.2;
 						ProvisioningStyle = Automatic;
+					};
+					BA1824E3206AC417004405A3 = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+						TestTargetID = BA18249220654743004405A3;
 					};
 				};
 			};
@@ -295,6 +347,7 @@
 			projectRoot = "";
 			targets = (
 				BA18249220654743004405A3 /* CsBootcamp */,
+				BA1824E3206AC417004405A3 /* CsBootcampTests */,
 			);
 		};
 /* End PBXProject section */
@@ -306,6 +359,13 @@
 			files = (
 				BA1824A120654743004405A3 /* LaunchScreen.storyboard in Resources */,
 				BA18249E20654743004405A3 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BA1824E2206AC417004405A3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -392,7 +452,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		BA1824E0206AC417004405A3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		BA1824EA206AC417004405A3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BA18249220654743004405A3 /* CsBootcamp */;
+			targetProxy = BA1824E9206AC417004405A3 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		BA18249F20654743004405A3 /* LaunchScreen.storyboard */ = {
@@ -545,6 +620,38 @@
 			};
 			name = Release;
 		};
+		BA1824EB206AC417004405A3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 83C3V38WSB;
+				INFOPLIST_FILE = CsBootcampTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = cs.CsBootcampTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CsBootcamp.app/CsBootcamp";
+			};
+			name = Debug;
+		};
+		BA1824EC206AC417004405A3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 83C3V38WSB;
+				INFOPLIST_FILE = CsBootcampTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = cs.CsBootcampTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CsBootcamp.app/CsBootcamp";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -562,6 +669,15 @@
 			buildConfigurations = (
 				BA1824A620654743004405A3 /* Debug */,
 				BA1824A720654743004405A3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BA1824ED206AC417004405A3 /* Build configuration list for PBXNativeTarget "CsBootcampTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BA1824EB206AC417004405A3 /* Debug */,
+				BA1824EC206AC417004405A3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
