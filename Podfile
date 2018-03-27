@@ -10,7 +10,7 @@ target 'CsBootcamp' do
   target 'CsBootcampTests' do
       inherit! :search_paths
   
-      pod 'Quick', '~> 1.2.0'
-      pod 'Nimble', '~> 6.0.0'
+      pod 'Quick'
+      pod 'Nimble'
   end
 end
