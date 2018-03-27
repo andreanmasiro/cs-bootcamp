@@ -10,7 +10,7 @@ import Foundation
 
 protocol MoviesListView: class {
     
-    func displayMovies(viewModels: [MovieCollectionViewCell.ViewModel])
+    func displayMovies(viewModel: MoviesListViewModel)
 }
 
 final class MoviesListPresenter: MoviesListPresenterType {
@@ -26,12 +26,13 @@ final class MoviesListPresenter: MoviesListPresenterType {
     
     func presentMovies(_ movies: [Movie]) {
         
-        let viewModel = movies.map { movie in
+        let cellViewModels = movies.map { movie in
             
             ViewModel(imageURL: APIBase.posterImageURL(path: movie.posterPath),
                       title: movie.title)
         }
         
-        view.displayMovies(viewModels: viewModel)
+        let viewModel = MoviesListViewModel(cellViewModels: cellViewModels)
+        view.displayMovies(viewModel: viewModel)
     }
 }

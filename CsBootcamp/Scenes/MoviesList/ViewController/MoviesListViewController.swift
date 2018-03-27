@@ -83,9 +83,9 @@ final class MoviesListViewController: UIViewController, MoviesListView {
 
     // MARK: MoviesListView conforms
 
-    func displayMovies(viewModels: [MovieCollectionViewCell.ViewModel]) {
+    func displayMovies(viewModel: MoviesListViewModel) {
 
-        setup(state: .list(viewModels))
+        setup(state: .list(viewModel.cellViewModels))
     }
 
     // MARK: Setups
