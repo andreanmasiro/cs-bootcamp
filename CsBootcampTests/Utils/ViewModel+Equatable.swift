@@ -2,7 +2,7 @@
 //  MovieDetailViewController.ViewModel+Comparable.swift
 //  CsBootcampTests
 //
-//  Created by Gabriel Alberto de Jesus Preto on 27/03/2018.
+//  Created by Gabriel Preto on 27/03/2018.
 //  Copyright © 2018 Bootcampers. All rights reserved.
 //
 
