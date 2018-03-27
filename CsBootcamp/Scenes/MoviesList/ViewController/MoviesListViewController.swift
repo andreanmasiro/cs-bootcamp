@@ -15,6 +15,15 @@ protocol MoviesListInteractorType {
 
 final class MoviesListViewController: UIViewController, MoviesListView {
 
+    lazy var errorView: MovieListErrorView = {
+       
+        let errorView = MovieListErrorView()
+        errorView.translatesAutoresizingMaskIntoConstraints = false
+        errorView.isHidden = true
+        
+        return errorView
+    }()
+    
     lazy var activityIndicator: UIActivityIndicatorView = {
 
         let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
@@ -77,8 +86,8 @@ final class MoviesListViewController: UIViewController, MoviesListView {
 
     private func fetchMovies() {
 
-        interactor?.fetchMovies()
         setup(state: .loading)
+        interactor?.fetchMovies()
     }
 
     // MARK: MoviesListView conforms
@@ -86,6 +95,11 @@ final class MoviesListViewController: UIViewController, MoviesListView {
     func displayMovies(viewModel: MoviesListViewModel) {
 
         setup(state: .list(viewModel.cellViewModels))
+    }
+    
+    func displayError(viewModel: MoviesListErrorViewModel) {
+        
+        setup(state: .error(viewModel))
     }
 
     // MARK: Setups
@@ -95,16 +109,21 @@ final class MoviesListViewController: UIViewController, MoviesListView {
         if case let .list(viewModels) = state {
 
             dataSource.viewModels = viewModels
+        } else if case let .error(viewModel) = state {
+            
+            errorView.setup(viewModel: viewModel)
         }
 
         collectionView.isHidden = state.hidesCollectionView
         state.activityIndicatorAction(activityIndicator)()
+        errorView.isHidden = state.hidesErrorView
     }
 
     private func setupViewHierarchy() {
 
         view.addSubview(collectionView)
         view.addSubview(activityIndicator)
+        view.addSubview(errorView)
     }
 
     private func setupConstraints() {
@@ -118,6 +137,12 @@ final class MoviesListViewController: UIViewController, MoviesListView {
         activityIndicator
             .centerXAnchor(equalTo: view.centerXAnchor)
             .centerYAnchor(equalTo: view.centerYAnchor)
+        
+        errorView
+            .topAnchor(equalTo: view.topAnchor)
+            .bottomAnchor(equalTo: view.bottomAnchor)
+            .trailingAnchor(equalTo: view.trailingAnchor)
+            .leadingAnchor(equalTo: view.leadingAnchor)
     }
 }
 
@@ -127,19 +152,29 @@ extension MoviesListViewController {
 
         case list([MovieCollectionViewCell.ViewModel])
         case loading
+        case error(MoviesListErrorViewModel)
 
         var hidesCollectionView: Bool {
 
             switch self {
             case .list: return false
-            case .loading: return true
+            case .loading, .error: return true
             }
         }
 
+        var hidesErrorView: Bool {
+            
+            switch self {
+                
+            case .error: return false
+            case .list, .loading: return true
+            }
+        }
+        
         var activityIndicatorAction: (UIActivityIndicatorView) -> () -> () {
 
             switch self {
-            case .list: return UIActivityIndicatorView.stopAnimating
+            case .list, .error: return UIActivityIndicatorView.stopAnimating
             case .loading: return UIActivityIndicatorView.startAnimating
             }
         }

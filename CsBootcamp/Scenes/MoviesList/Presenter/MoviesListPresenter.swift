@@ -11,6 +11,7 @@ import Foundation
 protocol MoviesListView: class {
     
     func displayMovies(viewModel: MoviesListViewModel)
+    func displayError(viewModel: MoviesListErrorViewModel)
 }
 
 final class MoviesListPresenter: MoviesListPresenterType {
@@ -34,5 +35,10 @@ final class MoviesListPresenter: MoviesListPresenterType {
         
         let viewModel = MoviesListViewModel(cellViewModels: cellViewModels)
         view.displayMovies(viewModel: viewModel)
+    }
+    
+    func presentError() {
+        
+        view.displayError(viewModel: MoviesListErrorViewModel())
     }
 }
