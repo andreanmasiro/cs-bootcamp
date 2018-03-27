@@ -14,6 +14,6 @@ extension UIScreen {
     
     static var widthProportion: CGFloat {
         
-        return iPhone6Width/main.bounds.width
+        return main.bounds.width/iPhone6Width
     }
 }
