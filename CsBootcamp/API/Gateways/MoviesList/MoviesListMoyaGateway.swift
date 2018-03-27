@@ -16,10 +16,21 @@ final class MoviesListMoyaGateway: MoviesListGateway {
     }
     
     private let provider = MoyaProvider<MovieTarget>()
+    private let jsonDecoder: JSONDecoder = {
+        
+        let decoder = JSONDecoder()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        decoder.dateDecodingStrategy = .formatted(dateFormatter)
+        
+        return decoder
+    }()
     
     func fetchMovies(_ completion: @escaping (Result<[Movie]>) -> ()) {
         
-        provider.request(.popular) { result in
+        provider.request(.popular) { [weak self] result in
+            
+            guard let `self` = self else { return }
             
             switch result {
                 
@@ -27,15 +38,7 @@ final class MoviesListMoyaGateway: MoviesListGateway {
                 
                 do {
                     
-                    let decoder = JSONDecoder()
-                    let dateFormatter = DateFormatter()
-                    dateFormatter.dateFormat = "yyyy-MM-dd"
-                    decoder.dateDecodingStrategy = .formatted(dateFormatter)
-                    
-                    var a: JSONDecoder.DateDecodingStrategy!
-                    
-                    
-                    let movieList = try decoder.decode(MovieList.self, from: value.data)
+                    let movieList = try self.jsonDecoder.decode(MovieList.self, from: value.data)
                     completion(.success(movieList.results))
                 } catch {
                     completion(.failure(error))
