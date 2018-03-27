@@ -5,7 +5,8 @@ target 'CsBootcamp' do
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
   use_frameworks!
 
-  # Pods for CsBootcamp
+  pod 'Kingfisher', '~> 4.0'
+  pod 'Moya', '~> 11.0'
 
   target 'CsBootcampTests' do
       inherit! :search_paths
