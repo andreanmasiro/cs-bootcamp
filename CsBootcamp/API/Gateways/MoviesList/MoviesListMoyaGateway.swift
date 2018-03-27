@@ -28,26 +28,10 @@ final class MoviesListMoyaGateway: MoviesListGateway {
     
     func fetchMovies(_ completion: @escaping (Result<[Movie]>) -> ()) {
         
-        provider.request(.popular) { [weak self] result in
+        provider.requestDecodable(.popular, jsonDecoder: jsonDecoder) { (result: Result<MovieList>) in
             
-            guard let `self` = self else { return }
-            
-            switch result {
-                
-            case .success(let value):
-                
-                do {
-                    
-                    let movieList = try self.jsonDecoder.decode(MovieList.self, from: value.data)
-                    completion(.success(movieList.results))
-                } catch {
-                    completion(.failure(error))
-                }
-                
-            case .failure(let error):
-                
-                completion(.failure(error))
-            }
+            let result = result.map { moviesList in moviesList.results }
+            completion(result)
         }
     }
 }
