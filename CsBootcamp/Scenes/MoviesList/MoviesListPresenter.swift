@@ -6,6 +6,8 @@
 //  Copyright © 2018 Bootcampers. All rights reserved.
 //
 
+import Foundation
+
 protocol MoviesListView: class {
     
     func displayMovies(viewModels: [MovieCollectionViewCell.ViewModel])
@@ -26,7 +28,7 @@ final class MoviesListPresenter: MoviesListPresenterType {
         
         let viewModel = movies.map { movie in
             
-            ViewModel(imageURL: movie.posterUrl,
+            ViewModel(imageURL: APIBase.posterImageURL(path: movie.posterPath),
                       title: movie.title)
         }
         

@@ -37,6 +37,10 @@
 		BA1824CD20658CB7004405A3 /* CGFloat+Proportions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1824CC20658CB7004405A3 /* CGFloat+Proportions.swift */; };
 		BA1824D020659035004405A3 /* UIColor+App.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1824CF20659035004405A3 /* UIColor+App.swift */; };
 		BA1824EF206AC6B5004405A3 /* KingfisherImageFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1824EE206AC6B5004405A3 /* KingfisherImageFetcher.swift */; };
+		BA1824F1206ACA55004405A3 /* APISettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1824F0206ACA55004405A3 /* APISettings.swift */; };
+		BA1824F8206ACC39004405A3 /* MovieTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1824F7206ACC39004405A3 /* MovieTarget.swift */; };
+		BA1824FD206AD1E3004405A3 /* APIBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1824FC206AD1E3004405A3 /* APIBase.swift */; };
+		BA1824FF206AD703004405A3 /* MovieList.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1824FE206AD703004405A3 /* MovieList.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,6 +89,10 @@
 		BA1824E4206AC417004405A3 /* CsBootcampTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CsBootcampTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA1824E8206AC417004405A3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BA1824EE206AC6B5004405A3 /* KingfisherImageFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KingfisherImageFetcher.swift; sourceTree = "<group>"; };
+		BA1824F0206ACA55004405A3 /* APISettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APISettings.swift; sourceTree = "<group>"; };
+		BA1824F7206ACC39004405A3 /* MovieTarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieTarget.swift; sourceTree = "<group>"; };
+		BA1824FC206AD1E3004405A3 /* APIBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIBase.swift; sourceTree = "<group>"; };
+		BA1824FE206AD703004405A3 /* MovieList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieList.swift; sourceTree = "<group>"; };
 		DF3CD3F73F875AF241117BCA /* Pods_CsBootcampTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CsBootcampTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA514EECE86A59895FB20516 /* Pods-CsBootcamp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CsBootcamp.release.xcconfig"; path = "Pods/Target Support Files/Pods-CsBootcamp/Pods-CsBootcamp.release.xcconfig"; sourceTree = "<group>"; };
 		FDCBF49248DB1D453B335904 /* Pods-CsBootcampTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CsBootcampTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-CsBootcampTests/Pods-CsBootcampTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -186,6 +194,7 @@
 		BA18249520654743004405A3 /* CsBootcamp */ = {
 			isa = PBXGroup;
 			children = (
+				BA1824F2206ACA7A004405A3 /* API */,
 				BA1824CE20659025004405A3 /* Colors */,
 				BA1824C320658989004405A3 /* ReusableView */,
 				BA1824C2206588F4004405A3 /* ImageFetcher */,
@@ -241,7 +250,7 @@
 			isa = PBXGroup;
 			children = (
 				BA1824BA20656847004405A3 /* Genre.swift */,
-				BA1824BC2065684D004405A3 /* Movie.swift */,
+				BA182501206AD710004405A3 /* Movie */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -280,6 +289,33 @@
 				BA1824E8206AC417004405A3 /* Info.plist */,
 			);
 			path = CsBootcampTests;
+			sourceTree = "<group>";
+		};
+		BA1824F2206ACA7A004405A3 /* API */ = {
+			isa = PBXGroup;
+			children = (
+				BA1824F6206ACC2C004405A3 /* Targets */,
+				BA1824F0206ACA55004405A3 /* APISettings.swift */,
+				BA1824FC206AD1E3004405A3 /* APIBase.swift */,
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
+		BA1824F6206ACC2C004405A3 /* Targets */ = {
+			isa = PBXGroup;
+			children = (
+				BA1824F7206ACC39004405A3 /* MovieTarget.swift */,
+			);
+			path = Targets;
+			sourceTree = "<group>";
+		};
+		BA182501206AD710004405A3 /* Movie */ = {
+			isa = PBXGroup;
+			children = (
+				BA1824BC2065684D004405A3 /* Movie.swift */,
+				BA1824FE206AD703004405A3 /* MovieList.swift */,
+			);
+			path = Movie;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -490,6 +526,8 @@
 				BA1824B12065608D004405A3 /* MoviesListDataSource.swift in Sources */,
 				BA1824B420656154004405A3 /* MovieCollectionViewCell.swift in Sources */,
 				BA1824D020659035004405A3 /* UIColor+App.swift in Sources */,
+				BA1824F8206ACC39004405A3 /* MovieTarget.swift in Sources */,
+				BA1824F1206ACA55004405A3 /* APISettings.swift in Sources */,
 				6E141C0A2065A9780047D3A6 /* MovieDetailViewController.swift in Sources */,
 				6E141C0E2065B0070047D3A6 /* UITableView+ReusableView.swift in Sources */,
 				6E141C1A20698A600047D3A6 /* MovieDetailPresenter.swift in Sources */,
@@ -499,10 +537,12 @@
 				BA1824C520658998004405A3 /* ReusableView.swift in Sources */,
 				6E141C102065B32D0047D3A6 /* MoviePosterTableViewCell.swift in Sources */,
 				BA1824C920658A01004405A3 /* UICollectionView+ReusableView.swift in Sources */,
+				BA1824FF206AD703004405A3 /* MovieList.swift in Sources */,
 				6E141C0C2065AE760047D3A6 /* MovieDetailDataSource.swift in Sources */,
 				BA1824B6206562E0004405A3 /* MoviesListInteractor.swift in Sources */,
 				BA1824CD20658CB7004405A3 /* CGFloat+Proportions.swift in Sources */,
 				62F1D33B206579630036977E /* UIView+Layout.swift in Sources */,
+				BA1824FD206AD1E3004405A3 /* APIBase.swift in Sources */,
 				BA1824B8206563CF004405A3 /* MoviesListPresenter.swift in Sources */,
 				BA1824BD2065684D004405A3 /* Movie.swift in Sources */,
 				6E141C1820698A0E0047D3A6 /* MovieDetailInteractor.swift in Sources */,
