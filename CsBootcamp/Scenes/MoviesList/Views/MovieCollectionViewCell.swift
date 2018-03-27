@@ -18,7 +18,7 @@ class MovieCollectionViewCell: UICollectionViewCell {
         return CGSize(width: width, height: height)
     }
     
-    private let imageFetcher: ImageFetcher = ImageFetcherStub()
+    private let imageFetcher: ImageFetcher = KingfisherImageFetcher()
     
     let imageView: UIImageView = {
         
