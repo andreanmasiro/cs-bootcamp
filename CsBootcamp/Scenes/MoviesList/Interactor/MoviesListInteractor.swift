@@ -11,6 +11,7 @@ import Foundation
 protocol MoviesListPresenterType {
     
     func presentMovies(_ movies: [Movie])
+    func presentError()
 }
 
 final class MoviesListInteractor: MoviesListInteractorType {
@@ -33,7 +34,7 @@ final class MoviesListInteractor: MoviesListInteractorType {
             case .success(let movies):
                 self?.presenter.presentMovies(movies)
             case .failure(_): break
-                // self?.presenter.presentError()
+                 self?.presenter.presentError()
             }
         }
     }
