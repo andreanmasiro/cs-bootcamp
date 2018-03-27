@@ -28,10 +28,17 @@ final class MoviesListViewController: UIViewController, MoviesListView {
     lazy var collectionView: UICollectionView = {
         
         let flowLayout = UICollectionViewFlowLayout()
-        flowLayout.sectionInset.top = 8
-        flowLayout.sectionInset.bottom = 8
-        flowLayout.sectionInset.left = 8
-        flowLayout.sectionInset.right = 8
+        
+        let margin = CGFloat(16).proportionalToWidth
+        flowLayout.sectionInset = UIEdgeInsets(
+            top: margin,
+            left: margin,
+            bottom: margin,
+            right: margin
+        )
+        
+        flowLayout.minimumInteritemSpacing = margin
+        flowLayout.minimumLineSpacing = margin
         
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -45,11 +52,11 @@ final class MoviesListViewController: UIViewController, MoviesListView {
         MoviesListDataSource(collectionView: collectionView)
     }()
     
+    var interactor: MoviesListInteractorType?
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    var interactor: MoviesListInteractorType?
     
     init() {
         
