@@ -18,7 +18,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         let rootViewController = MoviesListViewController()
         let presenter = MoviesListPresenter(view: rootViewController)
-        let interactor = MoviesListInteractor(presenter: presenter)
+        let interactor = MoviesListInteractor(presenter: presenter, moviesListGateway: MoviesListMoyaGateway())
+        
         rootViewController.interactor = interactor
         
         let navigationController = UINavigationController(rootViewController: rootViewController)

@@ -17,23 +17,24 @@ final class MoviesListInteractor: MoviesListInteractorType {
     
     let presenter: MoviesListPresenterType
     
-    init(presenter: MoviesListPresenterType) {
+    private let moviesListGateway: MoviesListGateway
+    
+    init(presenter: MoviesListPresenterType, moviesListGateway: MoviesListGateway) {
         self.presenter = presenter
+        self.moviesListGateway = moviesListGateway
     }
     
     func fetchMovies() {
      
-        let movies = (0..<10).map { _ in
-            Movie(id: 0,
-                  genreIds: [],
-                  title: "Avengers",
-                  overview: "Some overview",
-                  releaseDate: Date(),
-                  posterPath: "/b6ZJZHUdMEFECvGiDpJjlfUWela.jpg")
-        }
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            self.presenter.presentMovies(movies)
+        moviesListGateway.fetchMovies { [weak self] result in
+            
+            switch result {
+                
+            case .success(let movies):
+                self?.presenter.presentMovies(movies)
+            case .failure(_): break
+                // self?.presenter.presentError()
+            }
         }
     }
 }
