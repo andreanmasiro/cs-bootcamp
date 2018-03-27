@@ -8,9 +8,11 @@
 
 import UIKit
 
-class MovieGenreTableViewCell: UITableViewCell {
+class MovieTextTableViewCell: UITableViewCell {
     
-    let genreYearLabel: UILabel = {
+    static var cellSize: CGFloat = CGFloat(30).proportionalToWidth
+    
+    let textLabelCell: UILabel = {
        
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -30,31 +32,28 @@ class MovieGenreTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupReleaseDate(movie: Movie) {
-        self.genreYearLabel.text = movie.releaseDate.yearToString()
-    }
-    
-    func setupGenres(genre: Genre) {
-        self.genreYearLabel.text = genre.name
+    func setup(viewModel: ViewModel) {
+        self.textLabelCell.text = viewModel.description
     }
     
     private func setupViewHierarchy() {
-        contentView.addSubview(genreYearLabel)
+        contentView.addSubview(textLabelCell)
     }
     
     private func setupConstraints() {
-        genreYearLabel
+        textLabelCell
             .topAnchor(equalTo: contentView.topAnchor)
             .bottomAnchor(equalTo: contentView.bottomAnchor)
-            .trailingAnchor(equalTo: contentView.trailingAnchor)
-            .leadingAnchor(equalTo: contentView.leadingAnchor)
+            .trailingAnchor(equalTo: contentView.trailingAnchor, constant: 8)
+            .leadingAnchor(equalTo: contentView.leadingAnchor, constant: 8)
     }
 }
 
-extension MovieGenreTableViewCell {
+extension MovieTextTableViewCell {
     
     struct ViewModel {
-        
+
         let description: String
     }
 }
+

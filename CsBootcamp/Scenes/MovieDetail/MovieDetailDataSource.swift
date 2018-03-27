@@ -8,27 +8,28 @@
 
 import UIKit
 
-final class MovieDetailDataSource: NSObject, UITableViewDataSource {
+final class MovieDetailDataSource: NSObject, UITableViewDataSource, UITableViewDelegate {
     
     private unowned let tableView: UITableView
     
-    let movie: Movie = Movie(id: 0,
-                      genreIds: [],
-                      title: "Avengers",
-                      overview: "Some overview",
-                      releaseDate: Date(),
-                      posterUrl: URL(string: "https://www.elastic.co/assets/bltada7771f270d08f6/enhanced-buzz-1492-1379411828-15.jpg")!)
-    
-    let genre: Genre = Genre(id: 1, name: "Action")
+    var viewModel: MovieDetailViewController.ViewModel? {
+        didSet {
+             tableView.reloadData()
+        }
+    }
     
     init(tableView: UITableView) {
         self.tableView = tableView
         super.init()
+        registerCells(in: tableView)
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.reloadData()
     }
     
     private func registerCells(in tavleView: UITableView) {
         tableView.register(MoviePosterTableViewCell.self)
-        tableView.register(MovieGenreTableViewCell.self)
+        tableView.register(MovieTextTableViewCell.self)
         tableView.register(MovieOverviewTableViewCell.self)
     }
     
@@ -39,40 +40,51 @@ final class MovieDetailDataSource: NSObject, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-        
+        let cell: UITableViewCell?
         switch indexPath.row {
         case 0:
-            guard let cell = tableView.dequeueReusableCell(MoviePosterTableViewCell.self, for: indexPath) else {
-
-                return UITableViewCell()
+            let posterCell = tableView.dequeueReusableCell(MoviePosterTableViewCell.self, for: indexPath)
+            viewModel.map { viewModel in
+                posterCell?.setup(viewModel: viewModel.poster)
             }
-            cell.setup(movie: movie)
-            return cell
+            cell = posterCell
         case 1:
-            guard let cell = tableView.dequeueReusableCell(MovieGenreTableViewCell.self, for: indexPath) else {
-                
-                return UITableViewCell()
+            let releaseDateCell = tableView.dequeueReusableCell(MovieTextTableViewCell.self, for: indexPath)
+            viewModel.map { viewModel in
+                releaseDateCell?.setup(viewModel: viewModel.releaseDate)
             }
-            cell.setupReleaseDate(movie: movie)
-            return cell
+            cell = releaseDateCell
         case 2:
-            guard let cell = tableView.dequeueReusableCell(MovieGenreTableViewCell.self, for: indexPath) else {
-                
-                return UITableViewCell()
+            let genresCell = tableView.dequeueReusableCell(MovieTextTableViewCell.self, for: indexPath)
+            viewModel.map { viewModel in
+                genresCell?.setup(viewModel: viewModel.genres)
             }
-            cell.setupGenres(genre: genre)
-            return cell
+            cell = genresCell
         case 3:
-            guard let cell = tableView.dequeueReusableCell(MovieOverviewTableViewCell.self, for: indexPath) else {
-                
-                return UITableViewCell()
+            let overviewCell = tableView.dequeueReusableCell(MovieOverviewTableViewCell.self, for: indexPath)
+            viewModel.map { viewModel in
+                overviewCell?.setup(viewModel: viewModel.overview)
             }
-            cell.setup(movie: movie)
-            return cell
-        default:
-             return UITableViewCell()
+            cell = overviewCell
+        default: cell = nil
         }
+        
+        return cell ?? UITableViewCell()
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        switch indexPath.row {
+        case 0:
+            return MoviePosterTableViewCell.cellSize
+        case 1:
+            return MovieTextTableViewCell.cellSize
+        case 2:
+            return MovieTextTableViewCell.cellSize
+        case 3:
+            return MovieOverviewTableViewCell.cellSize
+        default:
+            return 0
+        }
+    }
     
 }

@@ -8,23 +8,37 @@
 
 import UIKit
 
-final class MovieDetailViewController: UIViewController {
+protocol MovieDetailInteractorType {
+    
+    func fetchMovie()
+}
+
+final class MovieDetailViewController: UIViewController, MovieDetailView {
     
     lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero)
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.backgroundColor = .clear
+        tableView.separatorInset.left = 0
+        tableView.separatorInset.right = 0
+        
         return tableView
     }()
     
+    var interactor: MovieDetailInteractorType?
     
+    lazy var dataSource = {
+        MovieDetailDataSource(tableView: tableView)
+        
+    }()
     
     init() {
         super.init(nibName: nil, bundle: nil)
         title = "Detalhe"
+        view.backgroundColor = .white
         
         setupViewHierarchy()
         setupConstraints()
-        
-        view.backgroundColor = .white
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -33,10 +47,12 @@ final class MovieDetailViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+        interactor?.fetchMovie()
     }
     
-    private func setup() {
-    
+    func displayMovieDetail(viewModel: ViewModel) {
+        
+        dataSource.viewModel = viewModel
     }
     
     private func setupViewHierarchy() {
@@ -48,7 +64,18 @@ final class MovieDetailViewController: UIViewController {
             .topAnchor(equalTo: view.topAnchor)
             .bottomAnchor(equalTo: view.bottomAnchor)
             .trailingAnchor(equalTo: view.trailingAnchor)
-            .leadingAnchor(equalTo: view.leftAnchor)
+            .leadingAnchor(equalTo: view.leadingAnchor)
     }
     
+}
+
+extension MovieDetailViewController {
+    
+    struct ViewModel {
+        
+        let poster: MoviePosterTableViewCell.ViewModel
+        let releaseDate: MovieTextTableViewCell.ViewModel
+        let genres: MovieTextTableViewCell.ViewModel
+        let overview: MovieOverviewTableViewCell.ViewModel
+    }
 }

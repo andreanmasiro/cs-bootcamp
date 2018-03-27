@@ -10,15 +10,15 @@ import UIKit
 
 class MovieOverviewTableViewCell: UITableViewCell {
     
-    let cellHeight: CGFloat = 400
+    static var cellSize: CGFloat = CGFloat(100).proportionalToWidth
     
     let overviewLabel: UILabel = {
-        
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .left
         label.textColor = UIColor.black
-        label.numberOfLines = 4
+        label.font = label.font.withSize(12)
+        label.numberOfLines = 6
         
         return label
     }()
@@ -33,8 +33,8 @@ class MovieOverviewTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setup(movie: Movie) {
-        self.overviewLabel.text = movie.overview
+    func setup(viewModel: ViewModel) {
+        self.overviewLabel.text = viewModel.overview
     }
     
     private func setupViewHierarchy() {
@@ -43,10 +43,10 @@ class MovieOverviewTableViewCell: UITableViewCell {
     
     private func setupConstraints() {
         overviewLabel
-            .topAnchor(equalTo: contentView.topAnchor, constant: 16)
-            .bottomAnchor(equalTo: contentView.bottomAnchor)
-            .trailingAnchor(equalTo: contentView.trailingAnchor)
-            .leadingAnchor(equalTo: contentView.leadingAnchor)
+            .topAnchor(equalTo: contentView.topAnchor)
+            .bottomAnchor(equalTo: contentView.bottomAnchor, constant: 8)
+            .trailingAnchor(equalTo: contentView.trailingAnchor, constant: 8)
+            .leadingAnchor(equalTo: contentView.leadingAnchor, constant: 8)
     }
 }
 
@@ -57,3 +57,4 @@ extension MovieOverviewTableViewCell {
         let overview: String
     }
 }
+

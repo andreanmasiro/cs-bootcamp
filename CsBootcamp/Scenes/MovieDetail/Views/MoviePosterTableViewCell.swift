@@ -12,29 +12,27 @@ class MoviePosterTableViewCell: UITableViewCell {
     
     private let imageFetcher: ImageFetcher = ImageFetcherStub()
     
-    static var imageSize: CGSize {
-        
-        let width = CGFloat(165).proportionalToWidth
-        let height = CGFloat(247).proportionalToWidth
-        
-        return CGSize(width: width, height: height)
-    }
+    static var cellSize: CGFloat = CGFloat(250).proportionalToWidth
     
     lazy var posterImageView: UIImageView = {
         let imageView = UIImageView()
+        imageView.contentMode = .scaleToFill
         imageView.translatesAutoresizingMaskIntoConstraints = false
+        
         return imageView
     }()
     
     lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
+        
         return label
     }()
     
     lazy var favoriteButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
+        
         return button
     }()
     
@@ -48,34 +46,28 @@ class MoviePosterTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-//    func setup(viewModel: ViewModel) {
-//        self.titleLabel.text = viewModel.title
-//        imageFetcher.fetchImage(from: viewModel.imageURL, to: self.posterImageView) {}
-//    }
-    
-    func setup(movie: Movie) {
-        self.titleLabel.text = movie.title
-        imageFetcher.fetchImage(from: movie.posterUrl, to: self.posterImageView) {}
+    func setup(viewModel: ViewModel) {
+        self.titleLabel.text = viewModel.title
+        imageFetcher.fetchImage(from: viewModel.imageURL, to: posterImageView) {}
     }
     
     private func setupViewHierarchy() {
         contentView.addSubview(posterImageView)
         contentView.addSubview(titleLabel)
-        
     }
     
     private func setupConstraints() {
         posterImageView
             .topAnchor(equalTo: contentView.topAnchor)
-            .bottomAnchor(equalTo: titleLabel.bottomAnchor, constant: 16)
+            .bottomAnchor(equalTo: titleLabel.topAnchor)
             .trailingAnchor(equalTo: contentView.trailingAnchor)
             .leadingAnchor(equalTo: contentView.leadingAnchor)
-        
+    
         titleLabel
             .bottomAnchor(equalTo: contentView.bottomAnchor)
-            .trailingAnchor(equalTo: contentView.trailingAnchor)
-            .leadingAnchor(equalTo: contentView.leadingAnchor)
-            .heightAnchor(equalTo: CGFloat(21).proportionalToWidth)
+            .trailingAnchor(equalTo: contentView.trailingAnchor, constant: 8)
+            .leadingAnchor(equalTo: contentView.leadingAnchor, constant: 8)
+            .heightAnchor(equalTo: 42)
     }
 }
 
@@ -87,3 +79,4 @@ extension MoviePosterTableViewCell {
         let title: String
     }
 }
+
