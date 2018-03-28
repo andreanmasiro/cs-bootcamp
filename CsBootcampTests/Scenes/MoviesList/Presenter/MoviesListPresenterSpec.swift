@@ -86,28 +86,3 @@ class MoviesListViewSpy: MoviesListView {
         displayErrorArg = viewModel
     }
 }
-
-extension MoviesListErrorViewModel: Equatable {
-    
-    public static func ==(lhs: MoviesListErrorViewModel, rhs: MoviesListErrorViewModel) -> Bool {
-        return lhs.image == rhs.image &&
-            lhs.message == rhs.message
-    }
-}
-
-extension MoviesListViewModel: Equatable {
-    
-    public static func ==(lhs: MoviesListViewModel, rhs: MoviesListViewModel) -> Bool {
-        
-        return lhs.cellViewModels == rhs.cellViewModels
-    }
-}
-
-extension MovieCollectionViewCell.ViewModel: Equatable {
-    
-    public static func ==(lhs: MovieCollectionViewCell.ViewModel, rhs: MovieCollectionViewCell.ViewModel) -> Bool {
-        
-        return lhs.imageURL == rhs.imageURL &&
-            lhs.title == rhs.title
-    }
-}

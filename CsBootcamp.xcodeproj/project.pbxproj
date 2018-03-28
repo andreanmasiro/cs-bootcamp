@@ -52,6 +52,10 @@
 		BA182521206BF60C004405A3 /* MoviesListInteractorSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA182520206BF60C004405A3 /* MoviesListInteractorSpec.swift */; };
 		BA182524206C0195004405A3 /* MoviesListPresenterSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA182523206C0195004405A3 /* MoviesListPresenterSpec.swift */; };
 		BA182527206C07C4004405A3 /* MoviesListViewControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA182526206C07C4004405A3 /* MoviesListViewControllerSpec.swift */; };
+		BA18252A206C0DAC004405A3 /* Movie+Equatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA182529206C0DAC004405A3 /* Movie+Equatable.swift */; };
+		BA18252C206C0E27004405A3 /* MoviesListErrorViewModel+Equatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA18252B206C0E27004405A3 /* MoviesListErrorViewModel+Equatable.swift */; };
+		BA18252E206C0E52004405A3 /* MoviesListViewModel+Equatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA18252D206C0E52004405A3 /* MoviesListViewModel+Equatable.swift */; };
+		BA182530206C0E87004405A3 /* MoviesListCollectionViewCellViewModel+Equatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA18252F206C0E87004405A3 /* MoviesListCollectionViewCellViewModel+Equatable.swift */; };
 		FF487EBC65737F534550BE41 /* Pods_CsBootcampTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1A9535DD426540AEFEC436E /* Pods_CsBootcampTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -116,6 +120,10 @@
 		BA182520206BF60C004405A3 /* MoviesListInteractorSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesListInteractorSpec.swift; sourceTree = "<group>"; };
 		BA182523206C0195004405A3 /* MoviesListPresenterSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesListPresenterSpec.swift; sourceTree = "<group>"; };
 		BA182526206C07C4004405A3 /* MoviesListViewControllerSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesListViewControllerSpec.swift; sourceTree = "<group>"; };
+		BA182529206C0DAC004405A3 /* Movie+Equatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Movie+Equatable.swift"; sourceTree = "<group>"; };
+		BA18252B206C0E27004405A3 /* MoviesListErrorViewModel+Equatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MoviesListErrorViewModel+Equatable.swift"; sourceTree = "<group>"; };
+		BA18252D206C0E52004405A3 /* MoviesListViewModel+Equatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MoviesListViewModel+Equatable.swift"; sourceTree = "<group>"; };
+		BA18252F206C0E87004405A3 /* MoviesListCollectionViewCellViewModel+Equatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MoviesListCollectionViewCellViewModel+Equatable.swift"; sourceTree = "<group>"; };
 		BE639853DA6EBD308ABAC9B7 /* Pods-CsBootcampTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CsBootcampTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-CsBootcampTests/Pods-CsBootcampTests.release.xcconfig"; sourceTree = "<group>"; };
 		E1A9535DD426540AEFEC436E /* Pods_CsBootcampTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CsBootcampTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E60CDA6EB0A88BE06BB3DF01 /* Pods-CsBootcampTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CsBootcampTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CsBootcampTests/Pods-CsBootcampTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -300,6 +308,7 @@
 		BA1824E5206AC417004405A3 /* CsBootcampTests */ = {
 			isa = PBXGroup;
 			children = (
+				BA182528206C0D99004405A3 /* Utils */,
 				BA18251B206BF5D9004405A3 /* Scenes */,
 				BA182513206BD9E9004405A3 /* Models */,
 				BA1824E8206AC417004405A3 /* Info.plist */,
@@ -437,6 +446,17 @@
 				BA182526206C07C4004405A3 /* MoviesListViewControllerSpec.swift */,
 			);
 			path = ViewController;
+			sourceTree = "<group>";
+		};
+		BA182528206C0D99004405A3 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				BA182529206C0DAC004405A3 /* Movie+Equatable.swift */,
+				BA18252B206C0E27004405A3 /* MoviesListErrorViewModel+Equatable.swift */,
+				BA18252D206C0E52004405A3 /* MoviesListViewModel+Equatable.swift */,
+				BA18252F206C0E87004405A3 /* MoviesListCollectionViewCellViewModel+Equatable.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 		DA866F8607C71FA9F1F27863 /* Pods */ = {
@@ -697,10 +717,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BA18252A206C0DAC004405A3 /* Movie+Equatable.swift in Sources */,
+				BA182530206C0E87004405A3 /* MoviesListCollectionViewCellViewModel+Equatable.swift in Sources */,
 				BA182521206BF60C004405A3 /* MoviesListInteractorSpec.swift in Sources */,
 				BA182515206BD9FF004405A3 /* MovieSpec.swift in Sources */,
 				BA182527206C07C4004405A3 /* MoviesListViewControllerSpec.swift in Sources */,
 				BA182524206C0195004405A3 /* MoviesListPresenterSpec.swift in Sources */,
+				BA18252E206C0E52004405A3 /* MoviesListViewModel+Equatable.swift in Sources */,
+				BA18252C206C0E27004405A3 /* MoviesListErrorViewModel+Equatable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
