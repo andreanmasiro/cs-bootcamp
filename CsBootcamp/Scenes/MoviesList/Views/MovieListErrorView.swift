@@ -31,16 +31,11 @@ final class MovieListErrorView: UIView {
         
         super.init(frame: frame)
         setupViewHierarchy()
-    }
-    
-    override func layoutSubviews() {
-        
-        super.layoutSubviews()
         setupConstraints()
     }
     
     required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        return nil
     }
     
     // MARK: Setups
@@ -59,11 +54,11 @@ final class MovieListErrorView: UIView {
     
     private func setupConstraints() {
         
-        let iconDiameter = bounds.width * 0.5
+        let iconDiameterRatio: CGFloat = 0.5
         
         imageView
-            .widthAnchor(equalTo: iconDiameter)
-            .heightAnchor(equalTo: iconDiameter)
+            .widthAnchor(equalTo: widthAnchor, multiplier: iconDiameterRatio)
+            .heightAnchor(equalTo: widthAnchor, multiplier: iconDiameterRatio)
             .centerXAnchor(equalTo: centerXAnchor)
             .centerYAnchor(equalTo: centerYAnchor)
         
