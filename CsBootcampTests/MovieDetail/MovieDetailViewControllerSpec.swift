@@ -88,11 +88,35 @@ class MovieDetailViewControllerSpec: QuickSpec {
                 
             })
             
+            context("when view will appear", closure:{
+                
+                var interactor: MovieDetailInteractorSpy!
+                
+                beforeEach {
+                    sut = MovieDetailViewController()
+                    interactor = MovieDetailInteractorSpy()
+                    sut.interactor = interactor
+                    sut.beginAppearanceTransition(true, animated: false)
+                    sut.endAppearanceTransition()
+                }
             
+                it("the interactor should call the fetch movie method", closure: {
+                    expect(interactor.isFetchMovieCalled).to(beTrue())
+                })
+            })
         }
+    }
+}
+
+class MovieDetailInteractorSpy: MovieDetailInteractorType {
+    
+    var isFetchMovieCalled = false
+    
+    func fetchMovie() {
+        
+        isFetchMovieCalled = true
         
     }
-    
 }
 
 
