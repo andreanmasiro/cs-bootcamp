@@ -143,25 +143,25 @@ class MovieDetailDataSourceSpec: QuickSpec {
             
             context("when the heights for row is called", closure: {
                 
-                it("should return a correct height cell for a poster cell", closure: {
+                it("should return the correct height cell for a poster cell", closure: {
                     indexPath = IndexPath(row: 0, section: 0)
                     let height = sut.tableView(tableView, heightForRowAt: indexPath)
                     expect(height).to(equal(MoviePosterTableViewCell.cellSize))
                 })
                 
-                it("should return a correct height cell for a release date cell", closure: {
+                it("should return the correct height cell for a release date cell", closure: {
                     indexPath = IndexPath(row: 1, section: 0)
                     let height = sut.tableView(tableView, heightForRowAt: indexPath)
                     expect(height).to(equal(MovieTextTableViewCell.cellSize))
                 })
                 
-                it("should return a correct height cell for a genres cell", closure: {
+                it("should return the correct height cell for a genres cell", closure: {
                     indexPath = IndexPath(row: 2, section: 0)
                     let height = sut.tableView(tableView, heightForRowAt: indexPath)
                     expect(height).to(equal(MovieTextTableViewCell.cellSize))
                 })
                 
-                it("should return a correct height cell for a overview cell", closure: {
+                it("should return the correct height cell for a overview cell", closure: {
                     indexPath = IndexPath(row: 3, section: 0)
                     let height = sut.tableView(tableView, heightForRowAt: indexPath)
                     expect(height).to(equal(MovieOverviewTableViewCell.cellSize))
