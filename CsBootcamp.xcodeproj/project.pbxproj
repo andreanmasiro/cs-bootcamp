@@ -21,6 +21,7 @@
 		BA0867B1206C160400CDA3D9 /* UIActivityIndicatorView+SetAnimating.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0867B0206C160400CDA3D9 /* UIActivityIndicatorView+SetAnimating.swift */; };
 		BA0867B3206C1CB400CDA3D9 /* MoviesListDataSourceSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0867B2206C1CB400CDA3D9 /* MoviesListDataSourceSpec.swift */; };
 		BA0867B6206C287A00CDA3D9 /* MovieCollectionViewCellSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0867B5206C287A00CDA3D9 /* MovieCollectionViewCellSpec.swift */; };
+		BA0867B8206C33ED00CDA3D9 /* MovieListErrorViewSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0867B7206C33ED00CDA3D9 /* MovieListErrorViewSpec.swift */; };
 		BA18249720654743004405A3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA18249620654743004405A3 /* AppDelegate.swift */; };
 		BA18249E20654743004405A3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BA18249D20654743004405A3 /* Assets.xcassets */; };
 		BA1824A120654743004405A3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BA18249F20654743004405A3 /* LaunchScreen.storyboard */; };
@@ -88,6 +89,7 @@
 		BA0867B0206C160400CDA3D9 /* UIActivityIndicatorView+SetAnimating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIActivityIndicatorView+SetAnimating.swift"; sourceTree = "<group>"; };
 		BA0867B2206C1CB400CDA3D9 /* MoviesListDataSourceSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesListDataSourceSpec.swift; sourceTree = "<group>"; };
 		BA0867B5206C287A00CDA3D9 /* MovieCollectionViewCellSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCollectionViewCellSpec.swift; sourceTree = "<group>"; };
+		BA0867B7206C33ED00CDA3D9 /* MovieListErrorViewSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListErrorViewSpec.swift; sourceTree = "<group>"; };
 		BA18249320654743004405A3 /* CsBootcamp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CsBootcamp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA18249620654743004405A3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BA18249D20654743004405A3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -204,6 +206,7 @@
 			isa = PBXGroup;
 			children = (
 				BA0867B5206C287A00CDA3D9 /* MovieCollectionViewCellSpec.swift */,
+				BA0867B7206C33ED00CDA3D9 /* MovieListErrorViewSpec.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -744,6 +747,7 @@
 				BA182524206C0195004405A3 /* MoviesListPresenterSpec.swift in Sources */,
 				BA18252E206C0E52004405A3 /* MoviesListViewModel+Equatable.swift in Sources */,
 				BA18252C206C0E27004405A3 /* MoviesListErrorViewModel+Equatable.swift in Sources */,
+				BA0867B8206C33ED00CDA3D9 /* MovieListErrorViewSpec.swift in Sources */,
 				BA0867B3206C1CB400CDA3D9 /* MoviesListDataSourceSpec.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
