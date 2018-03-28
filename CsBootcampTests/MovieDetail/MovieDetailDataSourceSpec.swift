@@ -39,29 +39,9 @@ class MovieDetailDataSourceSpec: QuickSpec {
             
             beforeSuite {
                 tableView = UITableView(frame: .zero)
-                genre1 = Genre(id: 1, name: "Sci-Fi")
-                genre2 = Genre(id: 2, name: "Action")
-                genreId1 = genre1.id
-                genreId2 = genre2.id
-                genres = [genreId1, genreId2]
-                movie = Movie(id: 1,
-                              genreIds: genres,
-                              title: "Star Wars - The Last Jedi",
-                              overview: "Rey develops her newly discovered abilities with the guidance of Luke Skywalker, who is unsettled by the strength of her powers. Meanwhile, the Resistance prepares for battle with the First Order.",
-                              releaseDate: Date(),
-                              posterUrl: URL(string: "https://www.elastic.co/assets/bltada7771f270d08f6/enhanced-buzz-1492-1379411828-15.jpg")!)
-                
                 sut = MovieDetailDataSource(tableView: tableView)
                 
-                posterViewModel = PosterViewModel(imageURL: movie.posterUrl, title: movie.title)
-                
-                releaseDateViewModel = TextViewModel(description: movie.releaseDate.yearToString())
-                
-                genresViewModel = TextViewModel(description: "\(genre1), \(genre2)")
-                
-                overviewViewModel = OverviewViewModel(overview: movie.overview)
-                
-                viewModel = ViewModel(poster: posterViewModel, releaseDate: releaseDateViewModel, genres: genresViewModel, overview: overviewViewModel)
+                viewModel = ViewModelBuilder.build()
                 
             }
             
