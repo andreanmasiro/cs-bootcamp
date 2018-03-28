@@ -10,7 +10,7 @@ import UIKit
 
 final class MovieListErrorView: UIView {
 
-    private lazy var label: UILabel = {
+    lazy var label: UILabel = {
         
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -18,7 +18,7 @@ final class MovieListErrorView: UIView {
         return label
     }()
     
-    private lazy var imageView: UIImageView = {
+    lazy var imageView: UIImageView = {
        
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
