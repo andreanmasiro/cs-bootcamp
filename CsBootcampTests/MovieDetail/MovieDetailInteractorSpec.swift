@@ -29,7 +29,7 @@ class MovieDetailInteractorSpec: QuickSpec {
             
             context("When is initialized", closure: {
                 
-                it("Should verify if presenter parameter isn't nil", closure: {
+                it("should verify if presenter parameter isn't nil", closure: {
                     expect(sut.presenter).toNot(beNil())
                 })
                 
