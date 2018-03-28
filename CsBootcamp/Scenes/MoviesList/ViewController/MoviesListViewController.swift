@@ -64,7 +64,7 @@ final class MoviesListViewController: UIViewController, MoviesListView {
     var interactor: MoviesListInteractorType?
 
     required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        return nil
     }
     
     init() {
