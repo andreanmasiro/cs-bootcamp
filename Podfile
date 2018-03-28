@@ -13,5 +13,6 @@ target 'CsBootcamp' do
   
       pod 'Quick', '~> 1.2.0'
       pod 'Nimble', '~> 7.0.3'
+      pod 'OHHTTPStubs/Swift', '~> 6.1.0'
   end
 end
