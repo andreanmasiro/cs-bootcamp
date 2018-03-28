@@ -22,31 +22,6 @@ class MoviesListDataSourceSpec: QuickSpec {
             
             context("when initialized") {
                 
-                beforeEach {
-                    collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
-                    moviesListDataSource = MoviesListDataSource(collectionView: collectionView)
-                    let viewModels = [
-                        MovieCollectionViewCell.ViewModel(imageURL: URL(string: "url.com")!, title: "")
-                    ]
-                    moviesListDataSource.viewModels = viewModels
-                }
-                
-                it("should register cells in collection view") {
-                    
-                    let indexPath = IndexPath(item: 0, section: 0)
-                    let cell = collectionView.dequeueReusableCell(MovieCollectionViewCell.self, for: indexPath)
-                    expect(cell).notTo(beNil())
-                }
-                
-                it("should set itself as datasource and delegate of collection view") {
-                    
-                    expect(collectionView.dataSource).to(be(moviesListDataSource))
-                    expect(collectionView.delegate).to(be(moviesListDataSource))
-                }
-            }
-            
-            context("when number of items in section is called") {
-                
                 let viewModels = [
                     MovieCollectionViewCell.ViewModel(imageURL: URL(string: "url.com")!, title: "")
                 ]
@@ -57,46 +32,67 @@ class MoviesListDataSourceSpec: QuickSpec {
                     moviesListDataSource.viewModels = viewModels
                 }
                 
-                it("should return viewmodels count") {
-                    let numberOfItems = moviesListDataSource
-                        .collectionView(collectionView, numberOfItemsInSection: 0)
-                    expect(numberOfItems).to(be(viewModels.count))
-                }
-            }
-            
-            context("when cell for item at index path is called") {
-                
-                let viewModels = [
-                    MovieCollectionViewCell.ViewModel(imageURL: URL(string: "url.com")!, title: "title")
-                ]
-                
-                beforeEach {
-                    collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
-                    moviesListDataSource = MoviesListDataSource(collectionView: collectionView)
-                    moviesListDataSource.viewModels = viewModels
+                it("should set itself as datasource and delegate of collection view") {
+                    
+                    expect(collectionView.dataSource).to(be(moviesListDataSource))
+                    expect(collectionView.delegate).to(be(moviesListDataSource))
                 }
                 
-                it("should return a configured movie cell") {
+                context("and dequeue movie collection view cell is called") {
+                    
+                    var cell: MovieCollectionViewCell?
+                    
+                    beforeEach {
+                        let indexPath = IndexPath(item: 0, section: 0)
+                        cell = collectionView.dequeueReusableCell(MovieCollectionViewCell.self, for: indexPath)
+                    }
+                    
+                    it("should return a valid cell") {
+                        expect(cell).notTo(beNil())
+                    }
+                }
+                
+                context("and number of items in section is called") {
+                    
+                    var numberOfItems: Int!
+                    
+                    beforeEach {
+                        numberOfItems = moviesListDataSource
+                            .collectionView(collectionView, numberOfItemsInSection: 0)
+                    }
+                    
+                    it("should return viewmodels count") {
+                        expect(numberOfItems).to(be(viewModels.count))
+                    }
+                }
+                
+                context("and cell for item at index path is called") {
+                    
+                    var cell: MovieCollectionViewCell?
                     let index = 0
-                    let indexPath = IndexPath(item: index, section: 0)
-                    let cell = moviesListDataSource.collectionView(collectionView, cellForItemAt: indexPath) as? MovieCollectionViewCell
                     
-                    expect(cell?.titleLabel.text).to(equal(viewModels[index].title))
-                }
-            }
-            
-            context("when size for cell at index path is called") {
-            
-                beforeEach {
-                    collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
-                    moviesListDataSource = MoviesListDataSource(collectionView: collectionView)
+                    beforeEach {
+                        let indexPath = IndexPath(item: index, section: 0)
+                        cell = moviesListDataSource.collectionView(collectionView, cellForItemAt: indexPath) as? MovieCollectionViewCell
+                    }
+                    
+                    it("should return a configured movie cell") {
+                        expect(cell?.titleLabel.text).to(equal(viewModels[index].title))
+                    }
                 }
                 
-                it("should return movie collection view cell size") {
-                    let indexPath = IndexPath(item: 0, section: 0)
-                    let cellSize = moviesListDataSource.collectionView(collectionView, layout: collectionView.collectionViewLayout, sizeForItemAt: indexPath)
+                context("and size for cell at index path is called") {
                     
-                    expect(cellSize).to(equal(MovieCollectionViewCell.cellSize))
+                    var cellSize: CGSize!
+                    
+                    beforeEach {
+                        let indexPath = IndexPath(item: 0, section: 0)
+                        cellSize = moviesListDataSource.collectionView(collectionView, layout: collectionView.collectionViewLayout, sizeForItemAt: indexPath)
+                    }
+                    
+                    it("should return movie collection view cell size") {
+                        expect(cellSize).to(equal(MovieCollectionViewCell.cellSize))
+                    }
                 }
             }
         }
