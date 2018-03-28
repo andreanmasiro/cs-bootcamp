@@ -71,7 +71,7 @@ class MovieDetailViewControllerSpec: QuickSpec {
                 }
                 
                 it("should setup the view hierarchy", closure: {
-                    expect(sut.view.subviews.contains(sut.tableView)).to(beTrue())
+                    expect(sut.view.subviews).to(contain(sut.tableView))
                 })
                 
             })
@@ -83,7 +83,7 @@ class MovieDetailViewControllerSpec: QuickSpec {
                 }
             
                 it("should set the data source view model", closure: {
-                    expect(sut.dataSource.viewModel == viewModel).to(beTrue())
+                    expect(sut.dataSource.viewModel).to(equal(viewModel))
                 })
                 
             })
