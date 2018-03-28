@@ -21,6 +21,18 @@ class MoviesListViewControllerSpec: QuickSpec {
             
             context("when initialized") {
                 
+                context("with coder") {
+                    
+                    beforeEach {
+                        let coder = NSCoder()
+                        viewController = MoviesListViewController(coder: coder)
+                    }
+                    
+                    it("should be nil") {
+                        expect(viewController).to(beNil())
+                    }
+                }
+                
                 beforeEach {
                     viewController = MoviesListViewController()
                 }
@@ -111,6 +123,69 @@ class MoviesListViewControllerSpec: QuickSpec {
                         .to(equal(errorViewModel.image))
                     expect(viewController.errorView.label.text)
                         .to(match(errorViewModel.message))
+                }
+            }
+            
+            describe("State") {
+                
+                var state: MoviesListViewController.State!
+                
+                context("list") {
+                    
+                    beforeEach {
+                        state = .list([])
+                    }
+                    
+                    it("should return collection view not hidden flag") {
+                        expect(state.hidesCollectionView).to(beFalse())
+                    }
+                    
+                    it("should return error view hidden flag") {
+                        expect(state.hidesErrorView).to(beTrue())
+                    }
+                    
+                    it("should return not animates activity indicator") {
+                        expect(state.animatesActivityIndicator).to(beFalse())
+                    }
+                }
+                
+                context("loading") {
+                    
+                    beforeEach {
+                        state = .loading
+                    }
+                    
+                    it("should return collection view hidden flag") {
+                        expect(state.hidesCollectionView).to(beTrue())
+                    }
+                    
+                    it("should return error view hidden flag") {
+                        expect(state.hidesErrorView).to(beTrue())
+                    }
+                    
+                    it("should return animates activity indicator") {
+                        expect(state.animatesActivityIndicator).to(beTrue())
+                    }
+                }
+                
+                context("error") {
+                    
+                    beforeEach {
+                        let errorViewModel = MoviesListErrorViewModel()
+                        state = .error(errorViewModel)
+                    }
+                    
+                    it("should return collection view hidden flag") {
+                        expect(state.hidesCollectionView).to(beTrue())
+                    }
+                    
+                    it("should return error view not hidden flag") {
+                        expect(state.hidesErrorView).to(beFalse())
+                    }
+                    
+                    it("should return not animates activity indicator") {
+                        expect(state.animatesActivityIndicator).to(beFalse())
+                    }
                 }
             }
         }
