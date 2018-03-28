@@ -23,6 +23,7 @@ class MovieDetailViewControllerSpec: QuickSpec {
         var sut: MovieDetailViewController!
         var presenter: MovieDetailPresenter!
         var viewModel: ViewModel!
+        var viewController :MovieDetailViewController!
         
         describe("MovieDetailViewController") {
             
@@ -42,6 +43,18 @@ class MovieDetailViewControllerSpec: QuickSpec {
                     expect(sut.view.subviews).to(contain(sut.tableView))
                 })
                 
+            })
+            
+            context("When is initialized with coder", {
+                
+                beforeEach {
+                    let coder = NSCoder()
+                    viewController = MovieDetailViewController(coder: coder)
+                }
+                
+                it("should be nil", closure: {
+                    expect(viewController).to(beNil())
+                })
             })
             
             context("when display movie detail is called", closure: {

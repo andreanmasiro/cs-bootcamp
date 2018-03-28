@@ -42,7 +42,7 @@ final class MovieDetailViewController: UIViewController, MovieDetailView {
     }
     
     required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        return nil
     }
     
     override func viewWillAppear(_ animated: Bool) {

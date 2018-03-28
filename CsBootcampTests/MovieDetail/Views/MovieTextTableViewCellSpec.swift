@@ -16,7 +16,7 @@ class MovieTextTableViewCellSpec: QuickSpec {
     override func spec() {
         
         typealias ViewModel = MovieDetailViewController.ViewModel
-        
+    
         describe("MovieTextTableViewCell") {
         
             var sutReleaseDate : MovieTextTableViewCell!
@@ -26,6 +26,7 @@ class MovieTextTableViewCellSpec: QuickSpec {
             var dataSource: MovieDetailDataSource!
             var indexPathRow_1: IndexPath!
             var indexPathRow_2: IndexPath!
+            var cell: MovieTextTableViewCell!
             
             beforeSuite {
         
@@ -38,11 +39,25 @@ class MovieTextTableViewCellSpec: QuickSpec {
                 
                 sutReleaseDate = dataSource.tableView(tableView, cellForRowAt: indexPathRow_1) as! MovieTextTableViewCell
                 sutRGenres = dataSource.tableView(tableView, cellForRowAt: indexPathRow_2) as! MovieTextTableViewCell
-                
             }
+            
             context("When is initialized", closure: {
+                
                 it("should call setupViewHierarchy  method", closure: {
                     expect(sutReleaseDate.contentView.subviews).to(contain(sutReleaseDate.textLabelCell))
+                })
+                
+            })
+            
+            context("When is initialized with coder", {
+                
+                beforeEach {
+                    let coder = NSCoder()
+                    cell = MovieTextTableViewCell(coder: coder)
+                }
+                
+                it("should be nil", closure: {
+                    expect(cell).to(beNil())
                 })
             })
             

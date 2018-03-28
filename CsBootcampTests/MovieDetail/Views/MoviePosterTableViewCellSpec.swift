@@ -27,6 +27,7 @@ class MoviePosterTableViewCellSpec: QuickSpec {
             var tableView: UITableView!
             var indexPath: IndexPath!
             var viewModel: ViewModel!
+            var cell: MoviePosterTableViewCell!
             
             beforeSuite {
                 viewModel = ViewModelBuilder.build()
@@ -46,6 +47,18 @@ class MoviePosterTableViewCellSpec: QuickSpec {
                     expect(sut.contentView.subviews).to(contain([sut.titleLabel, sut.posterImageView]))
                 })
                 
+            })
+            
+            context("When is initialized with coder", {
+                
+                beforeEach {
+                    let coder = NSCoder()
+                    cell = MoviePosterTableViewCell(coder: coder)
+                }
+                
+                it("should be nil", closure: {
+                    expect(cell).to(beNil())
+                })
             })
             
             context("when cell data is set", closure: {

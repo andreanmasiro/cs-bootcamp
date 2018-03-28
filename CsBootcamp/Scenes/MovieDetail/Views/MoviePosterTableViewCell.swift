@@ -43,7 +43,7 @@ class MoviePosterTableViewCell: UITableViewCell {
     }
     
     required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        return nil
     }
     
     func setup(viewModel: ViewModel) {

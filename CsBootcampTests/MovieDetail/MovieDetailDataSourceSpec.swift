@@ -21,21 +21,12 @@ class MovieDetailDataSourceSpec: QuickSpec {
     override func spec() {
         
         describe("MovieDetailDataSource") {
-            var movie: Movie!
-            var genre1: Genre!
-            var genre2: Genre!
-            var genreId1: Int!
-            var genreId2: Int!
-            var genres: [Int]!
+
             var tableView: UITableView!
             var sut: MovieDetailDataSource!
             var cell: UITableViewCell!
             var indexPath: IndexPath!
             var viewModel: ViewModel!
-            var posterViewModel: PosterViewModel!
-            var releaseDateViewModel: TextViewModel!
-            var genresViewModel: TextViewModel!
-            var overviewViewModel: OverviewViewModel!
             
             beforeSuite {
                 tableView = UITableView(frame: .zero)

@@ -27,6 +27,7 @@ class MovieOverviewTableViewCellSpec: QuickSpec {
             var tableView: UITableView!
             var indexPath: IndexPath!
             var viewModel: ViewModel!
+            var cell: MovieOverviewTableViewCell!
             
             beforeSuite {
                 
@@ -47,6 +48,18 @@ class MovieOverviewTableViewCellSpec: QuickSpec {
                     expect(sut.contentView.subviews).to(contain([sut.overviewLabel]))
                 })
                 
+            })
+            
+            context("When is initialized with coder", {
+                
+                beforeEach {
+                    let coder = NSCoder()
+                    cell = MovieOverviewTableViewCell(coder: coder)
+                }
+                
+                it("should be nil", closure: {
+                    expect(cell).to(beNil())
+                })
             })
             
             context("when cell data is set", closure: {
