@@ -11,6 +11,6 @@ target 'CsBootcamp' do
       inherit! :search_paths
   
       pod 'Quick'
-      pod 'Nimble'
+      pod 'Nimble', '~> 7.0.3'
   end
 end
