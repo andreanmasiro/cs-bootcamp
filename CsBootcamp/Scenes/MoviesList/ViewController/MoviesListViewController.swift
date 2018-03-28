@@ -115,7 +115,7 @@ final class MoviesListViewController: UIViewController, MoviesListView {
         }
 
         collectionView.isHidden = state.hidesCollectionView
-        state.activityIndicatorAction(activityIndicator)()
+        activityIndicator.setAnimating(state.animatesActivityIndicator)
         errorView.isHidden = state.hidesErrorView
     }
 
@@ -171,11 +171,11 @@ extension MoviesListViewController {
             }
         }
         
-        var activityIndicatorAction: (UIActivityIndicatorView) -> () -> () {
+        var animatesActivityIndicator: Bool {
 
             switch self {
-            case .list, .error: return UIActivityIndicatorView.stopAnimating
-            case .loading: return UIActivityIndicatorView.startAnimating
+            case .loading: return true
+            case .list, .error: return false
             }
         }
     }
