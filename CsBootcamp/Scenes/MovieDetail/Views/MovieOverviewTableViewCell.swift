@@ -12,7 +12,7 @@ class MovieOverviewTableViewCell: UITableViewCell {
     
     static var cellSize: CGFloat = CGFloat(100).proportionalToWidth
     
-    let overviewLabel: UILabel = {
+    lazy var overviewLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .left

@@ -19,12 +19,6 @@ final class MovieDetailPresenter: MovieDetailPresenterType {
     
     private typealias MoviePosterViewModel = MoviePosterTableViewCell.ViewModel
     
-    private let dateFormatter: DateFormatter = {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy"
-        return dateFormatter
-    }()
-    
     unowned let view: MovieDetailView
     
     init(view: MovieDetailView) {
@@ -37,7 +31,7 @@ final class MovieDetailPresenter: MovieDetailPresenterType {
         let moviePosterViewModel = MoviePosterViewModel(imageURL: movie.posterUrl, title: movie.title)
         
         let genresDescription = genres.map({$0.name}).joined(separator: ", ")
-        let releaseDateDescription = dateFormatter.string(from: movie.releaseDate)
+        let releaseDateDescription = movie.releaseDate.yearToString()
         
         let genresViewModel = MovieTextTableViewCell.ViewModel(description: genresDescription)
         let releaseDateViewModel = MovieTextTableViewCell.ViewModel(description: releaseDateDescription)
