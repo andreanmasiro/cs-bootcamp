@@ -49,6 +49,7 @@
 		BA182515206BD9FF004405A3 /* MovieSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA182514206BD9FF004405A3 /* MovieSpec.swift */; };
 		BA182518206BE118004405A3 /* movie_valid.json in Resources */ = {isa = PBXBuildFile; fileRef = BA182517206BE118004405A3 /* movie_valid.json */; };
 		BA18251A206BE11F004405A3 /* movie_invalid.json in Resources */ = {isa = PBXBuildFile; fileRef = BA182519206BE11F004405A3 /* movie_invalid.json */; };
+		BA182521206BF60C004405A3 /* MoviesListInteractorSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA182520206BF60C004405A3 /* MoviesListInteractorSpec.swift */; };
 		FF487EBC65737F534550BE41 /* Pods_CsBootcampTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1A9535DD426540AEFEC436E /* Pods_CsBootcampTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -110,6 +111,7 @@
 		BA182514206BD9FF004405A3 /* MovieSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieSpec.swift; sourceTree = "<group>"; };
 		BA182517206BE118004405A3 /* movie_valid.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = movie_valid.json; sourceTree = "<group>"; };
 		BA182519206BE11F004405A3 /* movie_invalid.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = movie_invalid.json; sourceTree = "<group>"; };
+		BA182520206BF60C004405A3 /* MoviesListInteractorSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesListInteractorSpec.swift; sourceTree = "<group>"; };
 		BE639853DA6EBD308ABAC9B7 /* Pods-CsBootcampTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CsBootcampTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-CsBootcampTests/Pods-CsBootcampTests.release.xcconfig"; sourceTree = "<group>"; };
 		E1A9535DD426540AEFEC436E /* Pods_CsBootcampTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CsBootcampTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E60CDA6EB0A88BE06BB3DF01 /* Pods-CsBootcampTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CsBootcampTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CsBootcampTests/Pods-CsBootcampTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -294,6 +296,7 @@
 		BA1824E5206AC417004405A3 /* CsBootcampTests */ = {
 			isa = PBXGroup;
 			children = (
+				BA18251B206BF5D9004405A3 /* Scenes */,
 				BA182513206BD9E9004405A3 /* Models */,
 				BA1824E8206AC417004405A3 /* Info.plist */,
 			);
@@ -388,6 +391,30 @@
 				BA182519206BE11F004405A3 /* movie_invalid.json */,
 			);
 			path = Fixtures;
+			sourceTree = "<group>";
+		};
+		BA18251B206BF5D9004405A3 /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+				BA18251C206BF5DD004405A3 /* MoviesList */,
+			);
+			path = Scenes;
+			sourceTree = "<group>";
+		};
+		BA18251C206BF5DD004405A3 /* MoviesList */ = {
+			isa = PBXGroup;
+			children = (
+				BA18251D206BF5E5004405A3 /* Interactor */,
+			);
+			path = MoviesList;
+			sourceTree = "<group>";
+		};
+		BA18251D206BF5E5004405A3 /* Interactor */ = {
+			isa = PBXGroup;
+			children = (
+				BA182520206BF60C004405A3 /* MoviesListInteractorSpec.swift */,
+			);
+			path = Interactor;
 			sourceTree = "<group>";
 		};
 		DA866F8607C71FA9F1F27863 /* Pods */ = {
@@ -648,6 +675,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BA182521206BF60C004405A3 /* MoviesListInteractorSpec.swift in Sources */,
 				BA182515206BD9FF004405A3 /* MovieSpec.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
