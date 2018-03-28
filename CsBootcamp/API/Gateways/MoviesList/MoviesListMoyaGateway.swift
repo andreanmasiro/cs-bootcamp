@@ -16,7 +16,7 @@ final class MoviesListMoyaGateway: MoviesListGateway {
     }
     
     private let provider = MoyaProvider<MovieTarget>()
-    private let jsonDecoder: JSONDecoder = {
+    private lazy var jsonDecoder: JSONDecoder = {
         
         let decoder = JSONDecoder()
         let dateFormatter = DateFormatter()
