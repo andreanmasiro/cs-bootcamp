@@ -16,8 +16,7 @@ protocol MoviesListPresenterType {
 
 final class MoviesListInteractor: MoviesListInteractorType {
     
-    let presenter: MoviesListPresenterType
-    
+    private let presenter: MoviesListPresenterType
     private let moviesListGateway: MoviesListGateway
     
     init(presenter: MoviesListPresenterType, moviesListGateway: MoviesListGateway) {
