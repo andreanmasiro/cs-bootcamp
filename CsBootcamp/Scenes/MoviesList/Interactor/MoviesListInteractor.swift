@@ -33,7 +33,7 @@ final class MoviesListInteractor: MoviesListInteractorType {
                 
             case .success(let movies):
                 self?.presenter.presentMovies(movies)
-            case .failure(_): break
+            case .failure(_):
                  self?.presenter.presentError()
             }
         }
