@@ -18,27 +18,24 @@ class MoviesListPresenterSpec: QuickSpec {
         var view: MoviesListViewSpy!
         var presenter: MoviesListPresenter!
         
-        let setup = {
-            view = MoviesListViewSpy()
-            presenter = MoviesListPresenter(view: view)
-        }
-        
         describe("MoviesListPresenter") {
             
-            context("when present movies is called") {
-                
-                let movies = (0..<3).map { id in
-                    Movie(id: id, genreIds: [], title: "", overview: "", releaseDate: Date(), posterPath: "")
-                }
+            context("when initialized") {
                 
                 beforeEach {
-                    setup()
-                    presenter.presentMovies(movies)
+                    view = MoviesListViewSpy()
+                    presenter = MoviesListPresenter(view: view)
                 }
                 
-                it("should transform into viewmodels and display") {
+                context("and present movies is called") {
                     
-                    expect(view.displayMoviesCalled).to(beTrue())
+                    let movies = (0..<3).map { id in
+                        Movie(id: id, genreIds: [], title: "", overview: "", releaseDate: Date(), posterPath: "")
+                    }
+                    
+                    beforeEach {
+                        presenter.presentMovies(movies)
+                    }
                     
                     let viewModel = MoviesListViewModel(cellViewModels: movies.map { movie in
                         MovieCollectionViewCell.ViewModel(
@@ -46,22 +43,25 @@ class MoviesListPresenterSpec: QuickSpec {
                             title: movie.title
                         )
                     })
-                    expect(view.displayMoviesArg).to(equal(viewModel))
-                }
-            }
-            
-            context("when present error is called") {
-                
-                beforeEach {
-                    setup()
-                    presenter.presentError()
-                }
-                
-                it("should create default viewmodel and display") {
                     
-                    expect(view.displayErrorCalled).to(beTrue())
-                    expect(view.displayErrorArg)
-                        .to(equal(MoviesListErrorViewModel()))
+                    it("should transform into viewmodels and display") {
+                        expect(view.displayMoviesCalled).to(beTrue())
+                        expect(view.displayMoviesArg).to(equal(viewModel))
+                    }
+                }
+                
+                context("and present error is called") {
+                    
+                    beforeEach {
+                        presenter.presentError()
+                    }
+                    
+                    it("should create default viewmodel and display") {
+                        
+                        expect(view.displayErrorCalled).to(beTrue())
+                        expect(view.displayErrorArg)
+                            .to(equal(MoviesListErrorViewModel()))
+                    }
                 }
             }
         }
