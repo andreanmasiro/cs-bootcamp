@@ -20,7 +20,7 @@ class MovieCollectionViewCell: UICollectionViewCell {
     
     private let imageFetcher: ImageFetcher = KingfisherImageFetcher()
     
-    let imageView: UIImageView = {
+    lazy var imageView: UIImageView = {
         
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
@@ -30,7 +30,7 @@ class MovieCollectionViewCell: UICollectionViewCell {
         return imageView
     }()
     
-    let titleLabel: UILabel = {
+    lazy var titleLabel: UILabel = {
         
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -49,7 +49,7 @@ class MovieCollectionViewCell: UICollectionViewCell {
     }
     
     required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        return nil
     }
     
     func setup(viewModel: ViewModel) {
