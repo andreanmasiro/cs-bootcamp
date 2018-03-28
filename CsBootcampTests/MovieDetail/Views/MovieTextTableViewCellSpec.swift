@@ -41,17 +41,17 @@ class MovieTextTableViewCellSpec: QuickSpec {
                 
             }
             context("When is initialized", closure: {
-                it("Should call setupViewHierarchy  method", closure: {
+                it("should call setupViewHierarchy  method", closure: {
                     expect(sutReleaseDate.contentView.subviews).to(contain(sutReleaseDate.textLabelCell))
                 })
             })
             
             context("When setup method is called", closure: {
-                it("Should set releaseDate value for  UILabel", closure: {
+                it("should set releaseDate value for  UILabel", closure: {
                     expect(sutReleaseDate.textLabelCell.text).to(equal(viewModel.releaseDate.description))
                 })
                 
-                it("Should set genres value for  UILabel", closure: {
+                it("should set genres value for  UILabel", closure: {
                     expect(sutRGenres.textLabelCell.text).to(equal(viewModel.genres.description))
                 })
             })
