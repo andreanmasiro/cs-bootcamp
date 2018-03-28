@@ -15,16 +15,16 @@ class MovieSpec: QuickSpec {
     
     override func spec() {
         
-        let decoder = JSONDecoder()
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        decoder.dateDecodingStrategy = .formatted(dateFormatter)
-        
-        let bundle = Bundle(for: MovieSpec.self)
-        
         describe("Movie") {
             
             context("when initialized from json") {
+                
+                let decoder = JSONDecoder()
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "yyyy-MM-dd"
+                decoder.dateDecodingStrategy = .formatted(dateFormatter)
+                
+                let bundle = Bundle(for: MovieSpec.self)
                 
                 context("when json is valid") {
                     
