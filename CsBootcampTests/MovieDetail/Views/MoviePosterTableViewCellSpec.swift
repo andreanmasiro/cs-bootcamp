@@ -14,29 +14,17 @@ import Nimble
 class MoviePosterTableViewCellSpec: QuickSpec {
     
     typealias ViewModel = MovieDetailViewController.ViewModel
-    typealias PosterViewModel = MoviePosterTableViewCell.ViewModel
-    typealias TextViewModel = MovieTextTableViewCell.ViewModel
-    typealias OverviewViewModel = MovieOverviewTableViewCell.ViewModel
     
     override func spec() {
         
         describe("MoviePosterTableViewCell", closure:{
             
             var sut: MoviePosterTableViewCell!
-            var dataSource: MovieDetailDataSource!
-            var tableView: UITableView!
-            var indexPath: IndexPath!
             var viewModel: ViewModel!
             
             beforeSuite {
                 viewModel = ViewModelBuilder.build()
-                
-                tableView = UITableView(frame: .zero)
-                dataSource = MovieDetailDataSource(tableView: tableView)
-                dataSource.viewModel = viewModel
-                
-                indexPath = IndexPath(row: 0, section: 0)
-                sut = dataSource.tableView(tableView, cellForRowAt: indexPath) as! MoviePosterTableViewCell
+                sut = MoviePosterTableViewCell(style: .default, reuseIdentifier: nil)
                 
             }
             
@@ -49,6 +37,10 @@ class MoviePosterTableViewCellSpec: QuickSpec {
             })
             
             context("when cell data is set", closure: {
+                
+                beforeEach {
+                    sut.setup(viewModel: viewModel.poster)
+                }
 
                 it("should build a cell with correct data", closure: {
                     expect(sut.titleLabel.text).to(equal(viewModel.poster.title))
