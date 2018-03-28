@@ -12,7 +12,7 @@ class MovieTextTableViewCell: UITableViewCell {
     
     static var cellSize: CGFloat = CGFloat(30).proportionalToWidth
     
-    let textLabelCell: UILabel = {
+    lazy var textLabelCell: UILabel = {
        
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
