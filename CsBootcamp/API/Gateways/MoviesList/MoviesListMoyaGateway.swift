@@ -11,10 +11,6 @@ import Result
 
 final class MoviesListMoyaGateway: MoviesListGateway {
     
-    enum Error: Swift.Error {
-        
-    }
-    
     private let provider = MoyaProvider<MovieTarget>()
     private lazy var jsonDecoder: JSONDecoder = {
         
