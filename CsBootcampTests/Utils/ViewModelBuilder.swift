@@ -29,9 +29,9 @@ class ViewModelBuilder: NSObject {
                       title: "Star Wars - The Last Jedi",
                       overview: "Rey develops her newly discovered abilities with the guidance of Luke Skywalker, who is unsettled by the strength of her powers. Meanwhile, the Resistance prepares for battle with the First Order.",
                       releaseDate: Date(),
-                      posterUrl: URL(string: "https://www.elastic.co/assets/bltada7771f270d08f6/enhanced-buzz-1492-1379411828-15.jpg")!)
+                      posterPath: "https://www.elastic.co/assets/bltada7771f270d08f6/enhanced-buzz-1492-1379411828-15.jpg")
         
-        let posterViewModel = PosterViewModel(imageURL: movie.posterUrl, title: movie.title)
+        let posterViewModel = PosterViewModel(imageURL: URL(string: movie.posterPath)!, title: movie.title)
         
         let releaseDateViewModel = TextViewModel(description: movie.releaseDate.yearToString())
         

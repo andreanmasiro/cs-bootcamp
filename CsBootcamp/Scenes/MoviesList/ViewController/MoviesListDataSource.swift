@@ -40,11 +40,7 @@ final class MoviesListDataSource: NSObject, UICollectionViewDataSource, UICollec
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        guard let cell = collectionView.dequeueReusableCell(MovieCollectionViewCell.self, for: indexPath) else {
-            
-            return UICollectionViewCell()
-        }
-        
+        let cell = collectionView.dequeueReusableCell(MovieCollectionViewCell.self, for: indexPath)!
         cell.setup(viewModel: viewModels[indexPath.item])
         
         return cell

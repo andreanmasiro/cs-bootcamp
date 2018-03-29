@@ -28,7 +28,7 @@ final class MovieDetailPresenter: MovieDetailPresenterType {
     
     func presentMovie(_ movie: Movie, _ genres: [Genre]) {
         
-        let moviePosterViewModel = MoviePosterViewModel(imageURL: movie.posterUrl, title: movie.title)
+        let moviePosterViewModel = MoviePosterViewModel(imageURL: URL(string: "https://image.tmdb.org/t/p/w500/b6ZJZHUdMEFECvGiDpJjlfUWela.jpg")!, title: movie.title)
         
         let genresDescription = genres.map({$0.name}).joined(separator: ", ")
         let releaseDateDescription = movie.releaseDate.yearToString()

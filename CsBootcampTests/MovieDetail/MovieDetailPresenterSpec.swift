@@ -34,7 +34,7 @@ class MovieDetailPresenterSpec: QuickSpec {
                               title: "Star Wars - The Last Jedi",
                               overview: "Rey develops her newly discovered abilities with the guidance of Luke Skywalker, who is unsettled by the strength of her powers. Meanwhile, the Resistance prepares for battle with the First Order.",
                               releaseDate: Date(),
-                              posterUrl: URL(string: "https://www.elastic.co/assets/bltada7771f270d08f6/enhanced-buzz-1492-1379411828-15.jpg")!)
+                              posterPath: "https://www.elastic.co/assets/bltada7771f270d08f6/enhanced-buzz-1492-1379411828-15.jpg")
             }
             
             context("When a movie detail presenter is assigned with a movie detail view controller", closure: {

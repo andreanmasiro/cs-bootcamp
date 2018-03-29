@@ -40,6 +40,17 @@ extension UIView {
         return self
     }
     
+    @discardableResult func heightAnchor(equalTo dimension: NSLayoutDimension, multiplier: CGFloat) -> Self {
+        heightAnchor.constraint(equalTo: dimension, multiplier: multiplier).isActive = true
+        return self
+    }
+    
+    @discardableResult func widthAnchor(equalTo dimension: NSLayoutDimension, multiplier: CGFloat) -> Self {
+        
+        widthAnchor.constraint(equalTo: dimension, multiplier: multiplier).isActive = true
+        return self
+    }
+    
     @discardableResult func centerXAnchor(equalTo anchor: NSLayoutXAxisAnchor, constant: CGFloat = 0) -> Self {
         centerXAnchor.constraint(equalTo: anchor, constant: constant).isActive = true
         return self
