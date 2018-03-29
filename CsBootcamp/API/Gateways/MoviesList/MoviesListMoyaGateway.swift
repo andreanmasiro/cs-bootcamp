@@ -11,6 +11,7 @@ import Result
 
 final class MoviesListMoyaGateway: MoviesListGateway {
     
+    private var cachedMovies: [Movie]?
     private let provider = MoyaProvider<MovieTarget>()
     private lazy var jsonDecoder: JSONDecoder = {
         
@@ -24,10 +25,23 @@ final class MoviesListMoyaGateway: MoviesListGateway {
     
     func fetchMovies(_ completion: @escaping (Result<[Movie]>) -> ()) {
         
-        provider.requestDecodable(.popular, jsonDecoder: jsonDecoder) { (result: Result<MovieList>) in
+        if let cachedMovies = cachedMovies {
+
+            completion(.success(cachedMovies))
+        } else {
             
-            let result = result.map { moviesList in moviesList.results }
-            completion(result)
+            provider.requestDecodable(.popular, jsonDecoder: jsonDecoder) { [weak self] (result: Result<MovieList>) in
+                
+                let result = result.map { moviesList in moviesList.results }
+                self?.cacheMovies(from: result)
+                completion(result)
+            }
+        }
+    }
+    
+    private func cacheMovies(from result: Result<[Movie]>) {
+        if case .success(let value) = result {
+            cachedMovies = value
         }
     }
 }
