@@ -10,7 +10,8 @@ import Foundation
 
 struct APIBase {
     
-    static let movieBaseURL = URL(string: "https://api.themoviedb.org/3/movie")!
+    static let baseUrl = URL(string: "https://api.themoviedb.org/3")!
+    
     private static let imageBaseURL = URL(string: "https://image.tmdb.org/t/p/w500")!
     
     static func posterImageURL(path: String) -> URL {
