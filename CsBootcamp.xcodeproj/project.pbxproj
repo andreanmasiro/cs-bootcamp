@@ -188,6 +188,10 @@
 			children = (
 				5EBECB80206B1289005E93F8 /* ViewModel+Equatable.swift */,
 				622472FC206C207C00107732 /* ViewModelBuilder.swift */,
+				BA182529206C0DAC004405A3 /* Movie+Equatable.swift */,
+				BA18252B206C0E27004405A3 /* MoviesListErrorViewModel+Equatable.swift */,
+				BA18252D206C0E52004405A3 /* MoviesListViewModel+Equatable.swift */,
+				BA18252F206C0E87004405A3 /* MoviesListCollectionViewCellViewModel+Equatable.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -300,6 +304,14 @@
 			path = Fixtures;
 			sourceTree = "<group>";
 		};
+		BA0867DF206D66FE00CDA3D9 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				6CEC36106D7770D6E3D7B2BE /* Pods_CsBootcampTests.framework */,
+			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
 		BA18248A20654743004405A3 = {
 			isa = PBXGroup;
 			children = (
@@ -308,6 +320,7 @@
 				BA18249420654743004405A3 /* Products */,
 				DA866F8607C71FA9F1F27863 /* Pods */,
 				7DB60C1EBE898454F88E035E /* Frameworks */,
+				BA0867DF206D66FE00CDA3D9 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -415,10 +428,8 @@
 		BA1824E5206AC417004405A3 /* CsBootcampTests */ = {
 			isa = PBXGroup;
 			children = (
-				5EBECB81206B1289005E93F8 /* MovieDetail */,
 				5EBECB7F206B1289005E93F8 /* Utils */,
 				BA0867B9206C3FB600CDA3D9 /* API */,
-				BA182528206C0D99004405A3 /* Utils */,
 				BA18251B206BF5D9004405A3 /* Scenes */,
 				BA182513206BD9E9004405A3 /* Models */,
 				BA1824E8206AC417004405A3 /* Info.plist */,
@@ -520,6 +531,7 @@
 			isa = PBXGroup;
 			children = (
 				BA18251C206BF5DD004405A3 /* MoviesList */,
+				5EBECB81206B1289005E93F8 /* MovieDetail */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";
@@ -558,17 +570,6 @@
 				BA0867B2206C1CB400CDA3D9 /* MoviesListDataSourceSpec.swift */,
 			);
 			path = ViewController;
-			sourceTree = "<group>";
-		};
-		BA182528206C0D99004405A3 /* Utils */ = {
-			isa = PBXGroup;
-			children = (
-				BA182529206C0DAC004405A3 /* Movie+Equatable.swift */,
-				BA18252B206C0E27004405A3 /* MoviesListErrorViewModel+Equatable.swift */,
-				BA18252D206C0E52004405A3 /* MoviesListViewModel+Equatable.swift */,
-				BA18252F206C0E87004405A3 /* MoviesListCollectionViewCellViewModel+Equatable.swift */,
-			);
-			path = Utils;
 			sourceTree = "<group>";
 		};
 		DA866F8607C71FA9F1F27863 /* Pods */ = {
@@ -720,7 +721,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		C1AFE928551801A1E77FB2C7 /* [CP] Check Pods Manifest.lock */ = {
@@ -738,7 +739,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		EC1C273A802984C6C75926AE /* [CP] Embed Pods Frameworks */ = {
