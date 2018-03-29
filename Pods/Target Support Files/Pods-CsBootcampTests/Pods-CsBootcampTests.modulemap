@@ -1,0 +1,6 @@
+framework module Pods_CsBootcampTests {
+  umbrella header "Pods-CsBootcampTests-umbrella.h"
+
+  export *
+  module * { export * }
+}
