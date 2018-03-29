@@ -45,7 +45,7 @@ class MoviesListViewControllerSpec: QuickSpec {
                     let interactor = MoviesListInteractorSpy()
                     
                     beforeEach {
-                        viewController.interactor = interactor
+                        viewController.listInteractor = interactor
                         viewController.beginAppearanceTransition(true, animated: false)
                         viewController.endAppearanceTransition()
                     }
