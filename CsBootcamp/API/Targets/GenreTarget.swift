@@ -1,16 +1,16 @@
 //
-//  MovieTarget.swift
+//  GenreTarget.swift
 //  CsBootcamp
 //
-//  Created by Andre Rodrigues on 27/03/18.
+//  Created by Gabriel Preto on 29/03/2018.
 //  Copyright © 2018 Bootcampers. All rights reserved.
 //
 
 import Moya
 
-enum MovieTarget: TargetType {
+enum GenreTarget: TargetType {
     
-    case popular
+    case list
     
     var baseURL: URL {
         return APIBase.baseUrl
@@ -18,7 +18,7 @@ enum MovieTarget: TargetType {
     
     var path: String {
         switch self {
-        case .popular: return "/movie/popular"
+        case .list: return "/genre/movie/list"
         }
     }
     
@@ -31,7 +31,7 @@ enum MovieTarget: TargetType {
     }
     
     var task: Task {
-
+        
         return .requestParameters(
             parameters: parameters,
             encoding: URLEncoding.queryString
@@ -47,7 +47,9 @@ enum MovieTarget: TargetType {
         return .successCodes
     }
     
-    var headers: [String: String]? {
+    var headers: [String : String]? {
         return nil
     }
 }
+
+
