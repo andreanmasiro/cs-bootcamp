@@ -16,7 +16,7 @@ class MoviesListMoyaGatewaySpec: QuickSpec {
     
     override func spec() {
         
-        fdescribe("MoviesListMoyaGateway") {
+        describe("MoviesListMoyaGateway") {
             
             let gateway = MoviesListMoyaGateway()
             
