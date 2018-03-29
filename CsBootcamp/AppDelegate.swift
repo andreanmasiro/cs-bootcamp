@@ -19,11 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let isTesting = NSClassFromString("XCTestCase") != nil
         if !isTesting {
             
-            let rootViewController = MoviesListViewController()
-            let presenter = MoviesListPresenter(view: rootViewController)
-            let interactor = MoviesListInteractor(presenter: presenter, moviesListGateway: MoviesListMoyaGateway())
-            
-            rootViewController.interactor = interactor
+            let rootViewController = MoviesListSceneFactory.make()
             
             let navigationController = UINavigationController(rootViewController: rootViewController)
             navigationController.navigationBar.barTintColor = UIColor.Bootcamp.yellow
