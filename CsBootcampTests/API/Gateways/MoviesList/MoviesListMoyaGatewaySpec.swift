@@ -25,8 +25,10 @@ class MoviesListMoyaGatewaySpec: QuickSpec {
                 let target = MovieTarget.popular
                 let host = target.baseURL.host!
                 
+                var stubCount = 0
                 stub(condition: isHost(host)) { (request) -> OHHTTPStubsResponse in
                     
+                    stubCount += 1
                     let path = Bundle(for: MoviesListMoyaGatewaySpec.self).path(forResource: "movies_list", ofType: "json")!
                     return fixture(filePath: path, headers: nil)
                 }
@@ -46,6 +48,17 @@ class MoviesListMoyaGatewaySpec: QuickSpec {
                 
                 it("should return a valid MovieList") {
                     expect(movies).toNot(beNil())
+                }
+                
+                context("and fetch movies again") {
+                    
+                    beforeEach {
+                        gateway.fetchMovies { _ in }
+                    }
+                    
+                    it("should fetch from cache") {
+                        expect(stubCount).to(equal(1))
+                    }
                 }
             }
         }
