@@ -6,11 +6,13 @@
 //  Copyright © 2018 Bootcampers. All rights reserved.
 //
 
+import UIKit.UIViewController
+
 final class MovieDetailSceneFactory {
     
-    static func make(with movie: Movie) -> MovieDetailViewController {
+    static func make(with movie: Movie) -> UIViewController {
         
-        let viewController = MovieDetailViewController()
+        let viewController = MovieDetailViewController(movie: movie)
         let presenter = MovieDetailPresenter(view: viewController)
         let interactor = MovieDetailInteractor(presenter: presenter)
         

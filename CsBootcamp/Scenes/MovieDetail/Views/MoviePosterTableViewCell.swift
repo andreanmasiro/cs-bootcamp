@@ -12,18 +12,20 @@ class MoviePosterTableViewCell: UITableViewCell {
     
     private let imageFetcher: ImageFetcher = ImageFetcherStub()
     
-    static var cellSize: CGFloat = CGFloat(250).proportionalToWidth
+    static var cellHeight: CGFloat = CGFloat(250).proportionalToWidth
     
     lazy var posterImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.contentMode = .scaleToFill
+        imageView.contentMode = .scaleAspectFill
         imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.clipsToBounds = true
         
         return imageView
     }()
     
     lazy var titleLabel: UILabel = {
         let label = UILabel()
+        label.font = UIFont.boldSystemFont(ofSize: 25)
         label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
@@ -38,6 +40,7 @@ class MoviePosterTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: .default, reuseIdentifier: reuseIdentifier)
+        selectionStyle = .none
         setupViewHierarchy()
         setupConstraints()
     }
@@ -64,10 +67,10 @@ class MoviePosterTableViewCell: UITableViewCell {
             .leadingAnchor(equalTo: contentView.leadingAnchor)
     
         titleLabel
+            .heightAnchor(equalTo: heightAnchor, multiplier: 0.2)
             .bottomAnchor(equalTo: contentView.bottomAnchor)
+            .leadingAnchor(equalTo: contentView.leadingAnchor, constant: 16)
             .trailingAnchor(equalTo: contentView.trailingAnchor, constant: 8)
-            .leadingAnchor(equalTo: contentView.leadingAnchor, constant: 8)
-            .heightAnchor(equalTo: 42)
     }
 }
 

@@ -10,7 +10,7 @@ import UIKit
 
 class MovieTextTableViewCell: UITableViewCell {
     
-    static var cellSize: CGFloat = CGFloat(30).proportionalToWidth
+    static var cellHeight: CGFloat = CGFloat(44).proportionalToWidth
     
     lazy var textLabelCell: UILabel = {
        
@@ -24,6 +24,7 @@ class MovieTextTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: .default, reuseIdentifier: reuseIdentifier)
+        selectionStyle = .none
         setupViewHierarchy()
         setupConstraints()
     }
@@ -44,8 +45,8 @@ class MovieTextTableViewCell: UITableViewCell {
         textLabelCell
             .topAnchor(equalTo: contentView.topAnchor)
             .bottomAnchor(equalTo: contentView.bottomAnchor)
+            .leadingAnchor(equalTo: contentView.leadingAnchor, constant: 16)
             .trailingAnchor(equalTo: contentView.trailingAnchor, constant: 8)
-            .leadingAnchor(equalTo: contentView.leadingAnchor, constant: 8)
     }
 }
 

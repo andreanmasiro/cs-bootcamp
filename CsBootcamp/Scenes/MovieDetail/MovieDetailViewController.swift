@@ -10,7 +10,7 @@ import UIKit
 
 protocol MovieDetailInteractorType {
     
-    func fetchMovie()
+    func fetchDetail(of movie: Movie)
 }
 
 final class MovieDetailViewController: UIViewController, MovieDetailView {
@@ -19,35 +19,37 @@ final class MovieDetailViewController: UIViewController, MovieDetailView {
         let tableView = UITableView(frame: .zero)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.backgroundColor = .clear
-        tableView.separatorInset.left = 0
-        tableView.separatorInset.right = 0
+        tableView.estimatedRowHeight = 150
+        tableView.rowHeight = UITableViewAutomaticDimension
         
         return tableView
     }()
     
+    var movie: Movie
     var interactor: MovieDetailInteractorType?
     
     lazy var dataSource = {
         MovieDetailDataSource(tableView: tableView)
-        
     }()
     
-    init() {
+    init(movie: Movie) {
+        self.movie = movie
+        
         super.init(nibName: nil, bundle: nil)
-        title = "Detalhe"
+        
+        title = "Movie"
         view.backgroundColor = .white
         
         setupViewHierarchy()
         setupConstraints()
     }
     
-    required init?(coder aDecoder: NSCoder) {
-        return nil
+    override func viewWillAppear(_ animated: Bool) {
+        interactor?.fetchDetail(of: movie)
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
-        interactor?.fetchMovie()
+    required init?(coder aDecoder: NSCoder) {
+        return nil
     }
     
     func displayMovieDetail(viewModel: ViewModel) {
@@ -66,7 +68,6 @@ final class MovieDetailViewController: UIViewController, MovieDetailView {
             .trailingAnchor(equalTo: view.trailingAnchor)
             .leadingAnchor(equalTo: view.leadingAnchor)
     }
-    
 }
 
 extension MovieDetailViewController {

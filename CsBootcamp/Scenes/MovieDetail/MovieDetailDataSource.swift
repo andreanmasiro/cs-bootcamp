@@ -75,13 +75,14 @@ final class MovieDetailDataSource: NSObject, UITableViewDataSource, UITableViewD
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch indexPath.row {
         case 0:
-            return MoviePosterTableViewCell.cellSize
+            return MoviePosterTableViewCell.cellHeight
         case 1:
-            return MovieTextTableViewCell.cellSize
+            return MovieTextTableViewCell.cellHeight
         case 2:
-            return MovieTextTableViewCell.cellSize
+            return MovieTextTableViewCell.cellHeight
         case 3:
-            return MovieOverviewTableViewCell.cellSize
+//            return MovieOverviewTableViewCell.cellSize
+            return UITableViewAutomaticDimension
         default:
             return 0
         }

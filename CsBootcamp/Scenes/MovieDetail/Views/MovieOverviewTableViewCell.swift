@@ -10,21 +10,21 @@ import UIKit
 
 class MovieOverviewTableViewCell: UITableViewCell {
     
-    static var cellSize: CGFloat = CGFloat(100).proportionalToWidth
-    
     lazy var overviewLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .left
         label.textColor = UIColor.black
-        label.font = label.font.withSize(12)
-        label.numberOfLines = 6
+        label.font = UIFont.systemFont(ofSize: 13)
+        label.numberOfLines = 0
+        label.lineBreakMode = .byWordWrapping
         
         return label
     }()
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: .default, reuseIdentifier: reuseIdentifier)
+        selectionStyle = .none
         setupViewHierarchy()
         setupConstraints()
     }
@@ -43,10 +43,10 @@ class MovieOverviewTableViewCell: UITableViewCell {
     
     private func setupConstraints() {
         overviewLabel
-            .topAnchor(equalTo: contentView.topAnchor)
-            .bottomAnchor(equalTo: contentView.bottomAnchor, constant: 8)
-            .trailingAnchor(equalTo: contentView.trailingAnchor, constant: 8)
-            .leadingAnchor(equalTo: contentView.leadingAnchor, constant: 8)
+            .topAnchor(equalTo: contentView.topAnchor, constant: 8)
+            .bottomAnchor(equalTo: contentView.bottomAnchor, constant: -8)
+            .leadingAnchor(equalTo: contentView.leadingAnchor, constant: 16)
+            .trailingAnchor(equalTo: contentView.trailingAnchor, constant: -8)
     }
 }
 
