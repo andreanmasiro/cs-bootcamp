@@ -10,7 +10,7 @@ import UIKit
 
 class MoviePosterTableViewCell: UITableViewCell {
     
-    private let imageFetcher: ImageFetcher = ImageFetcherStub()
+    private let imageFetcher: ImageFetcher = KingfisherImageFetcher()
     
     static var cellHeight: CGFloat = CGFloat(250).proportionalToWidth
     
