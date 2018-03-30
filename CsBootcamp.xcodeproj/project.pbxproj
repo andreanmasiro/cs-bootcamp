@@ -44,6 +44,7 @@
 		BA0867EC206D87B200CDA3D9 /* MoviesListShowDetailInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0867EB206D87B200CDA3D9 /* MoviesListShowDetailInteractor.swift */; };
 		BA0867EF206D8BF800CDA3D9 /* MoviesListSceneFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0867EE206D8BF800CDA3D9 /* MoviesListSceneFactory.swift */; };
 		BA0867F3206D905700CDA3D9 /* MovieDetailSceneFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0867F2206D905700CDA3D9 /* MovieDetailSceneFactory.swift */; };
+		BA0867F5206D9F1900CDA3D9 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0867F4206D9F1900CDA3D9 /* main.swift */; };
 		BA18249720654743004405A3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA18249620654743004405A3 /* AppDelegate.swift */; };
 		BA18249E20654743004405A3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BA18249D20654743004405A3 /* Assets.xcassets */; };
 		BA1824A120654743004405A3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BA18249F20654743004405A3 /* LaunchScreen.storyboard */; };
@@ -96,6 +97,8 @@
 
 /* Begin PBXFileReference section */
 		1BE429E93DF632C9329D190A /* Pods_CsBootcamp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CsBootcamp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		20A8DB3873A35560BD000FA3 /* Pods-CsBootcamp.test.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CsBootcamp.test.xcconfig"; path = "Pods/Target Support Files/Pods-CsBootcamp/Pods-CsBootcamp.test.xcconfig"; sourceTree = "<group>"; };
+		40E700D1BB73A5A3EB0CF071 /* Pods-CsBootcampTests.test.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CsBootcampTests.test.xcconfig"; path = "Pods/Target Support Files/Pods-CsBootcampTests/Pods-CsBootcampTests.test.xcconfig"; sourceTree = "<group>"; };
 		5EBECB80206B1289005E93F8 /* ViewModel+Equatable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ViewModel+Equatable.swift"; sourceTree = "<group>"; };
 		5EBECB82206B1289005E93F8 /* MovieDetailViewControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieDetailViewControllerSpec.swift; sourceTree = "<group>"; };
 		5EBECB84206B1289005E93F8 /* MovieDetailDataSourceSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieDetailDataSourceSpec.swift; sourceTree = "<group>"; };
@@ -132,6 +135,7 @@
 		BA0867EB206D87B200CDA3D9 /* MoviesListShowDetailInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesListShowDetailInteractor.swift; sourceTree = "<group>"; };
 		BA0867EE206D8BF800CDA3D9 /* MoviesListSceneFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesListSceneFactory.swift; sourceTree = "<group>"; };
 		BA0867F2206D905700CDA3D9 /* MovieDetailSceneFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailSceneFactory.swift; sourceTree = "<group>"; };
+		BA0867F4206D9F1900CDA3D9 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		BA18249320654743004405A3 /* CsBootcamp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CsBootcamp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA18249620654743004405A3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BA18249D20654743004405A3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -407,6 +411,7 @@
 				62F1D33C206579670036977E /* Extensions */,
 				BA1824A8206547DB004405A3 /* Supporting Files */,
 				BA18249620654743004405A3 /* AppDelegate.swift */,
+				BA0867F4206D9F1900CDA3D9 /* main.swift */,
 			);
 			path = CsBootcamp;
 			sourceTree = "<group>";
@@ -646,6 +651,8 @@
 				EE6B96D6961A1E672993E5F2 /* Pods-CsBootcamp.release.xcconfig */,
 				E60CDA6EB0A88BE06BB3DF01 /* Pods-CsBootcampTests.debug.xcconfig */,
 				BE639853DA6EBD308ABAC9B7 /* Pods-CsBootcampTests.release.xcconfig */,
+				20A8DB3873A35560BD000FA3 /* Pods-CsBootcamp.test.xcconfig */,
+				40E700D1BB73A5A3EB0CF071 /* Pods-CsBootcampTests.test.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -891,6 +898,7 @@
 				BA1824F8206ACC39004405A3 /* MovieTarget.swift in Sources */,
 				BA1824F1206ACA55004405A3 /* APISettings.swift in Sources */,
 				6E141C0A2065A9780047D3A6 /* MovieDetailViewController.swift in Sources */,
+				BA0867F5206D9F1900CDA3D9 /* main.swift in Sources */,
 				6E141C0E2065B0070047D3A6 /* UITableView+ReusableView.swift in Sources */,
 				6E141C1A20698A600047D3A6 /* MovieDetailPresenter.swift in Sources */,
 				BA182506206AD9CC004405A3 /* MoviesListMoyaGateway.swift in Sources */,
@@ -976,6 +984,99 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		BA0867FD206DA5DE00CDA3D9 /* Test */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_SWIFT_FLAGS = "-DTEST";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Test;
+		};
+		BA0867FE206DA5DE00CDA3D9 /* Test */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 20A8DB3873A35560BD000FA3 /* Pods-CsBootcamp.test.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 83C3V38WSB;
+				INFOPLIST_FILE = CsBootcamp/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = cs.CsBootcamp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Test;
+		};
+		BA0867FF206DA5DE00CDA3D9 /* Test */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 40E700D1BB73A5A3EB0CF071 /* Pods-CsBootcampTests.test.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 83C3V38WSB;
+				INFOPLIST_FILE = CsBootcampTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = cs.CsBootcampTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CsBootcamp.app/CsBootcamp";
+			};
+			name = Test;
+		};
 		BA1824A320654743004405A3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1159,6 +1260,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				BA1824A320654743004405A3 /* Debug */,
+				BA0867FD206DA5DE00CDA3D9 /* Test */,
 				BA1824A420654743004405A3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -1168,6 +1270,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				BA1824A620654743004405A3 /* Debug */,
+				BA0867FE206DA5DE00CDA3D9 /* Test */,
 				BA1824A720654743004405A3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -1177,6 +1280,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				BA1824EB206AC417004405A3 /* Debug */,
+				BA0867FF206DA5DE00CDA3D9 /* Test */,
 				BA1824EC206AC417004405A3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;

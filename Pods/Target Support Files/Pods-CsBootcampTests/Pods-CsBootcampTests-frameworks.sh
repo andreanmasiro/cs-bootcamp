@@ -88,6 +88,11 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/OHHTTPStubs/OHHTTPStubs.framework"
   install_framework "$BUILT_PRODUCTS_DIR/Quick/Quick.framework"
 fi
+if [[ "$CONFIGURATION" == "Test" ]]; then
+  install_framework "$BUILT_PRODUCTS_DIR/Nimble/Nimble.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/OHHTTPStubs/OHHTTPStubs.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/Quick/Quick.framework"
+fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/Nimble/Nimble.framework"
   install_framework "$BUILT_PRODUCTS_DIR/OHHTTPStubs/OHHTTPStubs.framework"
