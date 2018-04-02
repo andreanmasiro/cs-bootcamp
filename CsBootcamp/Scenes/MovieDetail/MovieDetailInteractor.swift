@@ -16,17 +16,22 @@ protocol MovieDetailPresenterType {
 final class MovieDetailInteractor: MovieDetailInteractorType {
 
     let presenter: MovieDetailPresenterType
+    let genresListGateway: GenresListGateway
     
-    init(presenter: MovieDetailPresenterType) {
+    init(presenter: MovieDetailPresenterType, genresListGateway: GenresListGateway) {
         self.presenter = presenter
+        self.genresListGateway = genresListGateway
     }
     
     func fetchDetail(of movie: Movie) {
         
-        let genres = [
-            Genre(id: 0, name: "Action"),
-            Genre(id: 1, name: "Horror")
-        ]
-        presenter.presentMovie(movie, genres)
+        genresListGateway.fetchGenres { [weak self] result in
+            
+            guard let `self` = self else { return }
+            if case let .success(genres) = result {
+                let genres = genres.filter { genre in movie.genreIds.contains(genre.id) }
+                self.presenter.presentMovie(movie, genres)
+            }
+        }
     }
 }

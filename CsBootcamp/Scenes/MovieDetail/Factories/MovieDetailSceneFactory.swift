@@ -14,7 +14,8 @@ final class MovieDetailSceneFactory {
         
         let viewController = MovieDetailViewController(movie: movie)
         let presenter = MovieDetailPresenter(view: viewController)
-        let interactor = MovieDetailInteractor(presenter: presenter)
+        let gateway = GenresListMoyaGateway()
+        let interactor = MovieDetailInteractor(presenter: presenter, genresListGateway: gateway)
         
         viewController.interactor = interactor
         

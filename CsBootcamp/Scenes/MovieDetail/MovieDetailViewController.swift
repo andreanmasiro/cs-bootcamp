@@ -25,7 +25,7 @@ final class MovieDetailViewController: UIViewController, MovieDetailView {
         return tableView
     }()
     
-    var movie: Movie
+    let movie: Movie
     var interactor: MovieDetailInteractorType?
     
     lazy var dataSource = {
