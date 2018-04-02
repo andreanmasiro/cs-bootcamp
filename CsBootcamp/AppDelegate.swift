@@ -18,6 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let navigationController = UINavigationController(rootViewController: rootViewController)
         navigationController.navigationBar.barTintColor = UIColor.Bootcamp.yellow
+        navigationController.navigationBar.tintColor = UIColor.black
         navigationController.navigationBar.isTranslucent = false
         let screen = UIScreen.main
         
