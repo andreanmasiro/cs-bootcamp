@@ -20,83 +20,81 @@ class MovieDetailViewControllerSpec: QuickSpec {
     
     override func spec() {
         
-        var sut: MovieDetailViewController!
-        var presenter: MovieDetailPresenter!
-        var viewModel: ViewModel!
-        var viewController :MovieDetailViewController!
-        
         describe("MovieDetailViewController") {
             
-            beforeSuite {
+            var sut: MovieDetailViewController!
+            context("when it is initialized") {
                 
-                viewModel = ViewModelBuilder.build()
-            }
-            
-            context("when it's initialized", closure: {
+                
+                let movie = Movie(id: 0, genreIds: [], title: "", overview: "", releaseDate: Date(), posterPath: "")
                 
                 beforeEach {
-                    sut = MovieDetailViewController()
-                    presenter = MovieDetailPresenter(view: sut)
+                    sut = MovieDetailViewController(movie: movie)
                 }
                 
-                it("should setup the view hierarchy", closure: {
+                it("should setup the view hierarchy") {
                     expect(sut.view.subviews).to(contain(sut.tableView))
-                })
+                }
                 
-            })
+                context("and display movie detail is called") {
+                    
+                    let viewModel = MovieDetailViewController.ViewModel(
+                        poster: MoviePosterTableViewCell.ViewModel(
+                            imageURL: URL(string: "url.com")!, title: ""
+                        ),
+                        releaseDate: MovieTextTableViewCell.ViewModel(description: ""),
+                        genres: MovieTextTableViewCell.ViewModel(description: ""),
+                        overview: MovieOverviewTableViewCell.ViewModel(overview: "")
+                    )
+                    
+                    beforeEach {
+                        sut.displayMovieDetail(viewModel: viewModel)
+                    }
+                    
+                    it("should set the data source view model") {
+                        expect(sut.dataSource.viewModel).to(equal(viewModel))
+                    }
+                }
+                
+                context("and view will appear") {
+                    
+                    var interactor: MovieDetailInteractorSpy!
+                    
+                    beforeEach {
+                        interactor = MovieDetailInteractorSpy()
+                        sut.interactor = interactor
+                        sut.beginAppearanceTransition(true, animated: false)
+                        sut.endAppearanceTransition()
+                    }
+                    
+                    it("the interactor should call the fetch movie method") {
+                        expect(interactor.isFetchDetailOfMovieCalled).to(beTrue())
+                    }
+                }
+            }
             
-            context("When is initialized with coder", {
+            context("when it is initialized with coder") {
                 
                 beforeEach {
                     let coder = NSCoder()
-                    viewController = MovieDetailViewController(coder: coder)
+                    sut = MovieDetailViewController(coder: coder)
                 }
                 
-                it("should be nil", closure: {
-                    expect(viewController).to(beNil())
-                })
-            })
-            
-            context("when display movie detail is called", closure: {
-                
-                beforeEach {
-                    presenter.view.displayMovieDetail(viewModel: viewModel)
+                it("should be nil") {
+                    expect(sut).to(beNil())
                 }
-            
-                it("should set the data source view model", closure: {
-                    expect(sut.dataSource.viewModel).to(equal(viewModel))
-                })
-                
-            })
-            
-            context("when view will appear", closure:{
-                
-                var interactor: MovieDetailInteractorSpy!
-                
-                beforeEach {
-                    sut = MovieDetailViewController()
-                    interactor = MovieDetailInteractorSpy()
-                    sut.interactor = interactor
-                    sut.beginAppearanceTransition(true, animated: false)
-                    sut.endAppearanceTransition()
-                }
-            
-                it("the interactor should call the fetch movie method", closure: {
-                    expect(interactor.isFetchMovieCalled).to(beTrue())
-                })
-            })
+            }
         }
     }
 }
 
 class MovieDetailInteractorSpy: MovieDetailInteractorType {
     
-    var isFetchMovieCalled = false
+    var isFetchDetailOfMovieCalled = false
     
-    func fetchMovie() {
+    func fetchDetail(of movie: Movie) {
         
-        isFetchMovieCalled = true
-        
+        isFetchDetailOfMovieCalled = true
     }
 }
 
