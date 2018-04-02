@@ -19,61 +19,44 @@ class MovieTextTableViewCellSpec: QuickSpec {
     
         describe("MovieTextTableViewCell") {
         
-            var sutReleaseDate : MovieTextTableViewCell!
-            var sutRGenres : MovieTextTableViewCell!
-            var tableView: UITableView!
-            var viewModel: ViewModel!
-            var dataSource: MovieDetailDataSource!
-            var indexPathRow_1: IndexPath!
-            var indexPathRow_2: IndexPath!
-            var cell: MovieTextTableViewCell!
-            
-            beforeSuite {
-        
-                viewModel = ViewModelBuilder.build()
-                tableView = UITableView(frame: .zero)
-                indexPathRow_1 = IndexPath(row: 1, section: 0)
-                indexPathRow_2 = IndexPath(row: 2, section: 0)
-                dataSource = MovieDetailDataSource(tableView: tableView)
-                dataSource.viewModel = viewModel
-                
-                sutReleaseDate = dataSource.tableView(tableView, cellForRowAt: indexPathRow_1) as! MovieTextTableViewCell
-                sutRGenres = dataSource.tableView(tableView, cellForRowAt: indexPathRow_2) as! MovieTextTableViewCell
-            }
+            var sut : MovieTextTableViewCell!
             
             context("When is initialized", closure: {
                 
+                beforeEach {
+                    sut = MovieTextTableViewCell()
+                }
+                
                 it("should call setupViewHierarchy  method", closure: {
-                    expect(sutReleaseDate.contentView.subviews).to(contain(sutReleaseDate.textLabelCell))
+                    expect(sut.contentView.subviews).to(contain(sut.textLabelCell))
                 })
                 
+                context("When setup method is called", closure: {
+                    
+                    let viewModel = MovieTextTableViewCell.ViewModel(description: "")
+                    
+                    beforeEach {
+                        sut.setup(viewModel: viewModel)
+                    }
+                    
+                    it("should set releaseDate value for  UILabel", closure: {
+                        expect(sut.textLabelCell.text)
+                            .to(equal(viewModel.description))
+                    })
+                })
             })
             
             context("When is initialized with coder", {
                 
                 beforeEach {
                     let coder = NSCoder()
-                    cell = MovieTextTableViewCell(coder: coder)
+                    sut = MovieTextTableViewCell(coder: coder)
                 }
                 
                 it("should be nil", closure: {
-                    expect(cell).to(beNil())
+                    expect(sut).to(beNil())
                 })
             })
-            
-            context("When setup method is called", closure: {
-                it("should set releaseDate value for  UILabel", closure: {
-                    expect(sutReleaseDate.textLabelCell.text).to(equal(viewModel.releaseDate.description))
-                })
-                
-                it("should set genres value for  UILabel", closure: {
-                    expect(sutRGenres.textLabelCell.text).to(equal(viewModel.genres.description))
-                })
-            })
-            
         }
     }
-    
 }
-
-

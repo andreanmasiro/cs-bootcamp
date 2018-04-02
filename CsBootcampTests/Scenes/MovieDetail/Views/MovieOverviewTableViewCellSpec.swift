@@ -20,22 +20,30 @@ class MovieOverviewTableViewCellSpec: QuickSpec {
         describe("MovieOverviewTableViewCell", closure:{
             
             var sut: MovieOverviewTableViewCell!
-            var viewModel: ViewModel!
             var cell: MovieOverviewTableViewCell!
             
-            beforeSuite {
-                
-                viewModel = ViewModelBuilder.build()
-                sut = MovieOverviewTableViewCell(style: .default, reuseIdentifier: nil)
-                
-            }
-            
             context("when it's initialized", closure: {
+                
+                beforeEach {
+                    sut = MovieOverviewTableViewCell(style: .default, reuseIdentifier: nil)
+                }
                 
                 it("should setup the view hierarchy ", closure: {
                     expect(sut.contentView.subviews).to(contain([sut.overviewLabel]))
                 })
                 
+                context("and cell data is set", closure: {
+                    
+                    let viewModel = MovieOverviewTableViewCell.ViewModel(overview: "")
+                    
+                    beforeEach {
+                        sut.setup(viewModel: viewModel)
+                    }
+                    
+                    it("should build a cell with correct data", closure: {
+                        expect(sut.overviewLabel.text).to(equal(viewModel.overview))
+                    })
+                })
             })
             
             context("When is initialized with coder", {
@@ -49,19 +57,6 @@ class MovieOverviewTableViewCellSpec: QuickSpec {
                     expect(cell).to(beNil())
                 })
             })
-            
-            context("when cell data is set", closure: {
-                
-                beforeEach {
-                    sut.setup(viewModel: viewModel.overview)
-                }
-                
-                it("should build a cell with correct data", closure: {
-                    expect(sut.overviewLabel.text).to(equal(viewModel.overview.overview))
-                })
-                
-            })
-            
         })
         
     }

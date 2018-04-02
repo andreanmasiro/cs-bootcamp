@@ -13,42 +13,46 @@ import Nimble
 
 class MovieDetailInteractorSpec: QuickSpec {
     
-    
     override func spec() {
 
-        var movieDetailPresenterSpy: MovieDetailPresenterSpy!
-        var sut: MovieDetailInteractor!
-        
-        describe("MovieDetailInteractor", closure: {
+        describe("MovieDetailInteractor") {
             
-            beforeSuite {
-                movieDetailPresenterSpy = MovieDetailPresenterSpy()
-                sut = MovieDetailInteractor(presenter: movieDetailPresenterSpy)
-    
-            }
-            
-            context("When is initialized", closure: {
+            context("when is initialized") {
                 
-                it("should verify if presenter parameter isn't nil", closure: {
-                    expect(sut.presenter).toNot(beNil())
-                })
-                
-            })
-            
-            context("When interactor called fetchMovie method", closure: {
+                var sut: MovieDetailInteractor!
+                var presenter: MovieDetailPresenterSpy!
+                var gateway: GenresListGatewayStub!
                 
                 beforeEach {
-                    sut.fetchMovie()
+                    presenter = MovieDetailPresenterSpy()
+                    gateway = GenresListGatewayStub()
+                    gateway.stubbedResult = .success([])
+                    sut = MovieDetailInteractor(presenter: presenter, genresListGateway: gateway)
                 }
                 
-                it("presentMovie method should be called too", closure: {
-                    expect(movieDetailPresenterSpy.isPresentMovieCalled).to(beTrue())
-                })
-                
-            })
-            
-        })
-        
+                context("when fetchDetailOfMovie is called") {
+                    
+                    let movie = Movie(id: 0, genreIds: [], title: "", overview: "", releaseDate: Date(), posterPath: "")
+                    
+                    beforeEach {
+                        sut.fetchDetail(of: movie)
+                    }
+                    
+                    it("should call presentMovie") {
+                        expect(presenter.isPresentMovieCalled).to(beTrue())
+                    }
+                }
+            }
+        }
+    }
+}
+
+class GenresListGatewayStub: GenresListGateway {
+    
+    var stubbedResult: Result<[Genre]>!
+    
+    func fetchGenres(_ completion: @escaping (Result<[Genre]>) -> ()) {
+        completion(stubbedResult)
     }
 }
 

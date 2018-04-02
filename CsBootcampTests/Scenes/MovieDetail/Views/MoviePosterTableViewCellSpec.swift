@@ -20,47 +20,42 @@ class MoviePosterTableViewCellSpec: QuickSpec {
         describe("MoviePosterTableViewCell", closure:{
             
             var sut: MoviePosterTableViewCell!
-            var viewModel: ViewModel!
-            var cell: MoviePosterTableViewCell!
-            
-            beforeSuite {
-                viewModel = ViewModelBuilder.build()
-                sut = MoviePosterTableViewCell(style: .default, reuseIdentifier: nil)
-                
-            }
             
             context("when it's initialized", closure: {
     
+                beforeEach {
+                    sut = MoviePosterTableViewCell(style: .default, reuseIdentifier: nil)
+                }
+                
                 it("should setup the view hierarchy ", closure: {
                     expect(sut.contentView.subviews).to(contain([sut.titleLabel, sut.posterImageView]))
                 })
                 
+                context("and cell data is set", closure: {
+                    
+                    let viewModel = MoviePosterTableViewCell.ViewModel(imageURL: URL(string: "www.com")!, title: "")
+                    
+                    beforeEach {
+                        sut.setup(viewModel: viewModel)
+                    }
+                    
+                    it("should build a cell with correct data", closure: {
+                        expect(sut.titleLabel.text).to(equal(viewModel.title))
+                    })
+                })
             })
             
             context("When is initialized with coder", {
                 
                 beforeEach {
                     let coder = NSCoder()
-                    cell = MoviePosterTableViewCell(coder: coder)
+                    sut = MoviePosterTableViewCell(coder: coder)
                 }
                 
                 it("should be nil", closure: {
-                    expect(cell).to(beNil())
+                    expect(sut).to(beNil())
                 })
             })
-            
-            context("when cell data is set", closure: {
-                
-                beforeEach {
-                    sut.setup(viewModel: viewModel.poster)
-                }
-
-                it("should build a cell with correct data", closure: {
-                    expect(sut.titleLabel.text).to(equal(viewModel.poster.title))
-                })
-                
-            })
-            
         })
         
     }

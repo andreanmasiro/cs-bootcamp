@@ -15,8 +15,8 @@ protocol MovieDetailPresenterType {
 
 final class MovieDetailInteractor: MovieDetailInteractorType {
 
-    let presenter: MovieDetailPresenterType
-    let genresListGateway: GenresListGateway
+    private let presenter: MovieDetailPresenterType
+    private let genresListGateway: GenresListGateway
     
     init(presenter: MovieDetailPresenterType, genresListGateway: GenresListGateway) {
         self.presenter = presenter
