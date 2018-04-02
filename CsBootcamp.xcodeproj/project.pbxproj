@@ -322,7 +322,6 @@
 			isa = PBXGroup;
 			children = (
 				BA0867BA206C3FBC00CDA3D9 /* Gateways */,
-				BA18251B206BF5D9004405A3 /* Scenes */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -516,6 +515,7 @@
 			children = (
 				5EBECB7F206B1289005E93F8 /* Utils */,
 				BA0867B9206C3FB600CDA3D9 /* API */,
+				BA18251B206BF5D9004405A3 /* Scenes */,
 				BA182513206BD9E9004405A3 /* Models */,
 				BA1824E8206AC417004405A3 /* Info.plist */,
 			);
