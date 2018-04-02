@@ -31,9 +31,15 @@ class ViewModelBuilder: NSObject {
                       releaseDate: Date(),
                       posterPath: "https://www.elastic.co/assets/bltada7771f270d08f6/enhanced-buzz-1492-1379411828-15.jpg")
         
+        var dateFormatter: DateFormatter = {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy"
+            return dateFormatter
+        }()
+        
         let posterViewModel = PosterViewModel(imageURL: URL(string: movie.posterPath)!, title: movie.title)
         
-        let releaseDateViewModel = TextViewModel(description: movie.releaseDate.yearToString())
+        let releaseDateViewModel = TextViewModel(description: dateFormatter.string(from: movie.releaseDate))
         
         let genresViewModel = TextViewModel(description: "\(genre1), \(genre2)")
         
