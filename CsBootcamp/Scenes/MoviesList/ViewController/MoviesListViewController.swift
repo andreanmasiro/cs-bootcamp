@@ -8,12 +8,7 @@
 
 import UIKit
 
-protocol MoviesListInteractorType {
-
-    func fetchMovies()
-}
-
-final class MoviesListViewController: UIViewController, MoviesListView {
+final class MoviesListViewController: UIViewController, MoviesListView, ShowMovieDetailNavigator {
 
     lazy var errorView: MovieListErrorView = {
        
@@ -56,12 +51,16 @@ final class MoviesListViewController: UIViewController, MoviesListView {
         return collectionView
     }()
 
-    lazy var dataSource = {
+    lazy var dataSource: MoviesListDataSource = {
 
-        MoviesListDataSource(collectionView: collectionView)
+        let dataSource = MoviesListDataSource(collectionView: collectionView)
+        dataSource.didSelectItem = self.movieSelected
+        
+        return dataSource
     }()
 
-    var interactor: MoviesListInteractorType?
+    var listInteractor: MoviesListInteractorType?
+    var showDetailInteractor: MoviesListShowDetailInteractorType?
 
     required init?(coder aDecoder: NSCoder) {
         return nil
@@ -87,9 +86,13 @@ final class MoviesListViewController: UIViewController, MoviesListView {
     private func fetchMovies() {
 
         setup(state: .loading)
-        interactor?.fetchMovies()
+        listInteractor?.fetchMovies()
     }
-
+    
+    private func movieSelected(at index: Int) {
+        showDetailInteractor?.showDetail(forMovieAt: index)
+    }
+    
     // MARK: MoviesListView conforms
 
     func displayMovies(viewModel: MoviesListViewModel) {
@@ -100,6 +103,13 @@ final class MoviesListViewController: UIViewController, MoviesListView {
     func displayError(viewModel: MoviesListErrorViewModel) {
         
         setup(state: .error(viewModel))
+    }
+    
+    // MARK: ShowMovieDetailNavigator conforms
+    
+    func navigate(toDetailOf movie: Movie) {
+        let vc = MovieDetailSceneFactory.make(with: movie)
+        show(vc, sender: nil)
     }
 
     // MARK: Setups

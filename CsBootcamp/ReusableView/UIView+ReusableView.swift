@@ -16,4 +16,5 @@ extension ReusableView where Self: UIView {
     }
 }
 
-extension UIView: ReusableView { }
+extension UICollectionViewCell: ReusableView { }
+extension UITableViewCell: ReusableView { }

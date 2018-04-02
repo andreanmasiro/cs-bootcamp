@@ -13,12 +13,12 @@ enum MovieTarget: TargetType {
     case popular
     
     var baseURL: URL {
-        return APIBase.movieBaseURL
+        return APIBase.baseUrl
     }
     
     var path: String {
         switch self {
-        case .popular: return "/popular"
+        case .popular: return "/movie/popular"
         }
     }
     

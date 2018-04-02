@@ -15,11 +15,7 @@ protocol MovieDetailView: class {
 
 final class MovieDetailPresenter: MovieDetailPresenterType {
 
-    typealias ViewModel = (poster: MoviePosterTableViewCell.ViewModel, releaseDate: MovieTextTableViewCell.ViewModel, genre: MovieTextTableViewCell.ViewModel, overview: MovieOverviewTableViewCell.ViewModel)
-    
-    private typealias MoviePosterViewModel = MoviePosterTableViewCell.ViewModel
-    
-    private let dateFormatter: DateFormatter = {
+    private lazy var dateFormatter: DateFormatter = {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy"
         return dateFormatter
@@ -34,21 +30,32 @@ final class MovieDetailPresenter: MovieDetailPresenterType {
     
     func presentMovie(_ movie: Movie, _ genres: [Genre]) {
         
-        let moviePosterViewModel = MoviePosterViewModel(imageURL: URL(string: "https://image.tmdb.org/t/p/w500/b6ZJZHUdMEFECvGiDpJjlfUWela.jpg")!, title: movie.title)
-        
-        let genresDescription = genres.map({$0.name}).joined(separator: ", ")
+        let moviePosterUrl = APIBase.posterImageURL(path: movie.posterPath)
+        let genresDescription = genres
+            .map { $0.name }
+            .joined(separator: ", ")
         let releaseDateDescription = dateFormatter.string(from: movie.releaseDate)
         
-        let genresViewModel = MovieTextTableViewCell.ViewModel(description: genresDescription)
-        let releaseDateViewModel = MovieTextTableViewCell.ViewModel(description: releaseDateDescription)
-        
-        let overviewViewModel = MovieOverviewTableViewCell.ViewModel(overview: movie.overview)
+        let moviePosterViewModel = MoviePosterTableViewCell.ViewModel(
+            imageURL: moviePosterUrl,
+            title: movie.title
+        )
+        let genresViewModel = MovieTextTableViewCell.ViewModel(
+            description: genresDescription
+        )
+        let releaseDateViewModel = MovieTextTableViewCell.ViewModel(
+            description: releaseDateDescription
+        )
+        let overviewViewModel = MovieOverviewTableViewCell.ViewModel(
+            overview: movie.overview
+        )
        
-        let viewModel = MovieDetailViewController.ViewModel(poster: moviePosterViewModel,
-                                                            releaseDate: releaseDateViewModel,
-                                                            genres: genresViewModel,
-                                                            overview: overviewViewModel)
+        let viewModel = MovieDetailViewController.ViewModel(
+            poster: moviePosterViewModel,
+            releaseDate: releaseDateViewModel,
+            genres: genresViewModel,
+            overview: overviewViewModel
+        )
         view.displayMovieDetail(viewModel: viewModel)
     }
-    
 }

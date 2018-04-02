@@ -12,6 +12,7 @@ final class MoviesListDataSource: NSObject, UICollectionViewDataSource, UICollec
     
     private unowned let collectionView: UICollectionView
     
+    var didSelectItem: ((Int) -> ())?
     var viewModels: [MovieCollectionViewCell.ViewModel] = [] {
         didSet {
             collectionView.reloadData()
@@ -51,5 +52,9 @@ final class MoviesListDataSource: NSObject, UICollectionViewDataSource, UICollec
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         return MovieCollectionViewCell.cellSize
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        didSelectItem?(indexPath.item)
     }
 }
