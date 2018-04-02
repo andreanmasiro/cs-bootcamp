@@ -17,22 +17,30 @@ class MoviesListMoyaGatewaySpec: QuickSpec {
     override func spec() {
         
         describe("MoviesListMoyaGateway") {
-            
+        
             let gateway = MoviesListMoyaGateway()
+
+            var stubCount = 0
             
-            context("when fetch movies") {
+            beforeEach {
                 
                 let target = MovieTarget.popular
                 let host = target.baseURL.host!
                 
-                var stubCount = 0
                 stub(condition: isHost(host)) { (request) -> OHHTTPStubsResponse in
                     
                     stubCount += 1
                     let path = Bundle(for: MoviesListMoyaGatewaySpec.self).path(forResource: "movies_list", ofType: "json")!
                     return fixture(filePath: path, headers: nil)
                 }
-                
+            }
+            
+            afterEach {
+                OHHTTPStubs.removeAllStubs()
+            }
+            
+            context("when fetch movies") {
+
                 var movies: [Movie]?
                 
                 beforeEach {
