@@ -19,11 +19,7 @@ final class GenresListMoyaGateway: GenresListGateway {
         provider.requestDecodable(.list, jsonDecoder: jsonDecoder) { (result: Result<GenreList>) in
             
             let result = result.map { genresList in genresList.genres }
-            completion(result)
-            
+            completion(result)   
         }
-        
     }
-    
 }
-
