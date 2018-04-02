@@ -285,10 +285,9 @@
 			children = (
 				BA0867F1206D903A00CDA3D9 /* Factories */,
 				6E141C082065A9500047D3A6 /* Views */,
-				6E141C092065A9780047D3A6 /* MovieDetailViewController.swift */,
-				6E141C0B2065AE760047D3A6 /* MovieDetailDataSource.swift */,
-				6E141C1720698A0E0047D3A6 /* MovieDetailInteractor.swift */,
-				6E141C1920698A600047D3A6 /* MovieDetailPresenter.swift */,
+				6E183640206D4F710004F03B /* ViewController */,
+				6E183641206D4F810004F03B /* Interactor */,
+				6E183642206D4F910004F03B /* Presenter */,
 			);
 			path = MovieDetail;
 			sourceTree = "<group>";
@@ -301,6 +300,31 @@
 				6E141C13206934100047D3A6 /* MovieOverviewTableViewCell.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		6E183640206D4F710004F03B /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				6E141C0B2065AE760047D3A6 /* MovieDetailDataSource.swift */,
+				6E141C092065A9780047D3A6 /* MovieDetailViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		6E183641206D4F810004F03B /* Interactor */ = {
+			isa = PBXGroup;
+			children = (
+				6E141C1720698A0E0047D3A6 /* MovieDetailInteractor.swift */,
+			);
+			path = Interactor;
+			sourceTree = "<group>";
+		};
+		6E183642206D4F910004F03B /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				6E141C1920698A600047D3A6 /* MovieDetailPresenter.swift */,
+			);
+			path = Presenter;
 			sourceTree = "<group>";
 		};
 		7DB60C1EBE898454F88E035E /* Frameworks */ = {
