@@ -9,4 +9,5 @@
 protocol MoviesListInteractorType {
     
     func fetchMovies()
+    func movie(at index: Int) -> Movie
 }
