@@ -13,6 +13,7 @@ final class MoviesListDataSource: NSObject, UICollectionViewDataSource, UICollec
     private unowned let collectionView: UICollectionView
     
     var didSelectItem: ((Int) -> ())?
+    var searchDidReturnCount: ((String, Int) -> ())?
     var searchPredicate: String = "" {
         didSet {
             if oldValue != searchPredicate {
@@ -29,10 +30,15 @@ final class MoviesListDataSource: NSObject, UICollectionViewDataSource, UICollec
     
     private var filteredViewModels: [MovieCollectionViewCell.ViewModel] {
         
-        return searchPredicate.isEmpty ? viewModels :
-            viewModels.filter { viewModel in
+        let viewModels = searchPredicate.isEmpty ?
+            self.viewModels :
+            self.viewModels.filter({ viewModel in
                 viewModel.title.lowercased().contains(self.searchPredicate.lowercased())
-        }
+            })
+        
+        searchDidReturnCount?(searchPredicate, viewModels.count)
+        
+        return viewModels
     }
     
     init(collectionView: UICollectionView) {

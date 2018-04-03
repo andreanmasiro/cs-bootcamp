@@ -14,11 +14,20 @@ final class MoviesListViewController: UIViewController, MoviesListView, ShowMovi
     
     lazy var errorView: MovieListErrorView = {
        
-        let errorView = MovieListErrorView()
+        let errorView = MovieListErrorView(frame: .zero, iconDiameterRatio: 0.5)
         errorView.translatesAutoresizingMaskIntoConstraints = false
         errorView.isHidden = true
         
         return errorView
+    }()
+    
+    lazy var emptySearchView: MovieListErrorView = {
+        
+        let emptySearchView = MovieListErrorView(frame: .zero, iconDiameterRatio: 0.3)
+        emptySearchView.translatesAutoresizingMaskIntoConstraints = false
+        emptySearchView.isHidden = true
+        
+        return emptySearchView
     }()
     
     lazy var activityIndicator: UIActivityIndicatorView = {
@@ -101,6 +110,7 @@ final class MoviesListViewController: UIViewController, MoviesListView, ShowMovi
     override func viewDidLoad() {
         
         searchBarDelegate.textDidChange = setSearchPredicate
+        dataSource.searchDidReturnCount = searchResults
         super.viewDidLoad()
     }
 
@@ -124,6 +134,15 @@ final class MoviesListViewController: UIViewController, MoviesListView, ShowMovi
     
     private func setSearchPredicate(_ predicate: String) {
         dataSource.searchPredicate = predicate
+    }
+    
+    private func searchResults(from predicate: String, didReturnCount count: Int) {
+        
+        let isEmptySearch = count == 0 && !predicate.isEmpty
+        emptySearchView.isHidden = !isEmptySearch
+        if isEmptySearch {
+            emptySearchView.setup(viewModel: MoviesListErrorViewModel.defaultEmptySearch(predicate: predicate))
+        }
     }
     
     // MARK: MoviesListView conforms
@@ -168,6 +187,7 @@ final class MoviesListViewController: UIViewController, MoviesListView, ShowMovi
         view.addSubview(collectionView)
         view.addSubview(activityIndicator)
         view.addSubview(errorView)
+        view.addSubview(emptySearchView)
     }
 
     private func setupConstraints() {
@@ -189,7 +209,13 @@ final class MoviesListViewController: UIViewController, MoviesListView, ShowMovi
             .centerYAnchor(equalTo: view.centerYAnchor)
         
         errorView
-            .topAnchor(equalTo: view.topAnchor)
+            .topAnchor(equalTo: searchBar.bottomAnchor)
+            .bottomAnchor(equalTo: view.bottomAnchor)
+            .trailingAnchor(equalTo: view.trailingAnchor)
+            .leadingAnchor(equalTo: view.leadingAnchor)
+        
+        emptySearchView
+            .topAnchor(equalTo: searchBar.bottomAnchor)
             .bottomAnchor(equalTo: view.bottomAnchor)
             .trailingAnchor(equalTo: view.trailingAnchor)
             .leadingAnchor(equalTo: view.leadingAnchor)
