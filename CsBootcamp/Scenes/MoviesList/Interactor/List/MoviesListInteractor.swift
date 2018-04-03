@@ -39,8 +39,8 @@ final class MoviesListInteractor: MoviesListInteractorType {
             switch result {
                 
             case .success(let movies):
-                self.movies = movies
-                self.presenter.presentMovies(movies)
+                self.movies.append(contentsOf: movies)
+                self.presenter.presentMovies(self.movies)
             case .failure(_):
                 self.presenter.presentError()
             }
