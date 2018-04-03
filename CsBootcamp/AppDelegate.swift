@@ -14,16 +14,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
-        let rootViewController = MoviesListSceneFactory.make()
+        let moviesListViewController = MoviesListSceneFactory.make()
         
-        let navigationController = UINavigationController(rootViewController: rootViewController)
-        navigationController.navigationBar.barTintColor = UIColor.Bootcamp.yellow
-        navigationController.navigationBar.tintColor = UIColor.black
-        navigationController.navigationBar.isTranslucent = false
+        let moviesNavigationController = UINavigationControllerFactory.make(with: moviesListViewController)
+        
+        let viewControllers = [moviesNavigationController]
+        
+        let tabBarController = UITabBarControllerFactory.make(with: viewControllers)
+        
         let screen = UIScreen.main
         
         let window = UIWindow(frame: screen.bounds)
-        window.rootViewController = navigationController
+        window.rootViewController = tabBarController
         window.backgroundColor = UIColor.white
         window.makeKeyAndVisible()
         

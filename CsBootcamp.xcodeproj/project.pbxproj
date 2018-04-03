@@ -19,6 +19,8 @@
 		6257EFF7206D731D00B9E2C5 /* GenresListMoyaGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6257EFF6206D731D00B9E2C5 /* GenresListMoyaGateway.swift */; };
 		6257EFF9206D754C00B9E2C5 /* GenreTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6257EFF8206D754C00B9E2C5 /* GenreTarget.swift */; };
 		6257EFFB206D84CA00B9E2C5 /* GenreList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6257EFFA206D84CA00B9E2C5 /* GenreList.swift */; };
+		627377C72073E269006C2694 /* UITabBarControllerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 627377C62073E269006C2694 /* UITabBarControllerFactory.swift */; };
+		627377C92073E378006C2694 /* UINavigationControllerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 627377C82073E378006C2694 /* UINavigationControllerFactory.swift */; };
 		62D5A144206C0B27008C19A3 /* MoviePosterTableViewCellSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62D5A143206C0B27008C19A3 /* MoviePosterTableViewCellSpec.swift */; };
 		62DF58192072A2F2007FA501 /* genres_list.json in Resources */ = {isa = PBXBuildFile; fileRef = 62DF58182072A2F2007FA501 /* genres_list.json */; };
 		62DF581B2072A303007FA501 /* GenresListMoyaGatewaySpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62DF581A2072A302007FA501 /* GenresListMoyaGatewaySpec.swift */; };
@@ -109,6 +111,8 @@
 		6257EFF6206D731D00B9E2C5 /* GenresListMoyaGateway.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenresListMoyaGateway.swift; sourceTree = "<group>"; };
 		6257EFF8206D754C00B9E2C5 /* GenreTarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenreTarget.swift; sourceTree = "<group>"; };
 		6257EFFA206D84CA00B9E2C5 /* GenreList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenreList.swift; sourceTree = "<group>"; };
+		627377C62073E269006C2694 /* UITabBarControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITabBarControllerFactory.swift; sourceTree = "<group>"; };
+		627377C82073E378006C2694 /* UINavigationControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UINavigationControllerFactory.swift; sourceTree = "<group>"; };
 		62D5A143206C0B27008C19A3 /* MoviePosterTableViewCellSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviePosterTableViewCellSpec.swift; sourceTree = "<group>"; };
 		62DF58182072A2F2007FA501 /* genres_list.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = genres_list.json; sourceTree = "<group>"; };
 		62DF581A2072A302007FA501 /* GenresListMoyaGatewaySpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenresListMoyaGatewaySpec.swift; sourceTree = "<group>"; };
@@ -239,6 +243,15 @@
 				6257EFF6206D731D00B9E2C5 /* GenresListMoyaGateway.swift */,
 			);
 			path = MovieDetail;
+			sourceTree = "<group>";
+		};
+		627377C52073E23D006C2694 /* Factories */ = {
+			isa = PBXGroup;
+			children = (
+				627377C62073E269006C2694 /* UITabBarControllerFactory.swift */,
+				627377C82073E378006C2694 /* UINavigationControllerFactory.swift */,
+			);
+			path = Factories;
 			sourceTree = "<group>";
 		};
 		62D5A142206C0951008C19A3 /* Views */ = {
@@ -451,6 +464,7 @@
 				BA1824C2206588F4004405A3 /* ImageFetcher */,
 				BA1824B92065683E004405A3 /* Models */,
 				BA1824AA20655E47004405A3 /* Scenes */,
+				627377C52073E23D006C2694 /* Factories */,
 				62F1D33C206579670036977E /* Extensions */,
 				BA1824A8206547DB004405A3 /* Supporting Files */,
 				BA18249620654743004405A3 /* AppDelegate.swift */,
@@ -952,6 +966,8 @@
 				BA0867B1206C160400CDA3D9 /* UIActivityIndicatorView+SetAnimating.swift in Sources */,
 				BA1824C520658998004405A3 /* ReusableView.swift in Sources */,
 				6E141C102065B32D0047D3A6 /* MoviePosterTableViewCell.swift in Sources */,
+				627377C72073E269006C2694 /* UITabBarControllerFactory.swift in Sources */,
+				627377C92073E378006C2694 /* UINavigationControllerFactory.swift in Sources */,
 				BA1824C920658A01004405A3 /* UICollectionView+ReusableView.swift in Sources */,
 				BA1824FF206AD703004405A3 /* MovieList.swift in Sources */,
 				BA182508206AE680004405A3 /* Result.swift in Sources */,
