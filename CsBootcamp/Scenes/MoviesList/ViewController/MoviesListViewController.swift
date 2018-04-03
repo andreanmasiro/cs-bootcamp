@@ -97,6 +97,12 @@ final class MoviesListViewController: UIViewController, MoviesListView, ShowMovi
 
         view.backgroundColor = .white
     }
+    
+    override func viewDidLoad() {
+        
+        searchBarDelegate.textDidChange = setSearchPredicate
+        super.viewDidLoad()
+    }
 
     override func viewWillAppear(_ animated: Bool) {
 
@@ -112,6 +118,12 @@ final class MoviesListViewController: UIViewController, MoviesListView, ShowMovi
     
     private func movieSelected(at index: Int) {
         showDetailInteractor?.showDetail(forMovieAt: index)
+    }
+    
+    // MARK: Filter
+    
+    private func setSearchPredicate(_ predicate: String) {
+        dataSource.searchPredicate = predicate
     }
     
     // MARK: MoviesListView conforms
