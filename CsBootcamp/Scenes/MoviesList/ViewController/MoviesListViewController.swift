@@ -90,7 +90,10 @@ final class MoviesListViewController: UIViewController, MoviesListView, ShowMovi
     }
     
     private func movieSelected(at index: Int) {
-        showDetailInteractor?.showDetail(forMovieAt: index)
+        
+        if let movie = listInteractor?.movie(at: index) {
+            self.showDetailInteractor?.showDetail(forMovie: movie)
+        }
     }
     
     // MARK: MoviesListView conforms
