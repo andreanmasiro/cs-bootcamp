@@ -60,7 +60,7 @@ final class FavoritesListDataSource: NSObject, UITableViewDataSource, UITableVie
         
         return [unfavoriteAction]
     }
-
+    
     
     // MARK: - UITableView Delegate
     

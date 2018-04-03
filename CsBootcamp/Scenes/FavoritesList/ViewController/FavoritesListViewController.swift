@@ -37,6 +37,8 @@ final class FavoritesListViewController: UIViewController {
         
         setupViewHierarchy()
         setupConstraints()
+        
+        tabBarItem = UITabBarItem(title: "Favorites", image: #imageLiteral(resourceName: "favorite_empty_icon"), tag: 1)
     }
     
     required init?(coder aDecoder: NSCoder) {

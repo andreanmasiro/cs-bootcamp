@@ -69,12 +69,15 @@ final class MoviesListViewController: UIViewController, MoviesListView, ShowMovi
     init() {
 
         super.init(nibName: nil, bundle: nil)
+        
         title = "Movies"
 
         setupViewHierarchy()
         setupConstraints()
 
         view.backgroundColor = .white
+        
+        tabBarItem = UITabBarItem(title: "Movies", image: #imageLiteral(resourceName: "list_icon"), tag: 0)
     }
 
     override func viewWillAppear(_ animated: Bool) {

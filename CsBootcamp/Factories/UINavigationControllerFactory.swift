@@ -18,6 +18,10 @@ final class UINavigationControllerFactory {
         navigationController.navigationBar.tintColor = .black
         navigationController.navigationBar.isTranslucent = false
         
+        let font = UIFont.systemFont(ofSize: 17, weight: .light)
+        let attributes = [NSAttributedStringKey.font: font]
+        navigationController.navigationBar.titleTextAttributes = attributes
+        
         return navigationController
     }
 }
