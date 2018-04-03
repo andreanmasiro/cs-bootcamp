@@ -23,7 +23,7 @@ final class MoviesListShowDetailInteractor: MoviesListShowDetailInteractorType {
     
     func showDetail(forMovieAt index: Int) {
         
-        moviesListGateway.fetchMovies { [weak self] result in
+        moviesListGateway.fetchMovies(page: 1) { [weak self] result in
             
             if case .success(let movies) = result {
                 

@@ -24,9 +24,9 @@ final class MoviesListInteractor: MoviesListInteractorType {
         self.moviesListGateway = moviesListGateway
     }
     
-    func fetchMovies() {
-     
-        moviesListGateway.fetchMovies { [weak self] result in
+    func fetchMovies(page: Int) {
+        print(page)
+        moviesListGateway.fetchMovies(page: page) { [weak self] result in
             
             switch result {
                 
@@ -38,3 +38,4 @@ final class MoviesListInteractor: MoviesListInteractorType {
         }
     }
 }
+

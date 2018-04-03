@@ -8,5 +8,5 @@
 
 protocol MoviesListInteractorType {
     
-    func fetchMovies()
+    func fetchMovies(page: Int)
 }
