@@ -10,6 +10,8 @@ import UIKit
 
 final class MoviesListViewController: UIViewController, MoviesListView, ShowMovieDetailNavigator {
 
+    // MARK: Views
+    
     lazy var errorView: MovieListErrorView = {
        
         let errorView = MovieListErrorView()
@@ -50,13 +52,32 @@ final class MoviesListViewController: UIViewController, MoviesListView, ShowMovi
 
         return collectionView
     }()
+    
+    lazy var searchBar: UISearchBar = {
+        
+        let searchBar = UISearchBar(frame: .zero)
+        searchBar.translatesAutoresizingMaskIntoConstraints = false
+        searchBar.barTintColor = UIColor.Bootcamp.yellow
+        searchBar.layer.borderWidth = 1
+        searchBar.layer.borderColor = UIColor.Bootcamp.yellow.cgColor
+        
+        return searchBar
+    }()
 
+    // MARK: Scene components
+    
     lazy var dataSource: MoviesListDataSource = {
 
         let dataSource = MoviesListDataSource(collectionView: collectionView)
         dataSource.didSelectItem = self.movieSelected
         
         return dataSource
+    }()
+    
+    lazy var searchBarDelegate: SearchBarDelegate = {
+       
+        let searchBarDelegate = SearchBarDelegate(searchBar: searchBar)
+        return searchBarDelegate
     }()
 
     var listInteractor: MoviesListInteractorType?
@@ -131,6 +152,7 @@ final class MoviesListViewController: UIViewController, MoviesListView, ShowMovi
 
     private func setupViewHierarchy() {
 
+        view.addSubview(searchBar)
         view.addSubview(collectionView)
         view.addSubview(activityIndicator)
         view.addSubview(errorView)
@@ -138,8 +160,14 @@ final class MoviesListViewController: UIViewController, MoviesListView, ShowMovi
 
     private func setupConstraints() {
 
-        collectionView
+        searchBar
             .topAnchor(equalTo: view.topAnchor)
+            .heightAnchor(equalTo: 48.0)
+            .leadingAnchor(equalTo: view.leadingAnchor)
+            .trailingAnchor(equalTo: view.trailingAnchor)
+        
+        collectionView
+            .topAnchor(equalTo: searchBar.bottomAnchor)
             .bottomAnchor(equalTo: view.bottomAnchor)
             .trailingAnchor(equalTo: view.trailingAnchor)
             .leadingAnchor(equalTo: view.leadingAnchor)
