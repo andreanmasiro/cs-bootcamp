@@ -13,9 +13,25 @@ final class MoviesListDataSource: NSObject, UICollectionViewDataSource, UICollec
     private unowned let collectionView: UICollectionView
     
     var didSelectItem: ((Int) -> ())?
+    var searchPredicate: String = "" {
+        didSet {
+            if oldValue != searchPredicate {
+                collectionView.reloadData()
+            }
+        }
+    }
+    
     var viewModels: [MovieCollectionViewCell.ViewModel] = [] {
         didSet {
             collectionView.reloadData()
+        }
+    }
+    
+    private var filteredViewModels: [MovieCollectionViewCell.ViewModel] {
+        
+        return searchPredicate.isEmpty ? viewModels :
+            viewModels.filter { viewModel in
+                viewModel.title.lowercased().contains(self.searchPredicate.lowercased())
         }
     }
     
@@ -36,13 +52,13 @@ final class MoviesListDataSource: NSObject, UICollectionViewDataSource, UICollec
     // Mark: UICollectionViewDataSource conforms
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return viewModels.count
+        return filteredViewModels.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(MovieCollectionViewCell.self, for: indexPath)!
-        cell.setup(viewModel: viewModels[indexPath.item])
+        cell.setup(viewModel: filteredViewModels[indexPath.item])
         
         return cell
     }
