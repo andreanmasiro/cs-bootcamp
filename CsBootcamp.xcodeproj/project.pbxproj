@@ -305,8 +305,8 @@
 		6E183640206D4F710004F03B /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				6E141C0B2065AE760047D3A6 /* MovieDetailDataSource.swift */,
 				6E141C092065A9780047D3A6 /* MovieDetailViewController.swift */,
+				6E141C0B2065AE760047D3A6 /* MovieDetailDataSource.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
