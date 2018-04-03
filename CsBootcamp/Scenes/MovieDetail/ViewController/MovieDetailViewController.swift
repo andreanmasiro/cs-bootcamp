@@ -16,7 +16,9 @@ protocol MovieDetailInteractorType {
 final class MovieDetailViewController: UIViewController, MovieDetailView {
     
     lazy var tableView: UITableView = {
-        let tableView = UITableView(frame: .zero)
+        let tableView = UITableView.init(frame: .zero, style: .grouped)
+        
+        tableView.estimatedSectionHeaderHeight = 1
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.backgroundColor = .clear
         tableView.estimatedRowHeight = 150

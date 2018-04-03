@@ -13,23 +13,13 @@ protocol ShowMovieDetailNavigator: class {
 
 final class MoviesListShowDetailInteractor: MoviesListShowDetailInteractorType {
     
-    private let moviesListGateway: MoviesListGateway
     private weak var showMovieDetailNavigator: ShowMovieDetailNavigator?
     
-    init(moviesListGateway: MoviesListGateway, showMovieDetailNavigator: ShowMovieDetailNavigator) {
-        self.moviesListGateway = moviesListGateway
+    init(showMovieDetailNavigator: ShowMovieDetailNavigator) {
         self.showMovieDetailNavigator = showMovieDetailNavigator
     }
     
-    func showDetail(forMovieAt index: Int) {
-        
-        moviesListGateway.fetchMovies(page: 1) { [weak self] result in
-            
-            if case .success(let movies) = result {
-                
-                let movie = movies[index]
-                self?.showMovieDetailNavigator?.navigate(toDetailOf: movie)
-            }
-        }
+    func showDetail(forMovie movie: Movie) {
+        showMovieDetailNavigator?.navigate(toDetailOf: movie)
     }
 }
