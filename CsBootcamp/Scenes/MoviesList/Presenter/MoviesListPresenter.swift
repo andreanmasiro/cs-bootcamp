@@ -38,6 +38,6 @@ final class MoviesListPresenter: MoviesListPresenterType {
     
     func presentError() {
         
-        view.displayError(viewModel: MoviesListErrorViewModel())
+        view.displayError(viewModel: MoviesListErrorViewModel.defaultError)
     }
 }
