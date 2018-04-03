@@ -22,15 +22,15 @@ final class MoviesListMoyaGateway: MoviesListGateway {
         
         return decoder
     }()
-    
-    func fetchMovies(_ completion: @escaping (Result<[Movie]>) -> ()) {
+     
+    func fetchMovies(page: Int, _ completion: @escaping (Result<[Movie]>) -> ()) {
         
         if let cachedMovies = cachedMovies {
 
             completion(.success(cachedMovies))
         } else {
             
-            provider.requestDecodable(.popular, jsonDecoder: jsonDecoder) { [weak self] (result: Result<MovieList>) in
+            provider.requestDecodable(.popular(page), jsonDecoder: jsonDecoder) { [weak self] (result: Result<MovieList>) in
                 
                 let result = result.map { moviesList in moviesList.results }
                 self?.cacheMovies(from: result)
