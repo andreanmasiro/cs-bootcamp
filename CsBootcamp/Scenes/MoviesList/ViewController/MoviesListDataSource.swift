@@ -14,17 +14,14 @@ protocol ScrollNotification: class {
 
 final class MoviesListDataSource: NSObject, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
-    private unowned let collectionView: UICollectionView
-    private let cellBuffer: CGFloat = 2
-    private let cellHeight: CGFloat = MovieCollectionViewCell.cellSize.height
-    private let moviesToAdd = 20
+    private weak var collectionView: UICollectionView?
     
     weak var scrollNotificationDelegate: ScrollNotification?
     
     var didSelectItem: ((Int) -> ())?
     var viewModels: [MovieCollectionViewCell.ViewModel] = [] {
         didSet {
-            collectionView.reloadData()
+            collectionView?.reloadData()
         }
     }
     
@@ -67,29 +64,19 @@ final class MoviesListDataSource: NSObject, UICollectionViewDataSource, UICollec
         didSelectItem?(indexPath.item)
     }
     
-    // Mark: Pagination
+    // MARK: Pagination
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
+        let cellBuffer: CGFloat = 1
+        let cellHeight: CGFloat = MovieCollectionViewCell.cellSize.height
+        
         let top: CGFloat = 0
-        let bottom: CGFloat = scrollView.contentSize.height - scrollView.frame.size.height
-        let buffer: CGFloat = cellBuffer * cellHeight
+        let bottomOffset = scrollView.contentSize.height - scrollView.frame.size.height
+        let heightBuffer = cellBuffer * cellHeight
         let scrollPosition = scrollView.contentOffset.y
         
-        if scrollPosition > bottom - buffer {
+        if scrollPosition > bottomOffset - heightBuffer {
             scrollNotificationDelegate?.didArriveScrollEnd()
-            collectionView.contentOffset.y -= CGFloat(moviesToAdd) * cellHeight
-        }
-        else if  scrollPosition < top + buffer {
-            // Add more dates to the top
         }
     }
 }
-
-
-
-
-
-
-
-
-
