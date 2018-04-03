@@ -84,6 +84,7 @@
 		BA18252C206C0E27004405A3 /* MoviesListErrorViewModel+Equatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA18252B206C0E27004405A3 /* MoviesListErrorViewModel+Equatable.swift */; };
 		BA18252E206C0E52004405A3 /* MoviesListViewModel+Equatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA18252D206C0E52004405A3 /* MoviesListViewModel+Equatable.swift */; };
 		BA182530206C0E87004405A3 /* MoviesListCollectionViewCellViewModel+Equatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA18252F206C0E87004405A3 /* MoviesListCollectionViewCellViewModel+Equatable.swift */; };
+		BAF652742073E8A500EBED1D /* SearchBarDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF652732073E8A500EBED1D /* SearchBarDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -180,6 +181,7 @@
 		BA18252B206C0E27004405A3 /* MoviesListErrorViewModel+Equatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MoviesListErrorViewModel+Equatable.swift"; sourceTree = "<group>"; };
 		BA18252D206C0E52004405A3 /* MoviesListViewModel+Equatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MoviesListViewModel+Equatable.swift"; sourceTree = "<group>"; };
 		BA18252F206C0E87004405A3 /* MoviesListCollectionViewCellViewModel+Equatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MoviesListCollectionViewCellViewModel+Equatable.swift"; sourceTree = "<group>"; };
+		BAF652732073E8A500EBED1D /* SearchBarDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarDelegate.swift; sourceTree = "<group>"; };
 		BE639853DA6EBD308ABAC9B7 /* Pods-CsBootcampTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CsBootcampTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-CsBootcampTests/Pods-CsBootcampTests.release.xcconfig"; sourceTree = "<group>"; };
 		E1A9535DD426540AEFEC436E /* Pods_CsBootcampTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CsBootcampTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E60CDA6EB0A88BE06BB3DF01 /* Pods-CsBootcampTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CsBootcampTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CsBootcampTests/Pods-CsBootcampTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -603,6 +605,7 @@
 				BA1824AE20655E83004405A3 /* MoviesListViewController.swift */,
 				BA1824B02065608D004405A3 /* MoviesListDataSource.swift */,
 				BA18250D206AFBC9004405A3 /* MoviesListViewModel.swift */,
+				BAF652732073E8A500EBED1D /* SearchBarDelegate.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -839,7 +842,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		C1AFE928551801A1E77FB2C7 /* [CP] Check Pods Manifest.lock */ = {
@@ -857,7 +860,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		EC1C273A802984C6C75926AE /* [CP] Embed Pods Frameworks */ = {
@@ -932,6 +935,7 @@
 				6E141C12206933F20047D3A6 /* MovieTextTableViewCell.swift in Sources */,
 				BA182504206AD87D004405A3 /* MoviesListGateway.swift in Sources */,
 				BA18250B206AE879004405A3 /* Moya+Decodable.swift in Sources */,
+				BAF652742073E8A500EBED1D /* SearchBarDelegate.swift in Sources */,
 				BA1824AF20655E83004405A3 /* MoviesListViewController.swift in Sources */,
 				BA0867EC206D87B200CDA3D9 /* MoviesListShowDetailInteractor.swift in Sources */,
 				BA1824C7206589B5004405A3 /* UIView+ReusableView.swift in Sources */,
