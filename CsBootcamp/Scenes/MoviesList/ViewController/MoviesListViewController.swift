@@ -11,6 +11,7 @@ import UIKit
 final class MoviesListViewController: UIViewController, MoviesListView, ShowMovieDetailNavigator, ScrollNotification {
 
     private var page = 1
+    private var state: State = .list([])
     
     lazy var errorView: MovieListErrorView = {
        
@@ -91,9 +92,12 @@ final class MoviesListViewController: UIViewController, MoviesListView, ShowMovi
     }
     
     func didArriveScrollEnd() {
-        page += 1
-        fetchMovies(at: page)
-        collectionView.reloadData()
+        
+        if case .list = state {
+            page += 1
+            fetchMovies(at: page)
+            collectionView.reloadData()
+        }
     }
 
     private func fetchMovies(at page: Int) {
@@ -132,6 +136,7 @@ final class MoviesListViewController: UIViewController, MoviesListView, ShowMovi
 
     private func setup(state: State) {
 
+        self.state = state
         if case let .list(viewModels) = state {
 
             dataSource.viewModels = viewModels
