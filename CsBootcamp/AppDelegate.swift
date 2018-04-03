@@ -20,14 +20,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         navigationController.navigationBar.barTintColor = UIColor.Bootcamp.yellow
         navigationController.navigationBar.tintColor = UIColor.black
         navigationController.navigationBar.isTranslucent = false
-        let screen = UIScreen.main
         
-        let window = UIWindow(frame: screen.bounds)
+        let window = UIWindow(frame: UIScreen.main.bounds)
         window.rootViewController = navigationController
         window.backgroundColor = UIColor.white
         window.makeKeyAndVisible()
         
+        setupSearchBarAppearance()
+        
         self.window = window
         return true
+    }
+    
+    private func setupSearchBarAppearance() {
+        
+        let textFieldAppearance = UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self])
+        textFieldAppearance.backgroundColor = UIColor.Bootcamp.darkYellow
+        
+        let cancelButtonAppearance = UIBarButtonItem.appearance(whenContainedInInstancesOf: [UISearchBar.self])
+        cancelButtonAppearance.tintColor = UIColor.Bootcamp.darkBlue
     }
 }
