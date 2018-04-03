@@ -34,7 +34,6 @@ final class FavoritesListDataSource: NSObject, UITableViewDataSource, UITableVie
         tableView.register(FavoriteTableViewCell.self)
     }
     
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         return viewModels.count
@@ -47,6 +46,23 @@ final class FavoritesListDataSource: NSObject, UITableViewDataSource, UITableVie
         
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        
+        let unfavoriteAction = UITableViewRowAction(style: .destructive, title: "Unfavorite") { (action, indexPath) in
+            self.viewModels.remove(at: indexPath.row)
+        }
+        
+        return [unfavoriteAction]
+    }
+
+    
+    // MARK: - UITableView Delegate
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         

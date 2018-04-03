@@ -14,6 +14,7 @@ final class FavoritesListViewController: UIViewController {
         
         let tableView = UITableView(frame: .zero, style: .grouped)
         
+        tableView.allowsMultipleSelectionDuringEditing = false
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.backgroundColor = .clear
         tableView.estimatedSectionHeaderHeight = 1
