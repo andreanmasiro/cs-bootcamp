@@ -8,8 +8,10 @@
 
 import UIKit
 
-final class MoviesListViewController: UIViewController, MoviesListView, ShowMovieDetailNavigator {
+final class MoviesListViewController: UIViewController, MoviesListView, ShowMovieDetailNavigator, ScrollNotification {
 
+    private var page = 1
+    
     lazy var errorView: MovieListErrorView = {
        
         let errorView = MovieListErrorView()
@@ -70,7 +72,8 @@ final class MoviesListViewController: UIViewController, MoviesListView, ShowMovi
 
         super.init(nibName: nil, bundle: nil)
         title = "Movies"
-
+        
+        dataSource.scrollNotificationDelegate = self
         setupViewHierarchy()
         setupConstraints()
 
@@ -78,15 +81,25 @@ final class MoviesListViewController: UIViewController, MoviesListView, ShowMovi
     }
 
     override func viewWillAppear(_ animated: Bool) {
-
         super.viewWillAppear(animated)
-        fetchMovies()
+        
+        fetchMovies(at: page)
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        page = 1
+    }
+    
+    func didArriveScrollEnd() {
+        page += 1
+        fetchMovies(at: page)
+        collectionView.reloadData()
     }
 
-    private func fetchMovies() {
+    private func fetchMovies(at page: Int) {
 
         setup(state: .loading)
-        listInteractor?.fetchMovies()
+        listInteractor?.fetchMovies(page: page)
     }
     
     private func movieSelected(at index: Int) {
