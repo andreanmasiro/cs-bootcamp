@@ -15,7 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
         let moviesListViewController = MoviesListSceneFactory.make()
-        let favoritesListViewController = FavoritesListViewController()
+        let favoritesListViewController = FavoritesListSceneFactory.make()
         
         let moviesNavigationController = UINavigationControllerFactory.make(with: moviesListViewController)
         let favoritesNavigationController = UINavigationControllerFactory.make(with: favoritesListViewController)

@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class FavoritesListViewController: UIViewController {
+final class FavoritesListViewController: UIViewController, FavoritesListView {
     
     lazy var tableView: UITableView = {
         
@@ -21,6 +21,8 @@ final class FavoritesListViewController: UIViewController {
         
         return tableView
     }()
+    
+    var interactor: FavoritesListInteractorType?
     
     lazy var dataSource: FavoritesListDataSource = {
        
@@ -48,17 +50,18 @@ final class FavoritesListViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        fetchFavorites()
+        interactor?.fetchFavorites()
     }
     
-    private func fetchFavorites() {
-        
-        let viewModel = FavoriteTableViewCell.ViewModel(posterUrl: URL(string: "https://ia.media-imdb.com/images/M/MV5BMjQ1MzcxNjg4N15BMl5BanBnXkFtZTgwNzgwMjY4MzI@._V1_SY1000_CR0,0,675,1000_AL_.jpg")!, title: "Star Wars - The Last Jedi", releaseDate: "2017", overview: "Rey develops her newly discovered abilities with the guidance of Luke Skywalker, who is unsettled by the strength of her powers. Meanwhile, the Resistance prepares for battle with the First Order.")
-        
-        let viewModels = [viewModel, viewModel, viewModel]
+    // MARK: FavoritesListView Protocol
+    
+    func displayFavorites(viewModels: [FavoriteTableViewCell.ViewModel]) {
         
         setup(state: .list(viewModels))
     }
+    
+    
+    // MARK: Setups
     
     private func setup(state: State) {
         
