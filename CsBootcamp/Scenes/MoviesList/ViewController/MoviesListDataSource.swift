@@ -8,15 +8,15 @@
 
 import UIKit
 
-protocol ScrollNotification: class {
-    func didArriveScrollEnd()
+protocol ScrollEventListener: class {
+    func didReachToScrollBottom()
 }
 
 final class MoviesListDataSource: NSObject, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     private weak var collectionView: UICollectionView?
     private weak var indicatorView: UIActivityIndicatorView?
-    weak var scrollNotificationDelegate: ScrollNotification?
+    weak var scrollEventListener: ScrollEventListener?
     
     var didSelectItem: ((Int) -> ())?
     var viewModels: [MovieCollectionViewCell.ViewModel] = [] {
@@ -99,7 +99,7 @@ final class MoviesListDataSource: NSObject, UICollectionViewDataSource, UICollec
         let scrollPosition = scrollView.contentOffset.y
                 
         if scrollPosition > bottomOffset - heightBuffer {
-            scrollNotificationDelegate?.didArriveScrollEnd()
+            scrollEventListener?.didReachToScrollBottom()
         }
     }
 }

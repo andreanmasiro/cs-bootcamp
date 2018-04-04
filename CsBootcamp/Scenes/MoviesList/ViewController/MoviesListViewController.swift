@@ -8,8 +8,8 @@
 
 import UIKit
 
-final class MoviesListViewController: UIViewController, MoviesListView, ShowMovieDetailNavigator, ScrollNotification {
-
+final class MoviesListViewController: UIViewController, MoviesListView, ShowMovieDetailNavigator, ScrollEventListener {
+    
     private var page = 1
     private var state: State = .list([])
     
@@ -74,7 +74,7 @@ final class MoviesListViewController: UIViewController, MoviesListView, ShowMovi
         super.init(nibName: nil, bundle: nil)
         title = "Movies"
         
-        dataSource.scrollNotificationDelegate = self
+        dataSource.scrollEventListener = self
         setupViewHierarchy()
         setupConstraints()
 
@@ -90,9 +90,8 @@ final class MoviesListViewController: UIViewController, MoviesListView, ShowMovi
     override func viewDidDisappear(_ animated: Bool) {
         page = 1
     }
-    
-    func didArriveScrollEnd() {
         
+    func didReachToScrollBottom() {
         if case .list = state {
             page += 1
             fetchMovies(at: page)
