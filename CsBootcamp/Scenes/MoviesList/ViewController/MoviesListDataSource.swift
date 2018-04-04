@@ -70,7 +70,6 @@ final class MoviesListDataSource: NSObject, UICollectionViewDataSource, UICollec
         let cellBuffer: CGFloat = 1
         let cellHeight: CGFloat = MovieCollectionViewCell.cellSize.height
         
-        let top: CGFloat = 0
         let bottomOffset = scrollView.contentSize.height - scrollView.frame.size.height
         let heightBuffer = cellBuffer * cellHeight
         let scrollPosition = scrollView.contentOffset.y

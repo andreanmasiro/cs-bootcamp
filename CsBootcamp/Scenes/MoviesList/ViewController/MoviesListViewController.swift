@@ -96,7 +96,6 @@ final class MoviesListViewController: UIViewController, MoviesListView, ShowMovi
         if case .list = state {
             page += 1
             fetchMovies(at: page)
-            collectionView.reloadData()
         }
     }
 
