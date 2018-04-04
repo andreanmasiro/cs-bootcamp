@@ -14,10 +14,10 @@ import CoreData
 extension MovieCoreData {
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<MovieCoreData> {
-        return NSFetchRequest<MovieCoreData>(entityName: "MovieCoreData")
+        return NSFetchRequest<MovieCoreData>(entityName: entityName)
     }
 
-    @NSManaged public var id: Int32
+    @NSManaged public var id: Int
     @NSManaged public var title: String
     @NSManaged public var overview: String
     @NSManaged public var releaseDate: Date
