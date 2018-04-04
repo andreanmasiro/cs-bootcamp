@@ -12,7 +12,8 @@ import CoreData
 final class FavoriteMoviesListCoreDataGateway: FavoriteMoviesListGateway {
     
     enum Error: Swift.Error {
-        case addError
+        case invalidEntityDescription
+        case genresNotFound
     }
     
     private let coreDataStack: CoreDataStack
@@ -23,20 +24,29 @@ final class FavoriteMoviesListCoreDataGateway: FavoriteMoviesListGateway {
     
     func addMovie(_ movie: Movie, _ completion: @escaping (Result<Void>) -> ()) {
         
-        guard let movieCoreData = NSEntityDescription.insertNewObject(forEntityName: "MovieCoreData", into: coreDataStack.context) as? MovieCoreData else {
-            completion(.failure(Error.addError))
+        guard let movieCoreData = NSEntityDescription.insertNewObject(ofType: MovieCoreData.self, into: coreDataStack.context) else {
+            completion(.failure(Error.invalidEntityDescription))
             return
         }
-        movieCoreData.id = Int32(movie.id)
-        movieCoreData.title = movie.title
-        movieCoreData.overview = movie.overview
-        movieCoreData.posterPath = movie.posterPath
-        movieCoreData.genres = []
-        movieCoreData.releaseDate = movie.releaseDate
         
-        coreDataStack.saveContext()
-        
-        completion(.success(()))
+        fetchGenres(withIds: movie.genreIds) { result in
+            
+            guard case let .success(genres) = result else {
+                
+                completion(.failure(Error.genresNotFound))
+                return
+            }
+            
+            movieCoreData.id = movie.id
+            movieCoreData.title = movie.title
+            movieCoreData.overview = movie.overview
+            movieCoreData.posterPath = movie.posterPath
+            movieCoreData.addToGenres(NSOrderedSet(array: genres))
+            movieCoreData.releaseDate = movie.releaseDate
+            
+            coreDataStack.saveContext()
+            completion(.success(()))
+        }
     }
     
     func removeMovie(_ movie: Movie, _ completion: @escaping (Result<Void>) -> ()) {
@@ -68,7 +78,7 @@ final class FavoriteMoviesListCoreDataGateway: FavoriteMoviesListGateway {
                     id: Int(movieCoreData.id),
                     genreIds: movieCoreData.genres.map {
                         genre in
-                        Int((genre as! GenreCoreData).id)
+                        (genre as! GenreCoreData).id
                     },
                     title: movieCoreData.title,
                     overview: movieCoreData.overview,
@@ -77,7 +87,6 @@ final class FavoriteMoviesListCoreDataGateway: FavoriteMoviesListGateway {
                 )
             }
             completion(.success(movies))
-            
         } catch {
             completion(.failure(error))
         }
@@ -92,6 +101,21 @@ final class FavoriteMoviesListCoreDataGateway: FavoriteMoviesListGateway {
         do {
             let count = try coreDataStack.context.count(for: request)
             completion(.success(count > 0))
+        } catch {
+            completion(.failure(error))
+        }
+    }
+    
+    private func fetchGenres(withIds ids: [Int], _ completion: (Result<[GenreCoreData]>) -> ()) {
+        
+        let request: NSFetchRequest<GenreCoreData> = GenreCoreData.fetchRequest()
+        let predicate = NSPredicate(format: "id IN %@", ids)
+        request.predicate = predicate
+        
+        do {
+            let genresCoreData = try coreDataStack.context.fetch(request)
+            completion(.success(genresCoreData))
+            
         } catch {
             completion(.failure(error))
         }
