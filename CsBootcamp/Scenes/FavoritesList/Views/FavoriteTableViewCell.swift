@@ -25,7 +25,7 @@ final class FavoriteTableViewCell: UITableViewCell {
     
     lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.boldSystemFont(ofSize: 19)
+        label.font = UIFont.boldSystemFont(ofSize: CGFloat(18).proportionalToWidth)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 2
         
@@ -34,7 +34,7 @@ final class FavoriteTableViewCell: UITableViewCell {
     
     lazy var releaseDateLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 17, weight: .light)
+        label.font = UIFont.systemFont(ofSize: CGFloat(17).proportionalToWidth, weight: .light)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .right
         
@@ -43,7 +43,7 @@ final class FavoriteTableViewCell: UITableViewCell {
     
     lazy var overviewLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 14, weight: .ultraLight)
+        label.font = UIFont.systemFont(ofSize: CGFloat(14).proportionalToWidth, weight: .ultraLight)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 3
         
@@ -86,22 +86,20 @@ final class FavoriteTableViewCell: UITableViewCell {
             .widthAnchor(equalTo: posterImageView.heightAnchor, multiplier: 0.8)
         
         titleLabel
-            .topAnchor(equalTo: contentView.topAnchor, constant: 16)
-            .leadingAnchor(equalTo: posterImageView.trailingAnchor, constant: 8)
+            .topAnchor(equalTo: contentView.topAnchor, constant: CGFloat(16).proportionalToWidth)
+            .leadingAnchor(equalTo: posterImageView.trailingAnchor, constant: CGFloat(8).proportionalToWidth)
     
     titleLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         
         overviewLabel
-            .topAnchor(equalTo: titleLabel.bottomAnchor, constant: 16)
+            .topAnchor(equalTo: titleLabel.bottomAnchor, constant: CGFloat(8).proportionalToWidth)
             .leadingAnchor(equalTo: titleLabel.leadingAnchor)
             .trailingAnchor(equalTo: contentView.trailingAnchor, constant: -8)
         
         releaseDateLabel
             .topAnchor(equalTo: titleLabel.topAnchor)
-            .trailingAnchor(equalTo: contentView.trailingAnchor, constant: -8)
-            .leadingAnchor(equalTo: titleLabel.trailingAnchor, constant: 8)
-        
-    
+            .trailingAnchor(equalTo: contentView.trailingAnchor, constant: CGFloat(-8).proportionalToWidth)
+            .leadingAnchor(equalTo: titleLabel.trailingAnchor, constant: CGFloat(8).proportionalToWidth)
         
     }
 }
