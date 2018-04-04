@@ -56,7 +56,7 @@ final class MoviesListViewController: UIViewController, MoviesListView, ShowMovi
 
     lazy var dataSource: MoviesListDataSource = {
 
-        let dataSource = MoviesListDataSource(collectionView: collectionView)
+        let dataSource = MoviesListDataSource(collectionView: collectionView, indicatorView: activityIndicator)
         dataSource.didSelectItem = self.movieSelected
         
         return dataSource
@@ -144,8 +144,10 @@ final class MoviesListViewController: UIViewController, MoviesListView, ShowMovi
             errorView.setup(viewModel: viewModel)
         }
 
+        // MARK: INDICATOR
         collectionView.isHidden = state.hidesCollectionView
         activityIndicator.setAnimating(state.animatesActivityIndicator)
+        
         errorView.isHidden = state.hidesErrorView
     }
 
@@ -187,8 +189,8 @@ extension MoviesListViewController {
         var hidesCollectionView: Bool {
 
             switch self {
-            case .list: return false
-            case .loading, .error: return true
+            case .list, .loading: return false
+            case .error: return true
             }
         }
 

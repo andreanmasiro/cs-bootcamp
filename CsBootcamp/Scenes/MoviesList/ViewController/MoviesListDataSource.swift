@@ -15,7 +15,7 @@ protocol ScrollNotification: class {
 final class MoviesListDataSource: NSObject, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     private weak var collectionView: UICollectionView?
-    
+    private weak var indicatorView: UIActivityIndicatorView?
     weak var scrollNotificationDelegate: ScrollNotification?
     
     var didSelectItem: ((Int) -> ())?
@@ -25,21 +25,23 @@ final class MoviesListDataSource: NSObject, UICollectionViewDataSource, UICollec
         }
     }
     
-    init(collectionView: UICollectionView) {
+    init(collectionView: UICollectionView, indicatorView: UIActivityIndicatorView) {
         
         self.collectionView = collectionView
+        self.indicatorView = indicatorView
         super.init()
         registerCells(in: collectionView)
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.reloadData()
     }
-        
+    
     private func registerCells(in collectionView: UICollectionView) {
         collectionView.register(MovieCollectionViewCell.self)
+        collectionView.register(SpinnerMovieListFooter.self, forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: "footer")
     }
     
-    // Mark: UICollectionViewDataSource conforms
+    // MARK: UICollectionViewDataSource conforms
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return viewModels.count
@@ -53,7 +55,7 @@ final class MoviesListDataSource: NSObject, UICollectionViewDataSource, UICollec
         return cell
     }
     
-    // Mark: UICollectionViewDelegateFlowLayout conforms
+    // MARK: UICollectionViewDelegateFlowLayout conforms
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
@@ -64,7 +66,29 @@ final class MoviesListDataSource: NSObject, UICollectionViewDataSource, UICollec
         didSelectItem?(indexPath.item)
     }
     
+    // MARK: Loading footer
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        
+        switch kind {
+        case UICollectionElementKindSectionFooter:
+            let footer = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionFooter, withReuseIdentifier: "footer", for: indexPath) as! SpinnerMovieListFooter
+            if let indicatorView = indicatorView {
+                footer.setup(activityIndicator: indicatorView)
+            }
+            return footer
+        default:
+             return UICollectionReusableView()
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
+
+        return CGSize(width: collectionView.bounds.size.width, height: 55)
+    }
+    
     // MARK: Pagination
+    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
         let cellBuffer: CGFloat = 1
@@ -73,7 +97,7 @@ final class MoviesListDataSource: NSObject, UICollectionViewDataSource, UICollec
         let bottomOffset = scrollView.contentSize.height - scrollView.frame.size.height
         let heightBuffer = cellBuffer * cellHeight
         let scrollPosition = scrollView.contentOffset.y
-        
+                
         if scrollPosition > bottomOffset - heightBuffer {
             scrollNotificationDelegate?.didArriveScrollEnd()
         }
