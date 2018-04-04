@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Movie: Codable {
+struct Movie: Decodable {
     
     let id: Int
     let genreIds: [Int]
@@ -16,24 +16,4 @@ struct Movie: Codable {
     let overview: String
     let releaseDate: Date
     let posterPath: String
-    
-    init(id: Int, genreIds: [Int], title: String, overview: String, releaseDate: Date, posterPath: String) {
-        
-        self.id = id
-        self.genreIds = genreIds
-        self.title = title
-        self.overview = overview
-        self.releaseDate = releaseDate
-        self.posterPath = posterPath
-    }
-    
-    enum CodingKeys: String, CodingKey {
-        
-        case id
-        case genreIds = "genre_ids"
-        case title
-        case overview
-        case releaseDate = "release_date"
-        case posterPath = "poster_path"
-    }
 }
