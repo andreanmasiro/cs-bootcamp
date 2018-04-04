@@ -32,8 +32,9 @@ class MoviePosterTableViewCell: UITableViewCell {
     }()
     
     lazy var favoriteButton: UIButton = {
-        let button = UIButton()
+        let button = UIButton(type: .custom)
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.setImage(#imageLiteral(resourceName: "favorite_gray_icon"), for: .normal)
         
         return button
     }()
@@ -57,6 +58,7 @@ class MoviePosterTableViewCell: UITableViewCell {
     private func setupViewHierarchy() {
         contentView.addSubview(posterImageView)
         contentView.addSubview(titleLabel)
+        contentView.addSubview(favoriteButton)
     }
     
     private func setupConstraints() {
@@ -70,7 +72,12 @@ class MoviePosterTableViewCell: UITableViewCell {
             .heightAnchor(equalTo: heightAnchor, multiplier: 0.2)
             .bottomAnchor(equalTo: contentView.bottomAnchor)
             .leadingAnchor(equalTo: contentView.leadingAnchor, constant: 16)
-            .trailingAnchor(equalTo: contentView.trailingAnchor, constant: 8)
+            .trailingAnchor(equalTo: contentView.trailingAnchor, constant: -40)
+        
+        favoriteButton
+            .topAnchor(equalTo: posterImageView.bottomAnchor)
+            .bottomAnchor(equalTo: contentView.bottomAnchor)
+            .trailingAnchor(equalTo: contentView.trailingAnchor, constant: -16)
     }
 }
 
