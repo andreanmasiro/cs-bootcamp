@@ -82,5 +82,19 @@ final class FavoriteMoviesListCoreDataGateway: FavoriteMoviesListGateway {
             completion(.failure(error))
         }
     }
+    
+    func isMovieFavorite(_ movie: Movie, _ completion: @escaping (Result<Bool>) -> ()) {
+        
+        let request: NSFetchRequest<MovieCoreData> = MovieCoreData.fetchRequest()
+        let predicate = NSPredicate(format: "id == %d", movie.id)
+        request.predicate = predicate
+        
+        do {
+            let count = try coreDataStack.context.count(for: request)
+            completion(.success(count > 0))
+        } catch {
+            completion(.failure(error))
+        }
+    }
 }
 
