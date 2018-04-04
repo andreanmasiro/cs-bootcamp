@@ -30,8 +30,7 @@ final class MoviesListInteractor: MoviesListInteractorType {
         return movies[index]
     }
     
-    func fetchMovies(page: Int) {
-        print(page)
+    func fetchMovies(from page: Int) {
         moviesListGateway.fetchMovies(page: page) { [weak self] result in
     
             guard let `self` = self else { return }

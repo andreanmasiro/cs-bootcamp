@@ -38,7 +38,7 @@ final class MoviesListDataSource: NSObject, UICollectionViewDataSource, UICollec
     
     private func registerCells(in collectionView: UICollectionView) {
         collectionView.register(MovieCollectionViewCell.self)
-        collectionView.register(SpinnerMovieListFooter.self, forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: "footer")
+        collectionView.register(SpinnerMovieListFooter.self, forSupplementaryViewOfKind: UICollectionElementKindSectionFooter)
     }
     
     // MARK: UICollectionViewDataSource conforms
@@ -72,7 +72,9 @@ final class MoviesListDataSource: NSObject, UICollectionViewDataSource, UICollec
         
         switch kind {
         case UICollectionElementKindSectionFooter:
-            let footer = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionFooter, withReuseIdentifier: "footer", for: indexPath) as! SpinnerMovieListFooter
+            
+            let footer = collectionView.dequeueReusableSupplementaryView(SpinnerMovieListFooter.self, ofKind: UICollectionElementKindSectionFooter, for: indexPath)!
+            
             if let indicatorView = indicatorView {
                 footer.setup(activityIndicator: indicatorView)
             }

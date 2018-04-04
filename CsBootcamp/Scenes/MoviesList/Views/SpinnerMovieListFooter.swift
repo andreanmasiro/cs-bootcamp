@@ -20,9 +20,6 @@ class SpinnerMovieListFooter: UICollectionReusableView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func awakeFromNib() {
-    }
-    
     func setup(activityIndicator: UIActivityIndicatorView) {
         setupViewHierarchy(activityIndicator: activityIndicator)
         setupConstraints(activityIndicator: activityIndicator)

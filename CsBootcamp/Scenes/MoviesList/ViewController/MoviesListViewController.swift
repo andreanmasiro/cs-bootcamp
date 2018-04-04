@@ -84,7 +84,7 @@ final class MoviesListViewController: UIViewController, MoviesListView, ShowMovi
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        fetchMovies(at: page)
+        fetchMovies(from: page)
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -94,14 +94,14 @@ final class MoviesListViewController: UIViewController, MoviesListView, ShowMovi
     func didReachToScrollBottom() {
         if case .list = state {
             page += 1
-            fetchMovies(at: page)
+            fetchMovies(from: page)
         }
     }
 
-    private func fetchMovies(at page: Int) {
+    private func fetchMovies(from page: Int) {
 
         setup(state: .loading)
-        listInteractor?.fetchMovies(page: page)
+        listInteractor?.fetchMovies(from: page)
     }
     
     private func movieSelected(at index: Int) {
