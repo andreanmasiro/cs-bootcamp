@@ -1,5 +1,5 @@
 //
-//  SpinnerMovieListFooter.swift
+//  ActivityIndicatorFooterView.swift
 //  CsBootcamp
 //
 //  Created by Lucas Nascimento on 04/04/2018.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SpinnerMovieListFooter: UICollectionReusableView {
+final class ActivityIndicatorFooterView: UICollectionReusableView {
     
     weak var activityIndicator: UIActivityIndicatorView?
     
