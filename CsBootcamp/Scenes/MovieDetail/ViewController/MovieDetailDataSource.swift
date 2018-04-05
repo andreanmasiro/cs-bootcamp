@@ -81,11 +81,13 @@ final class MovieDetailDataSource: NSObject, UITableViewDataSource, UITableViewD
         case 2:
             return MovieTextTableViewCell.cellHeight
         case 3:
-//            return MovieOverviewTableViewCell.cellSize
             return UITableViewAutomaticDimension
         default:
             return 0
         }
     }
     
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return CGFloat.leastNonzeroMagnitude
+    }
 }

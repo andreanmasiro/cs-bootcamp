@@ -16,6 +16,8 @@ protocol MoviesListPresenterType {
 
 final class MoviesListInteractor: MoviesListInteractorType {
     
+    private var movies = [Movie]()
+    
     private let presenter: MoviesListPresenterType
     private let moviesListGateway: MoviesListGateway
     
@@ -24,17 +26,24 @@ final class MoviesListInteractor: MoviesListInteractorType {
         self.moviesListGateway = moviesListGateway
     }
     
-    func fetchMovies() {
-     
-        moviesListGateway.fetchMovies { [weak self] result in
+    func movie(at index: Int) -> Movie {
+        return movies[index]
+    }
+    
+    func fetchMovies(from page: Int) {
+        moviesListGateway.fetchMovies(page: page) { [weak self] result in
+    
+            guard let `self` = self else { return }
             
             switch result {
                 
             case .success(let movies):
-                self?.presenter.presentMovies(movies)
+                self.movies.append(contentsOf: movies)
+                self.presenter.presentMovies(self.movies)
             case .failure(_):
-                 self?.presenter.presentError()
+                self.presenter.presentError()
             }
         }
     }
 }
+

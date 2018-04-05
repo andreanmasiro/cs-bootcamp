@@ -153,7 +153,7 @@ class MoviesListViewControllerSpec: QuickSpec {
                     }
                     
                     it("should return collection view hidden flag") {
-                        expect(state.hidesCollectionView).to(beTrue())
+                        expect(state.hidesCollectionView).to(beFalse())
                     }
                     
                     it("should return error view hidden flag") {
@@ -193,7 +193,14 @@ class MoviesListInteractorSpy: MoviesListInteractorType {
     
     var fetchMoviesCalled = false
     
-    func fetchMovies() {
+    func fetchMovies(from page: Int) {
         fetchMoviesCalled = true
     }
+    
+    func movie(at index: Int) -> Movie {
+        return Movie(id: 1, genreIds: [], title: "", overview: "", releaseDate: Date(), posterPath: "www.com")
+    }
+    
+    
+    
 }

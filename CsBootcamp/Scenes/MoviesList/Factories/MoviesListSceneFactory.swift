@@ -15,7 +15,7 @@ final class MoviesListSceneFactory {
         
         let moviesListGateway = MoviesListGatewayFactory.make()
         let listInteractor = MoviesListInteractor(presenter: presenter, moviesListGateway: moviesListGateway)
-        let showDetailInteractor = MoviesListShowDetailInteractor(moviesListGateway: moviesListGateway, showMovieDetailNavigator: viewController)
+        let showDetailInteractor = MoviesListShowDetailInteractor(showMovieDetailNavigator: viewController)
         
         viewController.listInteractor = listInteractor
         viewController.showDetailInteractor = showDetailInteractor
