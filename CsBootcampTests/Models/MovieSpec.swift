@@ -52,27 +52,6 @@ class MovieSpec: QuickSpec {
                     }
                 }
             }
-            
-            context("when initialized") {
-                
-                let id = 0
-                let genreIds = [1, 2]
-                let title = "title"
-                let overview = "overview"
-                let releaseDate = Date()
-                let posterPath = "/poster"
-                
-                let movie = Movie(id: id, genreIds: genreIds, title: title, overview: overview, releaseDate: releaseDate, posterPath: posterPath)
-                it("should store values correctly") {
-                    
-                    expect(movie.id) == id
-                    expect(movie.genreIds) == genreIds
-                    expect(movie.title) == title
-                    expect(movie.overview) == overview
-                    expect(movie.releaseDate) == releaseDate
-                    expect(movie.posterPath) == posterPath
-                }
-            }
         }
     }
 }
