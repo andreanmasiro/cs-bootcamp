@@ -12,6 +12,8 @@ final class FavoritesListDataSource: NSObject, UITableViewDataSource, UITableVie
     
     private weak var tableView: UITableView?
     
+    var didUnfavoritedItem: ((Int) -> ())?
+    
     var viewModels: [FavoriteTableViewCell.ViewModel] = [] {
         didSet {
             tableView?.reloadData()
@@ -55,6 +57,8 @@ final class FavoritesListDataSource: NSObject, UITableViewDataSource, UITableVie
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         
         let unfavoriteAction = UITableViewRowAction(style: .destructive, title: "Unfavorite") { (action, indexPath) in
+            
+            self.didUnfavoritedItem?(indexPath.item)
             self.viewModels.remove(at: indexPath.row)
         }
         
