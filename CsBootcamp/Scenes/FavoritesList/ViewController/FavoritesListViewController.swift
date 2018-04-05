@@ -27,6 +27,7 @@ final class FavoritesListViewController: UIViewController, FavoritesListView {
     lazy var dataSource: FavoritesListDataSource = {
        
         let dataSource = FavoritesListDataSource(tableView: tableView)
+        dataSource.didUnfavoritedItem = unfavoriteMovie
         
         return dataSource
     }()
@@ -51,6 +52,10 @@ final class FavoritesListViewController: UIViewController, FavoritesListView {
         super.viewWillAppear(animated)
         
         interactor?.fetchFavorites()
+    }
+    
+    func unfavoriteMovie(at index: Int) {
+        
     }
     
     // MARK: FavoritesListView Protocol
