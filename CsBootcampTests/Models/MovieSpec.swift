@@ -23,6 +23,7 @@ class MovieSpec: QuickSpec {
                 let dateFormatter = DateFormatter()
                 dateFormatter.dateFormat = "yyyy-MM-dd"
                 decoder.dateDecodingStrategy = .formatted(dateFormatter)
+                decoder.keyDecodingStrategy = .convertFromSnakeCase
                 
                 let bundle = Bundle(for: MovieSpec.self)
                 
