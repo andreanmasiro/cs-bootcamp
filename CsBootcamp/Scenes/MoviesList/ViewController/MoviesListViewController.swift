@@ -8,8 +8,11 @@
 
 import UIKit
 
-final class MoviesListViewController: UIViewController, MoviesListView, ShowMovieDetailNavigator {
-
+final class MoviesListViewController: UIViewController, MoviesListView, ShowMovieDetailNavigator, ScrollEventListener {
+    
+    private var page = 1
+    private var state: State = .list([])
+    
     lazy var errorView: MovieListErrorView = {
        
         let errorView = MovieListErrorView()
@@ -53,7 +56,7 @@ final class MoviesListViewController: UIViewController, MoviesListView, ShowMovi
 
     lazy var dataSource: MoviesListDataSource = {
 
-        let dataSource = MoviesListDataSource(collectionView: collectionView)
+        let dataSource = MoviesListDataSource(collectionView: collectionView, indicatorView: activityIndicator)
         dataSource.didSelectItem = self.movieSelected
         
         return dataSource
@@ -70,7 +73,8 @@ final class MoviesListViewController: UIViewController, MoviesListView, ShowMovi
 
         super.init(nibName: nil, bundle: nil)
         title = "Movies"
-
+        
+        dataSource.scrollEventListener = self
         setupViewHierarchy()
         setupConstraints()
 
@@ -78,19 +82,33 @@ final class MoviesListViewController: UIViewController, MoviesListView, ShowMovi
     }
 
     override func viewWillAppear(_ animated: Bool) {
-
         super.viewWillAppear(animated)
-        fetchMovies()
+        
+        fetchMovies(from: page)
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        page = 1
+    }
+        
+    func didReachToScrollBottom() {
+        if case .list = state {
+            page += 1
+            fetchMovies(from: page)
+        }
     }
 
-    private func fetchMovies() {
+    private func fetchMovies(from page: Int) {
 
         setup(state: .loading)
-        listInteractor?.fetchMovies()
+        listInteractor?.fetchMovies(from: page)
     }
     
     private func movieSelected(at index: Int) {
-        showDetailInteractor?.showDetail(forMovieAt: index)
+        
+        if let movie = listInteractor?.movie(at: index) {
+            self.showDetailInteractor?.showDetail(forMovie: movie)
+        }
     }
     
     // MARK: MoviesListView conforms
@@ -116,6 +134,7 @@ final class MoviesListViewController: UIViewController, MoviesListView, ShowMovi
 
     private func setup(state: State) {
 
+        self.state = state
         if case let .list(viewModels) = state {
 
             dataSource.viewModels = viewModels
@@ -124,8 +143,10 @@ final class MoviesListViewController: UIViewController, MoviesListView, ShowMovi
             errorView.setup(viewModel: viewModel)
         }
 
+        // MARK: INDICATOR
         collectionView.isHidden = state.hidesCollectionView
         activityIndicator.setAnimating(state.animatesActivityIndicator)
+        
         errorView.isHidden = state.hidesErrorView
     }
 
@@ -167,8 +188,8 @@ extension MoviesListViewController {
         var hidesCollectionView: Bool {
 
             switch self {
-            case .list: return false
-            case .loading, .error: return true
+            case .list, .loading: return false
+            case .error: return true
             }
         }
 
