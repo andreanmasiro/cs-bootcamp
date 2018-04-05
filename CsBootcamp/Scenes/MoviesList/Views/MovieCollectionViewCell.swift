@@ -13,7 +13,7 @@ class MovieCollectionViewCell: UICollectionViewCell {
     static var cellSize: CGSize {
         
         let width = CGFloat(160).proportionalToWidth
-        let height = width * 1.45
+        let height = width * 1.65
         
         return CGSize(width: width, height: height)
     }
@@ -36,8 +36,17 @@ class MovieCollectionViewCell: UICollectionViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
         label.textColor = UIColor.Bootcamp.yellow
+        label.numberOfLines = 2
         
         return label
+    }()
+    
+    lazy var favoriteButton: UIButton = {
+        let button = UIButton(type: .custom)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setImage(#imageLiteral(resourceName: "favorite_gray_icon"), for: .normal)
+        
+        return button
     }()
     
     override init(frame: CGRect) {
@@ -62,6 +71,7 @@ class MovieCollectionViewCell: UICollectionViewCell {
         
         contentView.addSubview(imageView)
         contentView.addSubview(titleLabel)
+        contentView.addSubview(favoriteButton)
     }
     
     private func setupConstraints() {
@@ -74,9 +84,14 @@ class MovieCollectionViewCell: UICollectionViewCell {
         
         titleLabel
             .topAnchor(equalTo: imageView.bottomAnchor)
-            .leadingAnchor(equalTo: contentView.leadingAnchor)
-            .trailingAnchor(equalTo: contentView.trailingAnchor)
+            .leadingAnchor(equalTo: contentView.leadingAnchor, constant: 16)
             .bottomAnchor(equalTo: contentView.bottomAnchor)
+            .trailingAnchor(equalTo: contentView.trailingAnchor, constant: -40)
+        
+        favoriteButton
+            .topAnchor(equalTo: imageView.bottomAnchor)
+            .bottomAnchor(equalTo: contentView.bottomAnchor)
+            .trailingAnchor(equalTo: contentView.trailingAnchor, constant: -16)
     }
 }
 
