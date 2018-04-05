@@ -18,6 +18,8 @@ class MovieCollectionViewCell: UICollectionViewCell {
         return CGSize(width: width, height: height)
     }
     
+    var didFavoriteButtonPressed: ((AnyObject) -> ())?
+    
     private let imageFetcher: ImageFetcher = KingfisherImageFetcher()
     
     lazy var imageView: UIImageView = {
@@ -45,6 +47,7 @@ class MovieCollectionViewCell: UICollectionViewCell {
         let button = UIButton(type: .custom)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(#imageLiteral(resourceName: "favorite_gray_icon"), for: .normal)
+        button.addTarget(self, action: #selector(favoriteButtonTapped), for: .touchUpInside)
         
         return button
     }()
@@ -93,12 +96,17 @@ class MovieCollectionViewCell: UICollectionViewCell {
             .bottomAnchor(equalTo: contentView.bottomAnchor)
             .trailingAnchor(equalTo: contentView.trailingAnchor, constant: -16)
     }
+    
+    @objc private func favoriteButtonTapped(_ sender: AnyObject) {
+        didFavoriteButtonPressed?(sender)
+    }
 }
 
 extension MovieCollectionViewCell {
     
     struct ViewModel {
         
+        let id: Int
         let imageURL: URL
         let title: String
     }

@@ -27,7 +27,7 @@ final class MoviesListPresenter: MoviesListPresenterType {
         
         let cellViewModels = movies.map { movie in
             MovieCollectionViewCell.ViewModel(
-                imageURL: APIBase.posterImageURL(path: movie.posterPath),
+                id: movie.id, imageURL: APIBase.posterImageURL(path: movie.posterPath),
                 title: movie.title
             )
         }
