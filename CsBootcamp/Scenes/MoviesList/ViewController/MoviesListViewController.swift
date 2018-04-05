@@ -58,7 +58,7 @@ final class MoviesListViewController: UIViewController, MoviesListView, ShowMovi
 
         let dataSource = MoviesListDataSource(collectionView: collectionView, indicatorView: activityIndicator)
         dataSource.didSelectItem = self.movieSelected
-        dataSource.didPressedItemButton = self.favoriteButtonTapped
+        dataSource.didPressedItemButton = self.toggleFavoriteMovie
         
         return dataSource
     }()
@@ -109,14 +109,12 @@ final class MoviesListViewController: UIViewController, MoviesListView, ShowMovi
         listInteractor?.fetchMovies(from: page)
     }
     
-    private func favoriteButtonTapped(at index: Int) {
+    private func toggleFavoriteMovie(at index: Int) {
         let movie = listInteractor?.movie(at: index)
         
         if let movie = movie {
            favoriteInteractor?.toggleMovieFavorite(movie)
         }
-        
-        print(index)
     }
     
     private func movieSelected(at index: Int) {

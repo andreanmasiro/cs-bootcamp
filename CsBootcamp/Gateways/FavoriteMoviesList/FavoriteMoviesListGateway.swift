@@ -8,8 +8,7 @@
 
 protocol FavoriteMoviesListGateway {
     
-    func addMovie(_ movie: Movie, _ completion: @escaping (Result<Void>) -> ())
-    func removeMovie(_ movie: Movie, _ completion: @escaping (Result<Void>) -> ())
-    func fetchMovies(_ completion: @escaping (Result<[Movie]>) -> ())
-    func isMovieFavorite(_ movie: Movie, _ completion: @escaping (Result<Bool>) -> ())
+    func toggleMovieFavorite(_ movie: Movie) -> Result<Bool>
+    func fetchMovies() -> Result<[Movie]>
+    func isMovieFavorite(_ movie: Movie) -> Result<Bool>
 }

@@ -14,11 +14,13 @@ final class MoviesListSceneFactory {
         let presenter = MoviesListPresenter(view: viewController)
         
         let moviesListGateway = MoviesListGatewayFactory.make()
-        let listInteractor = MoviesListInteractor(presenter: presenter, moviesListGateway: moviesListGateway)
+        let favoriteMoviesListGateway = FavoriteMoviesListCoreDataGateway(coreDataStack: CoreDataStack())
+        let listInteractor = MoviesListInteractor(presenter: presenter, moviesListGateway: moviesListGateway, favoriteMoviesListGateway: favoriteMoviesListGateway)
         let showDetailInteractor = MoviesListShowDetailInteractor(showMovieDetailNavigator: viewController)
         
         viewController.listInteractor = listInteractor
         viewController.showDetailInteractor = showDetailInteractor
+        viewController.favoriteInteractor = listInteractor
         
         return viewController
     }

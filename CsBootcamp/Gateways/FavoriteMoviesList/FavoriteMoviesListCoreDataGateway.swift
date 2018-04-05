@@ -11,61 +11,69 @@ import CoreData
 
 final class FavoriteMoviesListCoreDataGateway: FavoriteMoviesListGateway {
     
-    enum Error: Swift.Error {
-        case invalidEntityDescription
-        case genresNotFound
+    func toggleMovieFavorite(_ movie: Movie) -> Result<Bool> {
+        
+        let checkResult = isMovieFavorite(movie)
+        
+        guard case .success(let isFavorite) = checkResult else {
+            return checkResult
+        }
+        
+        let result: Result<Void>
+        if isFavorite {
+            result = removeMovie(movie)
+        } else {
+            result = addMovie(movie)
+        }
+        
+        switch result {
+            
+        case .success: return .success(!isFavorite)
+        case .failure(let error): return .failure(error)
+        }
     }
     
-    private let coreDataStack: CoreDataStack
-    
-    init(coreDataStack: CoreDataStack) {
-        self.coreDataStack = coreDataStack
-    }
-    
-    func addMovie(_ movie: Movie, _ completion: @escaping (Result<Void>) -> ()) {
+    private func addMovie(_ movie: Movie) -> Result<Void> {
         
         guard let movieCoreData = NSEntityDescription.insertNewObject(ofType: MovieCoreData.self, into: coreDataStack.context) else {
-            completion(.failure(Error.invalidEntityDescription))
-            return
+            return .failure(Error.invalidEntityDescription)
         }
         
-        fetchGenres(withIds: movie.genreIds) { result in
+        let result = fetchGenres(withIds: movie.genreIds)
+        guard case let .success(genres) = result else {
             
-            guard case let .success(genres) = result else {
-                
-                completion(.failure(Error.genresNotFound))
-                return
-            }
-            
-            movieCoreData.id = movie.id
-            movieCoreData.title = movie.title
-            movieCoreData.overview = movie.overview
-            movieCoreData.posterPath = movie.posterPath
-            movieCoreData.addToGenres(NSOrderedSet(array: genres))
-            movieCoreData.releaseDate = movie.releaseDate
-            
-            coreDataStack.saveContext()
-            completion(.success(()))
+            return Result.failure(Error.genresNotFound)
         }
+        
+        movieCoreData.id = movie.id
+        movieCoreData.title = movie.title
+        movieCoreData.overview = movie.overview
+        movieCoreData.posterPath = movie.posterPath
+        movieCoreData.addToGenres(NSOrderedSet(array: genres))
+        movieCoreData.releaseDate = movie.releaseDate
+        
+        coreDataStack.saveContext()
+        return .success(())
     }
     
-    func removeMovie(_ movie: Movie, _ completion: @escaping (Result<Void>) -> ()) {
+    private func removeMovie(_ movie: Movie) -> Result<Void> {
         
         let request: NSFetchRequest<MovieCoreData> = MovieCoreData.fetchRequest()
-        let predicate = NSPredicate(format: "id == %d", movie.id)
+        let predicate = NSPredicate(format: "id = %d", movie.id)
         request.predicate = predicate
         
         do {
             let moviesCoreData = try coreDataStack.context.fetch(request)
             moviesCoreData.forEach(coreDataStack.context.delete)
-            completion(.success(()))
+            coreDataStack.saveContext()
+            return .success(())
             
         } catch {
-            completion(.failure(error))
+            return .failure(error)
         }
     }
     
-    func fetchMovies(_ completion: @escaping (Result<[Movie]>) -> ()) {
+    func fetchMovies() -> Result<[Movie]> {
         
         let request: NSFetchRequest<MovieCoreData> = MovieCoreData.fetchRequest()
         
@@ -86,13 +94,13 @@ final class FavoriteMoviesListCoreDataGateway: FavoriteMoviesListGateway {
                     posterPath: movieCoreData.posterPath
                 )
             }
-            completion(.success(movies))
+            return .success(movies)
         } catch {
-            completion(.failure(error))
+            return .failure(error)
         }
     }
     
-    func isMovieFavorite(_ movie: Movie, _ completion: @escaping (Result<Bool>) -> ()) {
+    func isMovieFavorite(_ movie: Movie) -> Result<Bool> {
         
         let request: NSFetchRequest<MovieCoreData> = MovieCoreData.fetchRequest()
         let predicate = NSPredicate(format: "id == %d", movie.id)
@@ -100,13 +108,24 @@ final class FavoriteMoviesListCoreDataGateway: FavoriteMoviesListGateway {
         
         do {
             let count = try coreDataStack.context.count(for: request)
-            completion(.success(count > 0))
+            return .success(count > 0)
         } catch {
-            completion(.failure(error))
+            return .failure(error)
         }
     }
     
-    private func fetchGenres(withIds ids: [Int], _ completion: (Result<[GenreCoreData]>) -> ()) {
+    enum Error: Swift.Error {
+        case invalidEntityDescription
+        case genresNotFound
+    }
+    
+    private let coreDataStack: CoreDataStack
+    
+    init(coreDataStack: CoreDataStack) {
+        self.coreDataStack = coreDataStack
+    }
+    
+    private func fetchGenres(withIds ids: [Int]) -> Result<[GenreCoreData]> {
         
         let request: NSFetchRequest<GenreCoreData> = GenreCoreData.fetchRequest()
         let predicate = NSPredicate(format: "id IN %@", ids)
@@ -114,10 +133,10 @@ final class FavoriteMoviesListCoreDataGateway: FavoriteMoviesListGateway {
         
         do {
             let genresCoreData = try coreDataStack.context.fetch(request)
-            completion(.success(genresCoreData))
+            return .success(genresCoreData)
             
         } catch {
-            completion(.failure(error))
+            return .failure(error)
         }
     }
 }

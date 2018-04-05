@@ -46,7 +46,6 @@ class MovieCollectionViewCell: UICollectionViewCell {
     lazy var favoriteButton: UIButton = {
         let button = UIButton(type: .custom)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(#imageLiteral(resourceName: "favorite_gray_icon"), for: .normal)
         button.addTarget(self, action: #selector(favoriteButtonTapped), for: .touchUpInside)
         
         return button
@@ -68,6 +67,7 @@ class MovieCollectionViewCell: UICollectionViewCell {
         
         titleLabel.text = viewModel.title
         imageFetcher.fetchImage(from: viewModel.imageURL, to: imageView) { }
+        favoriteButton.setImage(viewModel.favoriteButtonImage, for: .normal)
     }
     
     private func setupViewHierarchy() {
@@ -106,8 +106,8 @@ extension MovieCollectionViewCell {
     
     struct ViewModel {
         
-        let id: Int
         let imageURL: URL
         let title: String
+        let favoriteButtonImage: UIImage
     }
 }
