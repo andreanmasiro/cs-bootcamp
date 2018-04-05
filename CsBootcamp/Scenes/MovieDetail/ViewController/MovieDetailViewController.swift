@@ -30,8 +30,11 @@ final class MovieDetailViewController: UIViewController, MovieDetailView {
     let movie: Movie
     var interactor: MovieDetailInteractorType?
     
-    lazy var dataSource = {
-        MovieDetailDataSource(tableView: tableView)
+    lazy var dataSource: MovieDetailDataSource = {
+        let dataSource = MovieDetailDataSource(tableView: self.tableView)
+        dataSource.didFavoriteButtonPressed = self.favoriteButtonTapped
+        
+        return dataSource
     }()
     
     init(movie: Movie) {
@@ -57,6 +60,10 @@ final class MovieDetailViewController: UIViewController, MovieDetailView {
     func displayMovieDetail(viewModel: ViewModel) {
         
         dataSource.viewModel = viewModel
+    }
+    
+    private func favoriteButtonTapped() {
+        
     }
     
     private func setupViewHierarchy() {

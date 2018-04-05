@@ -50,10 +50,7 @@ final class MoviesListDataSource: NSObject, UICollectionViewDataSource, UICollec
         let indexPath = collectionView?.indexPathForItem(at: buttonPosition)
         
         if let indexPath = indexPath {
-            let id = viewModels[(indexPath.item)].id
-            print("Ação do Botão Notificado pelo DataSource (Index: \(String(describing: indexPath.row)))")
-            
-            didPressedItemButton?(id)
+            didPressedItemButton?(indexPath.item)
         }
     }
     

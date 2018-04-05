@@ -14,6 +14,8 @@ class MoviePosterTableViewCell: UITableViewCell {
     
     static var cellHeight: CGFloat = CGFloat(250).proportionalToWidth
     
+    var didFavoriteButtonPressed: (() -> ())?
+    
     lazy var posterImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
@@ -35,6 +37,7 @@ class MoviePosterTableViewCell: UITableViewCell {
         let button = UIButton(type: .custom)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(#imageLiteral(resourceName: "favorite_gray_icon"), for: .normal)
+        button.addTarget(self, action: #selector(favoriteButtonTapped), for: .touchUpInside)
         
         return button
     }()
@@ -78,6 +81,10 @@ class MoviePosterTableViewCell: UITableViewCell {
             .topAnchor(equalTo: posterImageView.bottomAnchor)
             .bottomAnchor(equalTo: contentView.bottomAnchor)
             .trailingAnchor(equalTo: contentView.trailingAnchor, constant: -16)
+    }
+    
+    @objc private func favoriteButtonTapped(_ sender: AnyObject) {
+        didFavoriteButtonPressed?()
     }
 }
 

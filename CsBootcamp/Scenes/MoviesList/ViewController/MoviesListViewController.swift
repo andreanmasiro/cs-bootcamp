@@ -115,8 +115,6 @@ final class MoviesListViewController: UIViewController, MoviesListView, ShowMovi
         if let movie = movie {
            favoriteInteractor?.toggleMovieFavorite(movie)
         }
-        
-        print(index)
     }
     
     private func movieSelected(at index: Int) {
