@@ -11,20 +11,18 @@ import Foundation
 final class FavoritesListInteractor: FavoritesListInteractorType {
     
     private let presenter: FavoritesListPresenterType
+    private let favoriteMoviesListGateway: FavoriteMoviesListGateway
     
-    init(presenter: FavoritesListPresenter) {
+    init(presenter: FavoritesListPresenter, favoriteMoviesListGateway: FavoriteMoviesListGateway) {
         self.presenter = presenter
+        self.favoriteMoviesListGateway = favoriteMoviesListGateway
     }
     
     func fetchFavorites() {
         
-        let favorites: [Movie] = (0..<5).map {_ in
-            
-            let movie = Movie(id: 0, genreIds: [1, 2, 3, 4], title: "Star Wars - The Last Jedi", overview: "Rey develops her newly discovered abilities with the guidance of Luke Skywalker, who is unsettled by the strength of her powers. Meanwhile, the Resistance prepares for battle with the First Order.", releaseDate: Date(), posterPath: "/kOVEVeg59E0wsnXmF9nrh6OmWII.jpg")
-            
-            return movie
+        let result = favoriteMoviesListGateway.fetchMovies()
+        if let movies = result.value {   
+            presenter.presentFavorites(movies)
         }
-        
-        presenter.presentFavorites(favorites)
     }
 }

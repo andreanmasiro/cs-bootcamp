@@ -10,13 +10,13 @@ import Foundation
 
 final class FavoritesListSceneFactory {
     
-    static func make() -> FavoritesListViewController {
+    static func make(coreDataStack: CoreDataStack) -> FavoritesListViewController {
         
         let viewController = FavoritesListViewController()
         
         let presenter = FavoritesListPresenter(view: viewController)
-        
-        let interactor = FavoritesListInteractor(presenter: presenter)
+        let favoriteMoviesListGateway = FavoriteMoviesListCoreDataGateway(coreDataStack: coreDataStack)
+        let interactor = FavoritesListInteractor(presenter: presenter, favoriteMoviesListGateway: favoriteMoviesListGateway)
         viewController.interactor = interactor
         
         return viewController

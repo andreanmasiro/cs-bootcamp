@@ -8,13 +8,13 @@
 
 final class MoviesListSceneFactory {
     
-    static func make() -> MoviesListViewController {
+    static func make(coreDataStack: CoreDataStack) -> MoviesListViewController {
         
         let viewController = MoviesListViewController()
         let presenter = MoviesListPresenter(view: viewController)
         
         let moviesListGateway = MoviesListGatewayFactory.make()
-        let favoriteMoviesListGateway = FavoriteMoviesListCoreDataGateway(coreDataStack: CoreDataStack())
+        let favoriteMoviesListGateway = FavoriteMoviesListCoreDataGateway(coreDataStack: coreDataStack)
         let listInteractor = MoviesListInteractor(presenter: presenter, moviesListGateway: moviesListGateway, favoriteMoviesListGateway: favoriteMoviesListGateway)
         let showDetailInteractor = MoviesListShowDetailInteractor(showMovieDetailNavigator: viewController)
         

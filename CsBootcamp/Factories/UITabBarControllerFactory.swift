@@ -10,7 +10,7 @@ import UIKit
 
 final class UITabBarControllerFactory {
     
-    static func make(with viewControllers: [UIViewController]) -> UITabBarController {
+    static func make(with viewControllers: UIViewController...) -> UITabBarController {
         
         let tabBarController = UITabBarController()
         

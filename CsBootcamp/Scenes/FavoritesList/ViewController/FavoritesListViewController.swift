@@ -50,7 +50,6 @@ final class FavoritesListViewController: UIViewController, FavoritesListView {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         interactor?.fetchFavorites()
     }
     
