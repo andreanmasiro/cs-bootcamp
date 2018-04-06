@@ -13,7 +13,7 @@ final class FavoritesListInteractor: FavoritesListInteractorType {
     private let presenter: FavoritesListPresenterType
     private let favoriteMoviesListGateway: FavoriteMoviesListGateway
     
-    init(presenter: FavoritesListPresenter, favoriteMoviesListGateway: FavoriteMoviesListGateway) {
+    init(presenter: FavoritesListPresenterType, favoriteMoviesListGateway: FavoriteMoviesListGateway) {
         self.presenter = presenter
         self.favoriteMoviesListGateway = favoriteMoviesListGateway
     }
