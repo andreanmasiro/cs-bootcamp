@@ -18,4 +18,3 @@ extension UITableView {
         return dequeueReusableCell(withIdentifier: cellType.reuseIdentifier, for: indexPath) as? T
     }
 }
-

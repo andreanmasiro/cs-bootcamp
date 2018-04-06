@@ -14,7 +14,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
-        let rootViewController = MoviesListSceneFactory.make()
+        //let rootViewController = MoviesListSceneFactory.make()
+        
+        let rootViewController = MoviesFilterViewController()
         
         let navigationController = UINavigationController(rootViewController: rootViewController)
         navigationController.navigationBar.barTintColor = UIColor.Bootcamp.yellow
