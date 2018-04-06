@@ -10,7 +10,6 @@ import CoreData
 
 protocol CoreDataStack {
     
-    var persistentContainer: NSPersistentContainer { get }
     var context: NSManagedObjectContext { get }
     func saveContext()
 }
