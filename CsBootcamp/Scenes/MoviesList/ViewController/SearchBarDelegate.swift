@@ -10,6 +10,7 @@ import UIKit
 
 class SearchBarDelegate: NSObject, UISearchBarDelegate {
     
+    var searchBarIsActive = false
     var textDidChange: ((String) -> ())?
     
     init(searchBar: UISearchBar) {
@@ -22,8 +23,13 @@ class SearchBarDelegate: NSObject, UISearchBarDelegate {
         return true
     }
     
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        searchBarIsActive = true
+    }
+    
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         searchBar.setShowsCancelButton(false, animated: true)
+        searchBarIsActive = false
     }
     
     public func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {

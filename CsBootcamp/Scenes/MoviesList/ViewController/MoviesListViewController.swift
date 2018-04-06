@@ -59,6 +59,7 @@ final class MoviesListViewController: UIViewController, MoviesListView, ShowMovi
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.backgroundColor = .clear
+        collectionView.keyboardDismissMode = .onDrag
 
         return collectionView
     }()
@@ -129,7 +130,10 @@ final class MoviesListViewController: UIViewController, MoviesListView, ShowMovi
     }
     
     func didReachToScrollBottom() {
-        if case .list = state {
+        
+        let isSearching = searchBarDelegate.searchBarIsActive
+        if !isSearching,
+            case .list = state {
             page += 1
             fetchMovies(from: page)
         }
