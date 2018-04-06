@@ -23,13 +23,17 @@ final class DefaultCoreDataStack: CoreDataStack {
         return container
     }()
     
-    lazy var context = {
-        persistentContainer.viewContext
+    lazy var context: NSManagedObjectContext = {
+        let context = persistentContainer.viewContext
+        context.mergePolicy = NSMergePolicy.overwrite
+        
+        return context
     }()
     
     // MARK: - Core Data Saving support
     
     func saveContext() {
+
         if context.hasChanges {
             do {
                 try context.save()
