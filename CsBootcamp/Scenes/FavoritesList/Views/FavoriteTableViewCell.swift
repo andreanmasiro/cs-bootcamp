@@ -106,7 +106,7 @@ final class FavoriteTableViewCell: UITableViewCell {
 
 extension FavoriteTableViewCell {
     
-    struct ViewModel {
+    struct ViewModel: Equatable {
         
         let posterUrl: URL
         let title: String
