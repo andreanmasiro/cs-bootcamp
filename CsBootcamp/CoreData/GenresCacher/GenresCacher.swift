@@ -41,7 +41,7 @@ final class GenresCacher {
     }
     
     private func setNeedsCache(_ needsCache: Bool) {
-        UserDefaults.standard.set(needsCache, forKey: GenresCacher.cachedGenresKey)
+        UserDefaults.standard.set(!needsCache, forKey: GenresCacher.cachedGenresKey)
         UserDefaults.standard.synchronize()
     }
 }

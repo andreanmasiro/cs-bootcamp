@@ -63,7 +63,7 @@ class MoviesListPresenterSpec: QuickSpec {
                         
                         expect(view.displayErrorCalled).to(beTrue())
                         expect(view.displayErrorArg)
-                            .to(equal(MoviesListErrorViewModel()))
+                            .to(equal(MoviesListErrorViewModel.defaultError))
                     }
                 }
             }

@@ -90,7 +90,7 @@ class MoviesListViewControllerSpec: QuickSpec {
                 
                 context("and display error is called") {
                     
-                    let errorViewModel = MoviesListErrorViewModel()
+                    let errorViewModel = MoviesListErrorViewModel.defaultError
                     
                     beforeEach {
                         
@@ -169,7 +169,7 @@ class MoviesListViewControllerSpec: QuickSpec {
                 context("error") {
                     
                     beforeEach {
-                        let errorViewModel = MoviesListErrorViewModel()
+                        let errorViewModel = MoviesListErrorViewModel.defaultError
                         state = .error(errorViewModel)
                     }
                     

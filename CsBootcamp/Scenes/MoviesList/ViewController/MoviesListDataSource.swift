@@ -19,7 +19,14 @@ final class MoviesListDataSource: NSObject, UICollectionViewDataSource, UICollec
     weak var scrollEventListener: ScrollEventListener?
     
     var didSelectItem: ((Int) -> ())?
-    
+    var searchDidReturnCount: ((String, Int) -> ())?
+    var searchPredicate: String = "" {
+        didSet {
+            if oldValue != searchPredicate {
+                collectionView?.reloadData()
+            }
+        }
+    }
     var didPressedItemButton: ((Int) -> ())?
     
     var viewModels: [MovieCollectionViewCell.ViewModel] = [] {
@@ -28,6 +35,20 @@ final class MoviesListDataSource: NSObject, UICollectionViewDataSource, UICollec
         }
     }
     
+    private var filteredViewModels: [(Int, MovieCollectionViewCell.ViewModel)] {
+        
+        let enumeratedViewModels = self.viewModels.enumerated().map { $0 }
+        let viewModels = searchPredicate.isEmpty ?
+            enumeratedViewModels :
+            enumeratedViewModels.filter({ args in
+                args.element.title.lowercased().contains(self.searchPredicate.lowercased())
+            })
+        
+        searchDidReturnCount?(searchPredicate, viewModels.count)
+        
+        return viewModels
+    }
+ 
     init(collectionView: UICollectionView, indicatorView: UIActivityIndicatorView) {
         
         self.collectionView = collectionView
@@ -57,13 +78,13 @@ final class MoviesListDataSource: NSObject, UICollectionViewDataSource, UICollec
     // MARK: UICollectionViewDataSource conforms
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return viewModels.count
+        return filteredViewModels.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(MovieCollectionViewCell.self, for: indexPath)!
-        cell.setup(viewModel: viewModels[indexPath.item])
+        cell.setup(viewModel: filteredViewModels[indexPath.item].1)
         
         cell.didFavoriteButtonPressed = { [weak self] button in
             self?.favoriteButtonTapped(sender: button)
@@ -80,7 +101,8 @@ final class MoviesListDataSource: NSObject, UICollectionViewDataSource, UICollec
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        didSelectItem?(indexPath.item)
+        let index = filteredViewModels[indexPath.item].0
+        didSelectItem?(index)
     }
     
     // MARK: Loading footer

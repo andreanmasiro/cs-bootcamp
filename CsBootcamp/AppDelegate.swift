@@ -21,7 +21,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         cacheGenresIfNeeded()
         window = MainWindowFactory.make()
+        
+        setupSearchBarAppearance()
+        
         return true
+    }
+    
+    private func setupSearchBarAppearance() {
+        
+        let textFieldAppearance = UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self])
+        textFieldAppearance.backgroundColor = UIColor.Bootcamp.darkYellow
+        
+        let cancelButtonAppearance = UIBarButtonItem.appearance(whenContainedInInstancesOf: [UISearchBar.self])
+        cancelButtonAppearance.tintColor = UIColor.Bootcamp.darkBlue
+        
     }
     
     func cacheGenresIfNeeded() {
