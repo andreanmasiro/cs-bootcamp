@@ -16,6 +16,8 @@ final class UINavigationControllerFactory {
         
         navigationController.navigationBar.barTintColor = UIColor.Bootcamp.yellow
         navigationController.navigationBar.tintColor = .black
+        navigationController.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+        navigationController.navigationBar.shadowImage = UIImage()
         navigationController.navigationBar.isTranslucent = false
         
         let font = UIFont.systemFont(ofSize: 17, weight: .light)

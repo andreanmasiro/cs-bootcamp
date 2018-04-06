@@ -14,10 +14,37 @@ final class FavoritesListDataSource: NSObject, UITableViewDataSource, UITableVie
     
     var didUnfavoritedItem: ((Int) -> ())?
     
+    var searchDidReturnCount: ((String, Int) -> ())?
+    
+    var searchPredicate: String = "" {
+        didSet {
+            if oldValue != searchPredicate {
+                tableView?.reloadData()
+            }
+        }
+    }
+    
     var viewModels: [FavoriteTableViewCell.ViewModel] = [] {
         didSet {
             tableView?.reloadData()
         }
+    }
+    
+    var filteredViewModels: [(Int, FavoriteTableViewCell.ViewModel)] {
+        
+        let enumeratedViewModels = self.viewModels.enumerated().map { $0 }
+        
+        let viewModels = searchPredicate.isEmpty ?
+            enumeratedViewModels :
+            enumeratedViewModels.filter { (args) -> Bool in
+                args.element.title.lowercased()
+                    .contains(self.searchPredicate.lowercased())
+            }
+        
+        
+        searchDidReturnCount?(searchPredicate, viewModels.count)
+        
+        return viewModels
     }
     
     init(tableView: UITableView) {
@@ -38,13 +65,13 @@ final class FavoritesListDataSource: NSObject, UITableViewDataSource, UITableVie
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return viewModels.count
+        return filteredViewModels.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(FavoriteTableViewCell.self, for: indexPath)!
-        cell.setup(viewModel: viewModels[indexPath.row])
+        cell.setup(viewModel: filteredViewModels[indexPath.row].1)
         
         return cell
     }
@@ -59,7 +86,7 @@ final class FavoritesListDataSource: NSObject, UITableViewDataSource, UITableVie
         let unfavoriteAction = UITableViewRowAction(style: .destructive, title: "Unfavorite") { (action, indexPath) in
             
             self.didUnfavoritedItem?(indexPath.item)
-            self.viewModels.remove(at: indexPath.row)
+            self.viewModels.remove(at: self.filteredViewModels[indexPath.row].0)
         }
         
         return [unfavoriteAction]

@@ -22,6 +22,23 @@ final class FavoritesListViewController: UIViewController, FavoritesListView {
         return tableView
     }()
     
+    lazy var searchBar: UISearchBar = {
+        
+        let searchBar = UISearchBar(frame: .zero)
+        searchBar.translatesAutoresizingMaskIntoConstraints = false
+        searchBar.barTintColor = UIColor.Bootcamp.yellow
+        searchBar.layer.borderWidth = 1
+        searchBar.layer.borderColor = UIColor.Bootcamp.yellow.cgColor
+        
+        return searchBar
+    }()
+    
+    lazy var searchBarDelegate: SearchBarDelegate = {
+        
+        let searchBarDelegate = SearchBarDelegate(searchBar: searchBar)
+        return searchBarDelegate
+    }()
+    
     var interactor: FavoritesListInteractorType?
     
     lazy var dataSource: FavoritesListDataSource = {
@@ -48,6 +65,13 @@ final class FavoritesListViewController: UIViewController, FavoritesListView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func viewDidLoad() {
+        
+        searchBarDelegate.textDidChange = setSearchPredicate(_:)
+        dataSource.searchDidReturnCount = searchResults
+        super.viewDidLoad()
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         interactor?.fetchFavorites()
@@ -56,6 +80,17 @@ final class FavoritesListViewController: UIViewController, FavoritesListView {
     func unfavoriteMovie(at index: Int) {
         
     }
+    
+    // MARK: Filter
+    
+    private func setSearchPredicate(_ predicate: String) {
+        dataSource.searchPredicate = predicate
+    }
+
+    private func searchResults(from predicate: String, didReturnCount count: Int) {
+
+    }
+    
     
     // MARK: FavoritesListView Protocol
     
@@ -77,13 +112,20 @@ final class FavoritesListViewController: UIViewController, FavoritesListView {
     
     private func setupViewHierarchy() {
         
+        view.addSubview(searchBar)
         view.addSubview(tableView)
     }
     
     private func setupConstraints() {
         
-        tableView
+        searchBar
             .topAnchor(equalTo: view.topAnchor)
+            .heightAnchor(equalTo: 48.0)
+            .leadingAnchor(equalTo: view.leadingAnchor)
+            .trailingAnchor(equalTo: view.trailingAnchor)
+        
+        tableView
+            .topAnchor(equalTo: searchBar.bottomAnchor)
             .bottomAnchor(equalTo: view.bottomAnchor)
             .trailingAnchor(equalTo: view.trailingAnchor)
             .leadingAnchor(equalTo: view.leadingAnchor)

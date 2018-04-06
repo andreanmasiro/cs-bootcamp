@@ -8,7 +8,6 @@
 
 import UIKit
 
-
 final class MoviesListViewController: UIViewController, MoviesListView, ShowMovieDetailNavigator, ScrollEventListener {
     
     private var page = 1
