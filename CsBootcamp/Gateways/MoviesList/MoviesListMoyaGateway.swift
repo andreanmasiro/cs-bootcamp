@@ -18,6 +18,7 @@ final class MoviesListMoyaGateway: MoviesListGateway {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         decoder.dateDecodingStrategy = .formatted(dateFormatter)
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
         
         return decoder
     }()

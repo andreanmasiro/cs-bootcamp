@@ -15,45 +15,33 @@ class MovieDetailPresenterSpec: QuickSpec {
     
     override func spec() {
         
-        var viewController: MovieDetailViewControllerSpy!
-        var sut: MovieDetailPresenter!
-        var movie: Movie!
-        var genre: Genre!
-        var genres: [Genre]!
-        
-        describe("MovieDetailPresenter", closure: {
+        describe("MovieDetailPresenter") {
             
-            beforeSuite {
-                viewController = MovieDetailViewControllerSpy()
-                sut = MovieDetailPresenter(view: viewController)
-                
-                genre = Genre(id: 1, name: "Sci-Fi")
-                genres = [genre]
-                movie = Movie(id: 1,
-                              genreIds: [1],
-                              title: "Star Wars - The Last Jedi",
-                              overview: "Rey develops her newly discovered abilities with the guidance of Luke Skywalker, who is unsettled by the strength of her powers. Meanwhile, the Resistance prepares for battle with the First Order.",
-                              releaseDate: Date(),
-                              posterPath: "https://www.elastic.co/assets/bltada7771f270d08f6/enhanced-buzz-1492-1379411828-15.jpg")
-            }
+            var viewController: MovieDetailViewControllerSpy!
+            var sut: MovieDetailPresenter!
             
-            context("When a movie detail presenter is assigned with a movie detail view controller", closure: {
+            context("when it is initialized") {
                 
                 beforeEach {
-                    sut.presentMovie(movie, genres)
+                    viewController = MovieDetailViewControllerSpy()
+                    sut = MovieDetailPresenter(view: viewController)
                 }
                 
-                it("the controller will display the movie detail ", closure: {
-                    expect(viewController.isDisplayMovieDetailCalled).to(beTrue())
-                })
-                
-            })
-            
-        })
-        
-        
+                context("and present movie is called") {
+                    
+                    let response = FetchMovieDetailResponse(posterPath: "", releaseDate: Date(), title: "", overview: "", isFavorite: true, genreNames: [])
+                    
+                    beforeEach {
+                        sut.presentMovie(response: response)
+                    }
+                    
+                    it("should display movie detail") {
+                        expect(viewController.isDisplayMovieDetailCalled).to(beTrue())
+                    }
+                }
+            }
+        }
     }
-    
 }
 
 class MovieDetailViewControllerSpy: MovieDetailView {

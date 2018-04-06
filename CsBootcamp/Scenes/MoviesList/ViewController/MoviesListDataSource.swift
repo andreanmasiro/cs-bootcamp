@@ -19,6 +19,9 @@ final class MoviesListDataSource: NSObject, UICollectionViewDataSource, UICollec
     weak var scrollEventListener: ScrollEventListener?
     
     var didSelectItem: ((Int) -> ())?
+    
+    var didPressedItemButton: ((Int) -> ())?
+    
     var viewModels: [MovieCollectionViewCell.ViewModel] = [] {
         didSet {
             collectionView?.reloadData()
@@ -40,6 +43,16 @@ final class MoviesListDataSource: NSObject, UICollectionViewDataSource, UICollec
         collectionView.register(MovieCollectionViewCell.self)
         collectionView.register(ActivityIndicatorFooterView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionFooter)
     }
+
+    private func favoriteButtonTapped(sender: AnyObject) {
+        
+        let buttonPosition = sender.convert(CGPoint.zero, to: self.collectionView)
+        let indexPath = collectionView?.indexPathForItem(at: buttonPosition)
+        
+        if let indexPath = indexPath {
+            didPressedItemButton?(indexPath.item)
+        }
+    }
     
     // MARK: UICollectionViewDataSource conforms
     
@@ -51,6 +64,10 @@ final class MoviesListDataSource: NSObject, UICollectionViewDataSource, UICollec
         
         let cell = collectionView.dequeueReusableCell(MovieCollectionViewCell.self, for: indexPath)!
         cell.setup(viewModel: viewModels[indexPath.item])
+        
+        cell.didFavoriteButtonPressed = { [weak self] button in
+            self?.favoriteButtonTapped(sender: button)
+        }
         
         return cell
     }

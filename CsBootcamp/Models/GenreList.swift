@@ -6,9 +6,7 @@
 //  Copyright © 2018 Bootcampers. All rights reserved.
 //
 
-import Foundation
-
-struct GenreList: Codable {
+struct GenreList: Decodable {
     
     let genres: [Genre]
 }

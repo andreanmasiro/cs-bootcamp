@@ -58,12 +58,14 @@ final class MoviesListViewController: UIViewController, MoviesListView, ShowMovi
 
         let dataSource = MoviesListDataSource(collectionView: collectionView, indicatorView: activityIndicator)
         dataSource.didSelectItem = self.movieSelected
+        dataSource.didPressedItemButton = self.toggleFavoriteMovie
         
         return dataSource
     }()
 
     var listInteractor: MoviesListInteractorType?
     var showDetailInteractor: MoviesListShowDetailInteractorType?
+    var favoriteInteractor: MovieListFavoriteInteractorType?
 
     required init?(coder aDecoder: NSCoder) {
         return nil
@@ -72,6 +74,7 @@ final class MoviesListViewController: UIViewController, MoviesListView, ShowMovi
     init() {
 
         super.init(nibName: nil, bundle: nil)
+        
         title = "Movies"
         
         dataSource.scrollEventListener = self
@@ -79,6 +82,8 @@ final class MoviesListViewController: UIViewController, MoviesListView, ShowMovi
         setupConstraints()
 
         view.backgroundColor = .white
+        
+        tabBarItem = UITabBarItem(title: "Movies", image: #imageLiteral(resourceName: "list_icon"), tag: 0)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -87,10 +92,6 @@ final class MoviesListViewController: UIViewController, MoviesListView, ShowMovi
         fetchMovies(from: page)
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
-        page = 1
-    }
-        
     func didReachToScrollBottom() {
         if case .list = state {
             page += 1
@@ -102,6 +103,14 @@ final class MoviesListViewController: UIViewController, MoviesListView, ShowMovi
 
         setup(state: .loading)
         listInteractor?.fetchMovies(from: page)
+    }
+    
+    private func toggleFavoriteMovie(at index: Int) {
+        let movie = listInteractor?.movie(at: index)
+        
+        if let movie = movie {
+           favoriteInteractor?.toggleMovieFavorite(movie)
+        }
     }
     
     private func movieSelected(at index: Int) {

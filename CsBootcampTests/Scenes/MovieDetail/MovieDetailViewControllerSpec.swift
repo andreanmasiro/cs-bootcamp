@@ -40,7 +40,9 @@ class MovieDetailViewControllerSpec: QuickSpec {
                     
                     let viewModel = MovieDetailViewController.ViewModel(
                         poster: MoviePosterTableViewCell.ViewModel(
-                            imageURL: URL(string: "url.com")!, title: ""
+                            imageURL: URL(string: "url.com")!,
+                            title: "",
+                            isFavoriteImage: UIImage()
                         ),
                         releaseDate: MovieTextTableViewCell.ViewModel(description: ""),
                         genres: MovieTextTableViewCell.ViewModel(description: ""),

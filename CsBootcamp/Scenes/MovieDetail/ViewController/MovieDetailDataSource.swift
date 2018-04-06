@@ -18,6 +18,8 @@ final class MovieDetailDataSource: NSObject, UITableViewDataSource, UITableViewD
         }
     }
     
+    var favoriteButtonTapped: (() -> ())?
+    
     init(tableView: UITableView) {
         self.tableView = tableView
         super.init()
@@ -33,7 +35,6 @@ final class MovieDetailDataSource: NSObject, UITableViewDataSource, UITableViewD
         tableView.register(MovieOverviewTableViewCell.self)
     }
     
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 4
     }
@@ -46,6 +47,7 @@ final class MovieDetailDataSource: NSObject, UITableViewDataSource, UITableViewD
             let posterCell = tableView.dequeueReusableCell(MoviePosterTableViewCell.self, for: indexPath)
             viewModel.map { viewModel in
                 posterCell?.setup(viewModel: viewModel.poster)
+                posterCell?.favoriteButtonTapped = self.favoriteButtonTapped
             }
             cell = posterCell
         case 1:
