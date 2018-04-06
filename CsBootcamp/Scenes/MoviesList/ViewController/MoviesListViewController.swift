@@ -92,10 +92,6 @@ final class MoviesListViewController: UIViewController, MoviesListView, ShowMovi
         fetchMovies(from: page)
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
-        page = 1
-    }
-        
     func didReachToScrollBottom() {
         if case .list = state {
             page += 1
