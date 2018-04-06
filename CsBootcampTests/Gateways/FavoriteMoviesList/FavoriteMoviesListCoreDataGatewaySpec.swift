@@ -83,7 +83,7 @@ final class FavoriteMoviesListCoreDataGatewaySpec: QuickSpec {
                     context("and setMovieFavorite false is called") {
                         
                         beforeEach {
-                            _ = favoriteMoviesListCoreDataGateway.setMovie(movie, favorite: false)
+                            favoriteMoviesListCoreDataGateway.setMovie(movie, favorite: false)
                         }
                         
                         context("and isMovieFavorite is called") {

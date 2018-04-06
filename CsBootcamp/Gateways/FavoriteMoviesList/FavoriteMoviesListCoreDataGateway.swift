@@ -28,6 +28,7 @@ final class FavoriteMoviesListCoreDataGateway: FavoriteMoviesListGateway {
         }
     }
     
+    @discardableResult
     func setMovie(_ movie: Movie, favorite: Bool) -> Result<Void> {
         
         let result = favorite ?
