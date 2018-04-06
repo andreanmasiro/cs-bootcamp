@@ -13,6 +13,9 @@ final class MovieListErrorView: UIView {
     lazy var label: UILabel = {
         
         let label = UILabel()
+        label.numberOfLines = 0
+        label.lineBreakMode = .byWordWrapping
+        label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
@@ -27,7 +30,11 @@ final class MovieListErrorView: UIView {
         return imageView
     }()
     
-    override init(frame: CGRect) {
+    let iconDiameterRatio: CGFloat
+    
+    init(frame: CGRect, iconDiameterRatio: CGFloat) {
+        
+        self.iconDiameterRatio = iconDiameterRatio
         
         super.init(frame: frame)
         setupViewHierarchy()
@@ -54,16 +61,15 @@ final class MovieListErrorView: UIView {
     
     private func setupConstraints() {
         
-        let iconDiameterRatio: CGFloat = 0.5
-        
         imageView
             .widthAnchor(equalTo: widthAnchor, multiplier: iconDiameterRatio)
             .heightAnchor(equalTo: widthAnchor, multiplier: iconDiameterRatio)
             .centerXAnchor(equalTo: centerXAnchor)
-            .centerYAnchor(equalTo: centerYAnchor)
+            .topAnchor(equalTo: topAnchor, constant: 40)
         
         label
             .topAnchor(equalTo: imageView.bottomAnchor, constant: 16)
             .centerXAnchor(equalTo: centerXAnchor)
+            .widthAnchor(equalTo: widthAnchor, multiplier: 0.7)
     }
 }

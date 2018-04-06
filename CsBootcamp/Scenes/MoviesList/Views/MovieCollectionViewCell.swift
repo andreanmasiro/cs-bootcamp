@@ -13,10 +13,12 @@ class MovieCollectionViewCell: UICollectionViewCell {
     static var cellSize: CGSize {
         
         let width = CGFloat(160).proportionalToWidth
-        let height = width * 1.45
+        let height = width * 1.65
         
         return CGSize(width: width, height: height)
     }
+    
+    var didFavoriteButtonPressed: ((AnyObject) -> ())?
     
     private let imageFetcher: ImageFetcher = KingfisherImageFetcher()
     
@@ -36,8 +38,17 @@ class MovieCollectionViewCell: UICollectionViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
         label.textColor = UIColor.Bootcamp.yellow
+        label.numberOfLines = 2
         
         return label
+    }()
+    
+    lazy var favoriteButton: UIButton = {
+        let button = UIButton(type: .custom)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(favoriteButtonTapped), for: .touchUpInside)
+        
+        return button
     }()
     
     override init(frame: CGRect) {
@@ -56,12 +67,14 @@ class MovieCollectionViewCell: UICollectionViewCell {
         
         titleLabel.text = viewModel.title
         imageFetcher.fetchImage(from: viewModel.imageURL, to: imageView) { }
+        favoriteButton.setImage(viewModel.favoriteButtonImage, for: .normal)
     }
     
     private func setupViewHierarchy() {
         
         contentView.addSubview(imageView)
         contentView.addSubview(titleLabel)
+        contentView.addSubview(favoriteButton)
     }
     
     private func setupConstraints() {
@@ -74,9 +87,18 @@ class MovieCollectionViewCell: UICollectionViewCell {
         
         titleLabel
             .topAnchor(equalTo: imageView.bottomAnchor)
-            .leadingAnchor(equalTo: contentView.leadingAnchor)
-            .trailingAnchor(equalTo: contentView.trailingAnchor)
+            .leadingAnchor(equalTo: contentView.leadingAnchor, constant: 16)
             .bottomAnchor(equalTo: contentView.bottomAnchor)
+            .trailingAnchor(equalTo: contentView.trailingAnchor, constant: -40)
+        
+        favoriteButton
+            .topAnchor(equalTo: imageView.bottomAnchor)
+            .bottomAnchor(equalTo: contentView.bottomAnchor)
+            .trailingAnchor(equalTo: contentView.trailingAnchor, constant: -16)
+    }
+    
+    @objc private func favoriteButtonTapped(_ sender: AnyObject) {
+        didFavoriteButtonPressed?(sender)
     }
 }
 
@@ -86,5 +108,6 @@ extension MovieCollectionViewCell {
         
         let imageURL: URL
         let title: String
+        let favoriteButtonImage: UIImage
     }
 }

@@ -50,7 +50,8 @@ class MovieCollectionViewCellSpec: QuickSpec {
                     
                     let viewModel = MovieCollectionViewCell.ViewModel(
                         imageURL: URL(string: "image.com")!,
-                        title: "title"
+                        title: "title",
+                        favoriteButtonImage: UIImage()
                     )
                     
                     beforeEach {

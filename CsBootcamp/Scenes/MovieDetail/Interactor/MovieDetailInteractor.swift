@@ -8,30 +8,66 @@
 
 import Foundation
 
-protocol MovieDetailPresenterType {
+final class MovieDetailInteractor: MovieDetailInteractorType, MovieDetailFavoriteInteractorType {
     
-    func presentMovie(_ movie: Movie, _ genres: [Genre])
-}
-
-final class MovieDetailInteractor: MovieDetailInteractorType {
+    var movie: Movie?
+    var genres: [Genre]?
 
     private let presenter: MovieDetailPresenterType
-    private let genresListGateway: GenresListGateway
+    private let genresCacheGateway: GenresCacheGateway
+    private let favoriteMoviesListGateway: FavoriteMoviesListGateway
     
-    init(presenter: MovieDetailPresenterType, genresListGateway: GenresListGateway) {
+    init(presenter: MovieDetailPresenterType, genresGateway: GenresCacheGateway, favoriteMoviesListGateway: FavoriteMoviesListGateway) {
         self.presenter = presenter
-        self.genresListGateway = genresListGateway
+        self.genresCacheGateway = genresGateway
+        self.favoriteMoviesListGateway = favoriteMoviesListGateway
     }
+    
+    private func createResponse(fromMovie movie: Movie, genres: [Genre]) -> FetchMovieDetailResponse {
+        
+        let genreNames = genres.map { genre in genre.name }
+        let isFavoriteResult = self.favoriteMoviesListGateway.isMovieFavorite(movie)
+        let isFavorite = isFavoriteResult.value ?? false
+        
+        return FetchMovieDetailResponse(
+            posterPath: movie.posterPath,
+            releaseDate: movie.releaseDate,
+            title: movie.title,
+            overview: movie.overview,
+            isFavorite: isFavorite,
+            genreNames: genreNames
+        )
+    }
+    
+    // MARK: MovieDetailInteractorType
     
     func fetchDetail(of movie: Movie) {
         
-        genresListGateway.fetchGenres { [weak self] result in
-            
+        genresCacheGateway.fetchGenres(withIds: movie.genreIds) { [weak self] result in
+
             guard let `self` = self else { return }
+            
             if case let .success(genres) = result {
-                let genres = genres.filter { genre in movie.genreIds.contains(genre.id) }
-                self.presenter.presentMovie(movie, genres)
+                
+                self.movie = movie
+                self.genres = genres
+                
+                let response = self.createResponse(fromMovie: movie, genres: genres)
+                self.presenter.presentMovie(response: response)
             }
+        }
+    }
+    
+    // MARK: MovieDetailFavoriteInteractorType
+    
+    func toggleMovieFavorite() {
+        guard let movie = movie,
+            let genres = genres else { return }
+        let result = favoriteMoviesListGateway.toggleMovieFavorite(movie)
+        
+        if case .success = result {
+            let response = self.createResponse(fromMovie: movie, genres: genres)
+            presenter.presentMovie(response: response)
         }
     }
 }

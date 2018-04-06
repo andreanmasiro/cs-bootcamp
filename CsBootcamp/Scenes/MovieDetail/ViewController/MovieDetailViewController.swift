@@ -28,10 +28,15 @@ final class MovieDetailViewController: UIViewController, MovieDetailView {
     }()
     
     let movie: Movie
-    var interactor: MovieDetailInteractorType?
     
-    lazy var dataSource = {
-        MovieDetailDataSource(tableView: tableView)
+    var interactor: MovieDetailInteractorType?
+    var movieDetailFavoriteInteractor: MovieDetailFavoriteInteractorType?
+    
+    lazy var dataSource: MovieDetailDataSource = {
+        let dataSource = MovieDetailDataSource(tableView: self.tableView)
+        dataSource.favoriteButtonTapped = self.toggleFavorite
+        
+        return dataSource
     }()
     
     init(movie: Movie) {
@@ -48,6 +53,7 @@ final class MovieDetailViewController: UIViewController, MovieDetailView {
     
     override func viewWillAppear(_ animated: Bool) {
         interactor?.fetchDetail(of: movie)
+        super.viewWillAppear(animated)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -57,6 +63,10 @@ final class MovieDetailViewController: UIViewController, MovieDetailView {
     func displayMovieDetail(viewModel: ViewModel) {
         
         dataSource.viewModel = viewModel
+    }
+    
+    private func toggleFavorite() {
+        movieDetailFavoriteInteractor?.toggleMovieFavorite()
     }
     
     private func setupViewHierarchy() {

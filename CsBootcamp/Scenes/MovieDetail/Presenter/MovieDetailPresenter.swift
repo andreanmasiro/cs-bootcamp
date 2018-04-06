@@ -6,7 +6,7 @@
 //  Copyright © 2018 Bootcampers. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 protocol MovieDetailView: class {
     
@@ -28,17 +28,17 @@ final class MovieDetailPresenter: MovieDetailPresenterType {
         self.view = view
     }
     
-    func presentMovie(_ movie: Movie, _ genres: [Genre]) {
+    func presentMovie(response: FetchMovieDetailResponse) {
         
-        let moviePosterUrl = APIBase.posterImageURL(path: movie.posterPath)
-        let genresDescription = genres
-            .map { $0.name }
-            .joined(separator: ", ")
-        let releaseDateDescription = dateFormatter.string(from: movie.releaseDate)
+        let moviePosterUrl = APIBase.posterImageURL(path: response.posterPath)
+        let releaseDateDescription = dateFormatter.string(from: response.releaseDate)
+        let genresDescription = response.genreNames.joined(separator: ", ")
+        let isFavoriteImage = response.isFavorite ? #imageLiteral(resourceName: "favorite_full_icon") : #imageLiteral(resourceName: "favorite_gray_icon")
         
         let moviePosterViewModel = MoviePosterTableViewCell.ViewModel(
             imageURL: moviePosterUrl,
-            title: movie.title
+            title: response.title,
+            isFavoriteImage: isFavoriteImage
         )
         let genresViewModel = MovieTextTableViewCell.ViewModel(
             description: genresDescription
@@ -47,15 +47,17 @@ final class MovieDetailPresenter: MovieDetailPresenterType {
             description: releaseDateDescription
         )
         let overviewViewModel = MovieOverviewTableViewCell.ViewModel(
-            overview: movie.overview
+            overview: response.overview
         )
        
+        
         let viewModel = MovieDetailViewController.ViewModel(
             poster: moviePosterViewModel,
             releaseDate: releaseDateViewModel,
             genres: genresViewModel,
             overview: overviewViewModel
         )
+        
         view.displayMovieDetail(viewModel: viewModel)
     }
 }

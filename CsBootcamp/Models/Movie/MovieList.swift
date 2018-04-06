@@ -6,7 +6,7 @@
 //  Copyright © 2018 Bootcampers. All rights reserved.
 //
 
-struct MovieList: Codable {
+struct MovieList: Decodable {
     
     let results: [Movie]
 }

@@ -15,11 +15,20 @@ final class MoviesListViewController: UIViewController, MoviesListView, ShowMovi
     
     lazy var errorView: MovieListErrorView = {
        
-        let errorView = MovieListErrorView()
+        let errorView = MovieListErrorView(frame: .zero, iconDiameterRatio: 0.5)
         errorView.translatesAutoresizingMaskIntoConstraints = false
         errorView.isHidden = true
         
         return errorView
+    }()
+    
+    lazy var emptySearchView: MovieListErrorView = {
+        
+        let emptySearchView = MovieListErrorView(frame: .zero, iconDiameterRatio: 0.3)
+        emptySearchView.translatesAutoresizingMaskIntoConstraints = false
+        emptySearchView.isHidden = true
+        
+        return emptySearchView
     }()
     
     lazy var activityIndicator: UIActivityIndicatorView = {
@@ -50,20 +59,43 @@ final class MoviesListViewController: UIViewController, MoviesListView, ShowMovi
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.backgroundColor = .clear
+        collectionView.keyboardDismissMode = .onDrag
 
         return collectionView
     }()
+    
+    lazy var searchBar: UISearchBar = {
+        
+        let searchBar = UISearchBar(frame: .zero)
+        searchBar.translatesAutoresizingMaskIntoConstraints = false
+        searchBar.barTintColor = UIColor.Bootcamp.yellow
+        searchBar.layer.borderWidth = 1
+        searchBar.layer.borderColor = UIColor.Bootcamp.yellow.cgColor
+        searchBar.placeholder = "Search"
+        
+        return searchBar
+    }()
 
+    // MARK: Scene components
+    
     lazy var dataSource: MoviesListDataSource = {
 
         let dataSource = MoviesListDataSource(collectionView: collectionView, indicatorView: activityIndicator)
         dataSource.didSelectItem = self.movieSelected
+        dataSource.didPressedItemButton = self.toggleFavoriteMovie
         
         return dataSource
+    }()
+    
+    lazy var searchBarDelegate: SearchBarDelegate = {
+       
+        let searchBarDelegate = SearchBarDelegate(searchBar: searchBar)
+        return searchBarDelegate
     }()
 
     var listInteractor: MoviesListInteractorType?
     var showDetailInteractor: MoviesListShowDetailInteractorType?
+    var favoriteInteractor: MovieListFavoriteInteractorType?
 
     required init?(coder aDecoder: NSCoder) {
         return nil
@@ -72,27 +104,36 @@ final class MoviesListViewController: UIViewController, MoviesListView, ShowMovi
     init() {
 
         super.init(nibName: nil, bundle: nil)
-        title = "Movies"
         
+        title = "Movies"
         dataSource.scrollEventListener = self
+        tabBarItem = UITabBarItem(title: "Movies", image: #imageLiteral(resourceName: "list_icon"), tag: 0)
+    }
+    
+    override func viewDidLoad() {
+        
+        view.backgroundColor = .white
         setupViewHierarchy()
         setupConstraints()
-
-        view.backgroundColor = .white
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+        
+        searchBarDelegate.textDidChange = setSearchPredicate
+        dataSource.searchDidReturnCount = searchResults
+        super.viewDidLoad()
         
         fetchMovies(from: page)
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
-        page = 1
-    }
+    override func viewWillAppear(_ animated: Bool) {
         
+        listInteractor?.reloadMovies()
+        super.viewWillAppear(animated)
+    }
+    
     func didReachToScrollBottom() {
-        if case .list = state {
+        
+        let isSearching = searchBarDelegate.searchBarIsActive
+        if !isSearching,
+            case .list = state {
             page += 1
             fetchMovies(from: page)
         }
@@ -104,10 +145,33 @@ final class MoviesListViewController: UIViewController, MoviesListView, ShowMovi
         listInteractor?.fetchMovies(from: page)
     }
     
+    private func toggleFavoriteMovie(at index: Int) {
+        let movie = listInteractor?.movie(at: index)
+        
+        if let movie = movie {
+           favoriteInteractor?.toggleMovieFavorite(movie)
+        }
+    }
+    
     private func movieSelected(at index: Int) {
         
         if let movie = listInteractor?.movie(at: index) {
             self.showDetailInteractor?.showDetail(forMovie: movie)
+        }
+    }
+    
+    // MARK: Filter
+    
+    private func setSearchPredicate(_ predicate: String) {
+        dataSource.searchPredicate = predicate
+    }
+    
+    private func searchResults(from predicate: String, didReturnCount count: Int) {
+        
+        let isEmptySearch = count == 0 && !predicate.isEmpty
+        emptySearchView.isHidden = !isEmptySearch
+        if isEmptySearch {
+            emptySearchView.setup(viewModel: MoviesListErrorViewModel.defaultEmptySearch(predicate: predicate))
         }
     }
     
@@ -151,15 +215,23 @@ final class MoviesListViewController: UIViewController, MoviesListView, ShowMovi
 
     private func setupViewHierarchy() {
 
+        view.addSubview(searchBar)
         view.addSubview(collectionView)
         view.addSubview(activityIndicator)
         view.addSubview(errorView)
+        view.addSubview(emptySearchView)
     }
 
     private func setupConstraints() {
 
-        collectionView
+        searchBar
             .topAnchor(equalTo: view.topAnchor)
+            .heightAnchor(equalTo: 48.0)
+            .leadingAnchor(equalTo: view.leadingAnchor)
+            .trailingAnchor(equalTo: view.trailingAnchor)
+        
+        collectionView
+            .topAnchor(equalTo: searchBar.bottomAnchor)
             .bottomAnchor(equalTo: view.bottomAnchor)
             .trailingAnchor(equalTo: view.trailingAnchor)
             .leadingAnchor(equalTo: view.leadingAnchor)
@@ -169,7 +241,13 @@ final class MoviesListViewController: UIViewController, MoviesListView, ShowMovi
             .centerYAnchor(equalTo: view.centerYAnchor)
         
         errorView
-            .topAnchor(equalTo: view.topAnchor)
+            .topAnchor(equalTo: searchBar.bottomAnchor)
+            .bottomAnchor(equalTo: view.bottomAnchor)
+            .trailingAnchor(equalTo: view.trailingAnchor)
+            .leadingAnchor(equalTo: view.leadingAnchor)
+        
+        emptySearchView
+            .topAnchor(equalTo: searchBar.bottomAnchor)
             .bottomAnchor(equalTo: view.bottomAnchor)
             .trailingAnchor(equalTo: view.trailingAnchor)
             .leadingAnchor(equalTo: view.leadingAnchor)
