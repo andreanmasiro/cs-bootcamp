@@ -8,7 +8,7 @@
 
 import Foundation
 
-final class MoviesListInteractor: MoviesListInteractorType, FavoriteInteractorType {
+final class MoviesListInteractor: MoviesListInteractorType, MovieListFavoriteInteractorType {
     
     private var movies = [Movie]()
     
@@ -59,7 +59,7 @@ final class MoviesListInteractor: MoviesListInteractorType, FavoriteInteractorTy
         }
     }
     
-    // MARK: FavoriteInteractorType
+    // MARK: MovieListFavoriteInteractorType
     
     func toggleMovieFavorite(_ movie: Movie) {
         _ = favoriteMoviesListGateway.toggleMovieFavorite(movie)

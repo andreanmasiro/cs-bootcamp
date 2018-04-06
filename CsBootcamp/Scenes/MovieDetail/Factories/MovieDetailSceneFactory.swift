@@ -23,6 +23,7 @@ final class MovieDetailSceneFactory {
         let interactor = MovieDetailInteractor(presenter: presenter, genresGateway: genresGateway, favoriteMoviesListGateway: favoriteMoviesListGateway)
         
         viewController.interactor = interactor
+        viewController.movieDetailFavoriteInteractor = interactor
         
         return viewController
     }

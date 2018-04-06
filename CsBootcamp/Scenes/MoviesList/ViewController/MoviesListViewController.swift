@@ -65,7 +65,7 @@ final class MoviesListViewController: UIViewController, MoviesListView, ShowMovi
 
     var listInteractor: MoviesListInteractorType?
     var showDetailInteractor: MoviesListShowDetailInteractorType?
-    var favoriteInteractor: FavoriteInteractorType?
+    var favoriteInteractor: MovieListFavoriteInteractorType?
 
     required init?(coder aDecoder: NSCoder) {
         return nil

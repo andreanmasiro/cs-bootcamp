@@ -6,9 +6,7 @@
 //  Copyright © 2018 Bootcampers. All rights reserved.
 //
 
-import Foundation
-
-protocol FavoriteInteractorType {
+protocol MovieListFavoriteInteractorType {
     
     func toggleMovieFavorite(_ movie: Movie)
 }

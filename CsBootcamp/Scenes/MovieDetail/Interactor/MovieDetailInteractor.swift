@@ -8,9 +8,10 @@
 
 import Foundation
 
-final class MovieDetailInteractor: MovieDetailInteractorType {
+final class MovieDetailInteractor: MovieDetailInteractorType, MovieDetailFavoriteInteractorType {
     
     var movie: Movie?
+    var genres: [Genre]?
 
     private let presenter: MovieDetailPresenterType
     private let genresCacheGateway: GenresCacheGateway
@@ -22,32 +23,51 @@ final class MovieDetailInteractor: MovieDetailInteractorType {
         self.favoriteMoviesListGateway = favoriteMoviesListGateway
     }
     
-    func fetchDetail(of movie: Movie) {
+    private func createResponse(fromMovie movie: Movie, genres: [Genre]) -> FetchMovieDetailResponse {
         
+        let genreNames = genres.map { genre in genre.name }
+        let isFavoriteResult = self.favoriteMoviesListGateway.isMovieFavorite(movie)
+        let isFavorite = isFavoriteResult.value ?? false
+        
+        return FetchMovieDetailResponse(
+            posterPath: movie.posterPath,
+            releaseDate: movie.releaseDate,
+            title: movie.title,
+            overview: movie.overview,
+            isFavorite: isFavorite,
+            genreNames: genreNames
+        )
+    }
+    
+    // MARK: MovieDetailInteractorType
+    
+    func fetchDetail(of movie: Movie) {
         
         genresCacheGateway.fetchGenres(withIds: movie.genreIds) { [weak self] result in
 
             guard let `self` = self else { return }
             
-            let isFavoriteResult = self.favoriteMoviesListGateway.isMovieFavorite(movie)
-            
-            if case let .success(genres) = result,
-                case let .success(isFavorite) = isFavoriteResult {
+            if case let .success(genres) = result {
                 
                 self.movie = movie
-                let genreNames = genres.map { genre in genre.name }
+                self.genres = genres
                 
-                let response = FetchMovieDetailResponse(
-                    posterPath: movie.posterPath,
-                    releaseDate: movie.releaseDate,
-                    title: movie.title,
-                    overview: movie.overview,
-                    isFavorite: isFavorite,
-                    genreNames: genreNames
-                )
-                
+                let response = self.createResponse(fromMovie: movie, genres: genres)
                 self.presenter.presentMovie(response: response)
             }
+        }
+    }
+    
+    // MARK: MovieDetailFavoriteInteractorType
+    
+    func toggleMovieFavorite() {
+        guard let movie = movie,
+            let genres = genres else { return }
+        let result = favoriteMoviesListGateway.toggleMovieFavorite(movie)
+        
+        if case .success = result {
+            let response = self.createResponse(fromMovie: movie, genres: genres)
+            presenter.presentMovie(response: response)
         }
     }
 }

@@ -14,7 +14,7 @@ class MoviePosterTableViewCell: UITableViewCell {
     
     static var cellHeight: CGFloat = CGFloat(250).proportionalToWidth
     
-    var didFavoriteButtonPressed: (() -> ())?
+    var favoriteButtonTapped: (() -> ())?
     
     lazy var posterImageView: UIImageView = {
         let imageView = UIImageView()
@@ -36,7 +36,7 @@ class MoviePosterTableViewCell: UITableViewCell {
     lazy var favoriteButton: UIButton = {
         let button = UIButton(type: .custom)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.addTarget(self, action: #selector(favoriteButtonTapped), for: .touchUpInside)
+        button.addTarget(self, action: #selector(favoriteButtonAction), for: .touchUpInside)
         
         return button
     }()
@@ -83,8 +83,8 @@ class MoviePosterTableViewCell: UITableViewCell {
             .trailingAnchor(equalTo: contentView.trailingAnchor, constant: -16)
     }
     
-    @objc private func favoriteButtonTapped(_ sender: AnyObject) {
-        didFavoriteButtonPressed?()
+    @objc private func favoriteButtonAction(_ sender: AnyObject) {
+        favoriteButtonTapped?()
     }
 }
 
