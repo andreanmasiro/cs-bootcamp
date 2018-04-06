@@ -106,27 +106,27 @@ final class MoviesListViewController: UIViewController, MoviesListView, ShowMovi
         super.init(nibName: nil, bundle: nil)
         
         title = "Movies"
-        
         dataSource.scrollEventListener = self
-        setupViewHierarchy()
-        setupConstraints()
-
-        view.backgroundColor = .white
-        
         tabBarItem = UITabBarItem(title: "Movies", image: #imageLiteral(resourceName: "list_icon"), tag: 0)
     }
     
     override func viewDidLoad() {
         
+        view.backgroundColor = .white
+        setupViewHierarchy()
+        setupConstraints()
+        
         searchBarDelegate.textDidChange = setSearchPredicate
         dataSource.searchDidReturnCount = searchResults
         super.viewDidLoad()
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
         
         fetchMovies(from: page)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        
+        listInteractor?.reloadMovies()
+        super.viewWillAppear(animated)
     }
     
     func didReachToScrollBottom() {

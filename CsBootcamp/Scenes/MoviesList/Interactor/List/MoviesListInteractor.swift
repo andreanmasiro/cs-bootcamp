@@ -26,6 +26,10 @@ final class MoviesListInteractor: MoviesListInteractorType, MovieListFavoriteInt
         return movies[index]
     }
     
+    func reloadMovies() {
+        presentResponses(with: movies)
+    }
+    
     func fetchMovies(from page: Int) {
         moviesListGateway.fetchMovies(page: page) { [weak self] result in
     
@@ -36,17 +40,15 @@ final class MoviesListInteractor: MoviesListInteractorType, MovieListFavoriteInt
             case .success(let movies):
                 
                 self.movies.append(contentsOf: movies)
-                let responses = self.createResponses(with: self.movies)
-                
-                self.presenter.presentMovies(responses)
+                self.presentResponses(with: self.movies)
             case .failure:
                 self.presenter.presentError()
             }
         }
     }
     
-    private func createResponses(with movies: [Movie]) -> [FetchMoviesListResponse] {
-        return movies.map { movie -> FetchMoviesListResponse in
+    private func presentResponses(with movies: [Movie]) {
+        let responses = movies.map { movie -> FetchMoviesListResponse in
             
             let isMovieFavorite = self.favoriteMoviesListGateway
                 .isMovieFavorite(movie).value ?? false
@@ -57,14 +59,15 @@ final class MoviesListInteractor: MoviesListInteractorType, MovieListFavoriteInt
                 isFavorite: isMovieFavorite
             )
         }
+        
+        presenter.presentMovies(responses)
     }
     
     // MARK: MovieListFavoriteInteractorType
     
     func toggleMovieFavorite(_ movie: Movie) {
         _ = favoriteMoviesListGateway.toggleMovieFavorite(movie)
-        let responses = createResponses(with: movies)
-        presenter.presentMovies(responses)
+        presentResponses(with: movies)
     }
 }
 
