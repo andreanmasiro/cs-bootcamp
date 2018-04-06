@@ -44,6 +44,17 @@ final class GenresCacheCoreDataGateway: GenresCacheGateway {
         let predicate = NSPredicate(format: "id IN %@", ids)
         request.predicate = predicate
         
+        fetchGenres(request: request, completion)
+    }
+    
+    func fetchGenres(_ completion: @escaping (Result<[Genre]>) -> ()) {
+        
+        let request: NSFetchRequest<GenreCoreData> = GenreCoreData.fetchRequest()
+        fetchGenres(request: request, completion)
+    }
+    
+    private func fetchGenres(request: NSFetchRequest<GenreCoreData>, _ completion: @escaping (Result<[Genre]>) -> ()) {
+        
         do {
             let genresCoreData = try coreDataStack.context.fetch(request)
             

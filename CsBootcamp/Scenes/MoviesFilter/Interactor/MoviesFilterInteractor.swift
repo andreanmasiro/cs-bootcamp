@@ -9,29 +9,60 @@
 import Foundation
 
 protocol MoviesFilterPresenterType: class{
-    func showFilterDetailList(viewModels: [String])
+    func showFilterByGenres(_ genres: [Genre])
+    func showFilterByReleaseDates(_ releaseYears: [Int])
 }
 
 final class MoviesFilterInteractor: MoviesFilterInteractorType {
  
-    weak var presenter: MoviesFilterPresenterType?
-    weak var moviesFilterViewController: MoviesFilterViewController?
+    let presenter: MoviesFilterPresenterType
     
-    init(presenter: MoviesFilterPresenterType) {
+    let gateway: GenresCacheGateway
+    
+    var genres: [Genre] = []
+    
+    var releaseYears: [Int] = []
+    
+    init(presenter: MoviesFilterPresenterType, gateway: GenresCacheGateway) {
         self.presenter = presenter
-        moviesFilterViewController?.moviesFilterInteractorType = self
+        self.gateway = gateway
     }
-
-    var itens_1 = ["2009", "2008", "2007"]
-    var itens_2 = ["Teste", "Teste 2", "Teste 3"]
     
     func showFilterDetail(at index: Int) {
         
-        if index == 0 {
-            presenter?.showFilterDetailList(viewModels: itens_1)
+        if index == 0 {            
+            showFilterByReleaseDate()
+        } else if index == 1 {
+            showFilterByGenres()
         }
-        if index == 1 {
-            presenter?.showFilterDetailList(viewModels: itens_2)
+    }
+    
+    private func showFilterByGenres() {
+        
+        gateway.fetchGenres { [weak self] (result) in
+            
+            guard let `self` = self else {
+                return
+            }
+            
+            if let value = result.value {
+                self.genres = value
+                self.presenter.showFilterByGenres(value)
+            }
         }
+    }
+    
+    private func showFilterByReleaseDate() {
+        
+        let currenteDate = Date()
+        
+        let calendar = Calendar.current
+        let year = calendar.component(.year, from: currenteDate)
+        
+        releaseYears = (0..<100).map { index in
+            year - index
+        }
+        
+        presenter.showFilterByReleaseDates(releaseYears)
     }
 }

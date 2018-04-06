@@ -13,15 +13,29 @@ protocol FilterView: class {
 }
 
 final class MoviesFilterPresenter: MoviesFilterPresenterType {
-
+    
     private weak var view: FilterView?
     
     init(view: FilterView) {
         self.view = view
     }
     
-    func showFilterDetailList(viewModels: [String]) {
-        view?.displayFilterDetail(viewModels: viewModels)
+    func showFilterByGenres(_ genres: [Genre]) {
+        
+        let genres = genres.map { genre in
+            
+            genre.name
+        }
+        
+        view?.displayFilterDetail(viewModels: genres)
+
+    }
+    
+    func showFilterByReleaseDates(_ releaseYears: [Int]) {
+        
+        let releaseYears = releaseYears.map(String.init)
+        
+        view?.displayFilterDetail(viewModels: releaseYears)
     }
 
 }

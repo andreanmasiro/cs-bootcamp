@@ -14,6 +14,7 @@ protocol MoviesFilterInteractorType: class {
 
 class MoviesFilterViewController: UIViewController, FilterView {
 
+    var viewModels: [String] = []
 
     lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero)
@@ -39,7 +40,7 @@ class MoviesFilterViewController: UIViewController, FilterView {
         return dataSource
     }()
     
-    var moviesFilterInteractorType: MoviesFilterInteractorType?
+    var moviesFilterInteractor: MoviesFilterInteractorType?
     
     init() {
         super.init(nibName: nil, bundle: nil)
@@ -59,20 +60,19 @@ class MoviesFilterViewController: UIViewController, FilterView {
     }
     
     private func filterSelected(at index: Int) {
-        moviesFilterInteractorType?.showFilterDetail(at: index)
+        moviesFilterInteractor?.showFilterDetail(at: index)
     }
 
     func displayFilterDetail(viewModels: [String]) {
-        setup(viewModels: viewModels)
+        navigateToDetailOfFilter(options: viewModels)
+        self.viewModels = viewModels
     }
     
-    private func setup(viewModels: [String]) {
-        dataSource.viewModels = viewModels
-    }
-    
-    func navigateToDetailOfFilter(index: Int) {
-        let vc = FilterDetailTableViewController(nibName: nil, bundle: nil)
-        self.navigationController?.pushViewController(vc, animated: true)
+    func navigateToDetailOfFilter(options: [String]) {
+        let vc = MoviesFilterDetailViewControllerFactory.make(withOptions: options) { index in
+            print(self.viewModels[index])
+        }
+        show(vc, sender: nil)
     }
     
     private func setupViewHierarchy() {

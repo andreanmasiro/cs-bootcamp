@@ -21,7 +21,8 @@ final class MainWindowFactory {
         let tabBarController = UITabBarControllerFactory.make(with: moviesNavigationController, favoritesNavigationController)
         
         let window = UIWindow(frame: UIScreen.main.bounds)
-        window.rootViewController = tabBarController
+        //window.rootViewController = tabBarController
+        window.rootViewController = MoviesFilterSceneFactory.make()
         window.backgroundColor = UIColor.white
         window.makeKeyAndVisible()
         
