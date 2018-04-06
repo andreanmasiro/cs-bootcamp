@@ -8,19 +8,6 @@
 
 import Foundation
 
-protocol MoviesListPresenterType {
-    
-    func presentMovies(_ movies: [FetchMoviesListResponse])
-    func presentError()
-}
-
-struct FetchMoviesListResponse {
-    
-    let posterPath: String
-    let title: String
-    let isFavorite: Bool
-}
-
 final class MoviesListInteractor: MoviesListInteractorType, FavoriteInteractorType {
     
     private var movies = [Movie]()

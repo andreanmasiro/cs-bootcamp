@@ -36,7 +36,6 @@ class MoviePosterTableViewCell: UITableViewCell {
     lazy var favoriteButton: UIButton = {
         let button = UIButton(type: .custom)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(#imageLiteral(resourceName: "favorite_gray_icon"), for: .normal)
         button.addTarget(self, action: #selector(favoriteButtonTapped), for: .touchUpInside)
         
         return button
@@ -56,6 +55,7 @@ class MoviePosterTableViewCell: UITableViewCell {
     func setup(viewModel: ViewModel) {
         self.titleLabel.text = viewModel.title
         imageFetcher.fetchImage(from: viewModel.imageURL, to: posterImageView) {}
+        favoriteButton.setImage(viewModel.isFavoriteImage, for: .normal)
     }
     
     private func setupViewHierarchy() {
@@ -94,6 +94,7 @@ extension MoviePosterTableViewCell {
         
         let imageURL: URL
         let title: String
+        let isFavoriteImage: UIImage
     }
 }
 

@@ -111,6 +111,8 @@
 		BA3134CE2076EDA300DE9418 /* GenresCacher.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3134CD2076EDA300DE9418 /* GenresCacher.swift */; };
 		BA3134D12077BA8D00DE9418 /* MainWindowFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3134D02077BA8D00DE9418 /* MainWindowFactory.swift */; };
 		BA3134D32077BB2100DE9418 /* GenresCacherFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3134D22077BB2100DE9418 /* GenresCacherFactory.swift */; };
+		BA3134D52077BC4C00DE9418 /* MoviesListPresenterType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3134D42077BC4C00DE9418 /* MoviesListPresenterType.swift */; };
+		BA3134D72077BC7700DE9418 /* MovieDetailPresenterType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3134D62077BC7700DE9418 /* MovieDetailPresenterType.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -236,6 +238,8 @@
 		BA3134CD2076EDA300DE9418 /* GenresCacher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenresCacher.swift; sourceTree = "<group>"; };
 		BA3134D02077BA8D00DE9418 /* MainWindowFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWindowFactory.swift; sourceTree = "<group>"; };
 		BA3134D22077BB2100DE9418 /* GenresCacherFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenresCacherFactory.swift; sourceTree = "<group>"; };
+		BA3134D42077BC4C00DE9418 /* MoviesListPresenterType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesListPresenterType.swift; sourceTree = "<group>"; };
+		BA3134D62077BC7700DE9418 /* MovieDetailPresenterType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailPresenterType.swift; sourceTree = "<group>"; };
 		C38B5DB6C6E00FA2A0F9BC7C /* Pods-CsBootcampTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CsBootcampTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-CsBootcampTests/Pods-CsBootcampTests.release.xcconfig"; sourceTree = "<group>"; };
 		F66446EC6458B0B9662CAB7B /* Pods-CsBootcampTests.test.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CsBootcampTests.test.xcconfig"; path = "Pods/Target Support Files/Pods-CsBootcampTests/Pods-CsBootcampTests.test.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -460,6 +464,7 @@
 			isa = PBXGroup;
 			children = (
 				6E141C1920698A600047D3A6 /* MovieDetailPresenter.swift */,
+				BA3134D62077BC7700DE9418 /* MovieDetailPresenterType.swift */,
 			);
 			path = Presenter;
 			sourceTree = "<group>";
@@ -751,6 +756,7 @@
 			isa = PBXGroup;
 			children = (
 				BA1824B7206563CF004405A3 /* MoviesListPresenter.swift */,
+				BA3134D42077BC4C00DE9418 /* MoviesListPresenterType.swift */,
 			);
 			path = Presenter;
 			sourceTree = "<group>";
@@ -1124,6 +1130,7 @@
 				6E141C12206933F20047D3A6 /* MovieTextTableViewCell.swift in Sources */,
 				BA182504206AD87D004405A3 /* MoviesListGateway.swift in Sources */,
 				BA18250B206AE879004405A3 /* Moya+Decodable.swift in Sources */,
+				BA3134D52077BC4C00DE9418 /* MoviesListPresenterType.swift in Sources */,
 				BA3134BF20753F1900DE9418 /* GenreCoreData+CoreDataProperties.swift in Sources */,
 				BA1824AF20655E83004405A3 /* MoviesListViewController.swift in Sources */,
 				BA3134BC20753F1900DE9418 /* MovieCoreData+CoreDataClass.swift in Sources */,
@@ -1161,6 +1168,7 @@
 				BA1824C920658A01004405A3 /* UICollectionView+ReusableView.swift in Sources */,
 				BA1824FF206AD703004405A3 /* MovieList.swift in Sources */,
 				BA182508206AE680004405A3 /* Result.swift in Sources */,
+				BA3134D72077BC7700DE9418 /* MovieDetailPresenterType.swift in Sources */,
 				627377DD20753F62006C2694 /* FavoritesListPresenter.swift in Sources */,
 				6E141C0C2065AE760047D3A6 /* MovieDetailDataSource.swift in Sources */,
 				627377DA20751F9F006C2694 /* FavoritesListInteractorType.swift in Sources */,
