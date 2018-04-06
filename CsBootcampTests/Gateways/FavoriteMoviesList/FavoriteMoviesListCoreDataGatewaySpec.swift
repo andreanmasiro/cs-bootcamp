@@ -57,6 +57,18 @@ final class FavoriteMoviesListCoreDataGatewaySpec: QuickSpec {
                         favoriteMoviesListCoreDataGateway.setMovie(movie, favorite: true)
                     }
                     
+                    context("and isMovieFavorite is called") {
+                        
+                        var result: Result<Bool>!
+                        beforeEach {
+                            result = favoriteMoviesListCoreDataGateway.isMovieFavorite(movie)
+                        }
+                        
+                        it("should return true") {
+                            expect(result.value).to(beTrue())
+                        }
+                    }
+                    
                     context("and fetchMovies is called") {
                         
                         var result: Result<[Movie]>!
@@ -71,7 +83,19 @@ final class FavoriteMoviesListCoreDataGatewaySpec: QuickSpec {
                     context("and setMovieFavorite false is called") {
                         
                         beforeEach {
-                            favoriteMoviesListCoreDataGateway.setMovie(movie, favorite: false)
+                            _ = favoriteMoviesListCoreDataGateway.setMovie(movie, favorite: false)
+                        }
+                        
+                        context("and isMovieFavorite is called") {
+                            
+                            var result: Result<Bool>!
+                            beforeEach {
+                                result = favoriteMoviesListCoreDataGateway.isMovieFavorite(movie)
+                            }
+                            
+                            it("should return false") {
+                                expect(result.value).to(beFalse())
+                            }
                         }
                         
                         context("and fetchMovies is called") {
@@ -93,6 +117,18 @@ final class FavoriteMoviesListCoreDataGatewaySpec: QuickSpec {
                         favoriteMoviesListCoreDataGateway.toggleMovieFavorite(movie)
                     }
                     
+                    context("and isMovieFavorite is called") {
+                        
+                        var result: Result<Bool>!
+                        beforeEach {
+                            result = favoriteMoviesListCoreDataGateway.isMovieFavorite(movie)
+                        }
+                        
+                        it("should return true") {
+                            expect(result.value).to(beTrue())
+                        }
+                    }
+                    
                     context("and fetchMovies is called") {
                         
                         var result: Result<[Movie]>!
@@ -108,6 +144,18 @@ final class FavoriteMoviesListCoreDataGatewaySpec: QuickSpec {
                         
                         beforeEach {
                             favoriteMoviesListCoreDataGateway.toggleMovieFavorite(movie)
+                        }
+                        
+                        context("and isMovieFavorite is called") {
+                            
+                            var result: Result<Bool>!
+                            beforeEach {
+                                result = favoriteMoviesListCoreDataGateway.isMovieFavorite(movie)
+                            }
+                            
+                            it("should return false") {
+                                expect(result.value).to(beFalse())
+                            }
                         }
                         
                         context("and fetchMovies is called") {
