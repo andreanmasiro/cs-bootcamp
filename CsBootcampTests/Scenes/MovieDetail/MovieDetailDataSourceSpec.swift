@@ -42,15 +42,17 @@ class MovieDetailDataSourceSpec: QuickSpec {
                 
                 it("should init the Data Source and store the given view model", closure: {
                     expect(sut).notTo(beNil())
-//                    expect(sut.viewModel == viewModel).to(beTrue())
                 })
                 
                 context("and view models are set") {
                     
                     beforeEach {
-                        
                         viewModel = MovieDetailViewController.ViewModel(
-                            poster: MoviePosterTableViewCell.ViewModel(imageURL: URL(string: "www.com")!, title: ""),
+                            poster: MoviePosterTableViewCell.ViewModel(
+                                imageURL: URL(string: "www.com")!,
+                                title: "",
+                                isFavoriteImage: UIImage()
+                            ),
                             releaseDate: MovieTextTableViewCell.ViewModel(description: ""),
                             genres: MovieTextTableViewCell.ViewModel(description: ""),
                             overview: MovieOverviewTableViewCell.ViewModel(overview: "")

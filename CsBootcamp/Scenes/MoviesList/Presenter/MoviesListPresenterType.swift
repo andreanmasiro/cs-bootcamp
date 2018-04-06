@@ -12,7 +12,7 @@ protocol MoviesListPresenterType {
     func presentError()
 }
 
-struct FetchMoviesListResponse {
+struct FetchMoviesListResponse: Equatable {
     
     let posterPath: String
     let title: String

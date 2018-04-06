@@ -20,13 +20,17 @@ class MoviesListInteractorSpec: QuickSpec {
             var presenter: MoviesListPresenterSpy!
             var gateway: MoviesListGatewayStub!
             var interactor: MoviesListInteractor!
+            var favoriteMovieListGateway: FavoriteMoviesListGatewayStub!
             
             context("when initialized") {
                 
+                let isMovieFavoriteStub = true
                 beforeEach {
                     presenter = MoviesListPresenterSpy()
                     gateway = MoviesListGatewayStub()
-                    interactor = MoviesListInteractor(presenter: presenter, moviesListGateway: gateway)
+                    favoriteMovieListGateway = FavoriteMoviesListGatewayStub()
+                    favoriteMovieListGateway.isMovieFavoriteResultStub = .success(isMovieFavoriteStub)
+                    interactor = MoviesListInteractor(presenter: presenter, moviesListGateway: gateway, favoriteMoviesListGateway: favoriteMovieListGateway)
                 }
                 
                 context("and fetch movies is called") {
@@ -35,6 +39,10 @@ class MoviesListInteractorSpec: QuickSpec {
                         
                         let movies = (0..<3).map { id in
                             Movie(id: id, genreIds: [], title: "", overview: "", releaseDate: Date(), posterPath: "")
+                        }
+                        
+                        let expectedResponse = movies.map { movie in
+                            FetchMoviesListResponse(posterPath: movie.posterPath, title: movie.title, isFavorite: isMovieFavoriteStub)
                         }
                         
                         beforeEach {
@@ -46,7 +54,7 @@ class MoviesListInteractorSpec: QuickSpec {
                         it("should present the returned movies") {
                             
                             expect(presenter.presentMoviesCalled).to(beTrue())
-                            expect(presenter.presentMoviesArg).to(equal(movies))
+                            expect(presenter.presentMoviesArg).to(equal(expectedResponse))
                         }
                     }
                     
@@ -73,10 +81,10 @@ class MoviesListInteractorSpec: QuickSpec {
 final class MoviesListPresenterSpy: MoviesListPresenterType {
     
     var presentMoviesCalled = false
-    var presentMoviesArg: [Movie]?
+    var presentMoviesArg: [FetchMoviesListResponse]?
     var presentErrorCalled = false
     
-    func presentMovies(_ movies: [Movie]) {
+    func presentMovies(_ movies: [FetchMoviesListResponse]) {
         presentMoviesCalled = true
         presentMoviesArg = movies
     }
@@ -92,5 +100,26 @@ final class MoviesListGatewayStub: MoviesListGateway {
     
     func fetchMovies(page: Int, _ completion: @escaping (Result<[Movie]>) -> ()) {
         completion(result)
+    }
+}
+
+final class FavoriteMoviesListGatewayStub: FavoriteMoviesListGateway {
+    
+    var isMovieFavoriteResultStub: Result<Bool>!
+    
+    func toggleMovieFavorite(_ movie: Movie) -> Result<Bool> {
+        return .success(true)
+    }
+    
+    func setMovie(_ movie: Movie, favorite: Bool) -> Result<Void> {
+        return .success(())
+    }
+    
+    func fetchMovies() -> Result<[Movie]> {
+        return .success([])
+    }
+    
+    func isMovieFavorite(_ movie: Movie) -> Result<Bool> {
+        return isMovieFavoriteResultStub
     }
 }
