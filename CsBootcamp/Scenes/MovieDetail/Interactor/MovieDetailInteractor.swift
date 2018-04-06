@@ -18,21 +18,20 @@ final class MovieDetailInteractor: MovieDetailInteractorType {
     var movie: Movie?
 
     private let presenter: MovieDetailPresenterType
-    private let genresListGateway: GenresListGateway
+    private let genresCacheGateway: GenresCacheGateway
     
-    init(presenter: MovieDetailPresenterType, genresListGateway: GenresListGateway) {
+    init(presenter: MovieDetailPresenterType, genresGateway: GenresCacheGateway) {
         self.presenter = presenter
-        self.genresListGateway = genresListGateway
+        self.genresCacheGateway = genresGateway
     }
     
     func fetchDetail(of movie: Movie) {
         
-        genresListGateway.fetchGenres { [weak self] result in
+        genresCacheGateway.fetchGenres(withIds: movie.genreIds) { [weak self] result in
             
             guard let `self` = self else { return }
             if case let .success(genres) = result {
                 self.movie = movie
-                let genres = genres.filter { genre in movie.genreIds.contains(genre.id) }
                 self.presenter.presentMovie(movie, genres)
             }
         }
