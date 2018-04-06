@@ -19,16 +19,25 @@ final class FavoriteMoviesListCoreDataGateway: FavoriteMoviesListGateway {
             return checkResult
         }
         
-        let result: Result<Void>
-        if isFavorite {
-            result = removeMovie(movie)
-        } else {
-            result = addMovie(movie)
-        }
+        let result = setMovie(movie, favorite: !isFavorite)
         
         switch result {
             
         case .success: return .success(!isFavorite)
+        case .failure(let error): return .failure(error)
+        }
+    }
+    
+    @discardableResult
+    func setMovie(_ movie: Movie, favorite: Bool) -> Result<Void> {
+        
+        let result = favorite ?
+            addMovie(movie) :
+            removeMovie(movie)
+        
+        switch result {
+            
+        case .success: return .success(())
         case .failure(let error): return .failure(error)
         }
     }

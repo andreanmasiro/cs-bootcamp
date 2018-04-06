@@ -48,7 +48,6 @@ class FavoritesListInteractorSpec: QuickSpec {
                             expect(presenter.isPresentFavoriteCalled).to(beFalse())
                         }
                     }
-                
                 }
                 
                 context("and result is success") {
@@ -68,13 +67,9 @@ class FavoritesListInteractorSpec: QuickSpec {
                             expect(presenter.isPresentFavoriteCalled).to(beTrue())
                         }
                     }
-                    
                 }
-                
             }
-        
         }
-        
     }
 }
 
@@ -88,22 +83,4 @@ final class FavoritesListPresenterSpy: FavoritesListPresenterType {
     }
 }
 
-final class FavoriteMoviesListGatewayStub: FavoriteMoviesListGateway {
-    
-    var result: Result<[Movie]>!
-    
-    func toggleMovieFavorite(_ movie: Movie) -> Result<Bool> {
-  
-        return .success(true)
-    }
-    
-    func fetchMovies() -> Result<[Movie]> {
-        
-        return result
-    }
-    
-    func isMovieFavorite(_ movie: Movie) -> Result<Bool> {
-        
-        return .success(true)
-    }
-}
+

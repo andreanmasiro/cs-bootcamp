@@ -11,4 +11,5 @@ import Foundation
 protocol FavoritesListInteractorType {
     
     func fetchFavorites()
+    func removeFavorite(at index: Int)
 }

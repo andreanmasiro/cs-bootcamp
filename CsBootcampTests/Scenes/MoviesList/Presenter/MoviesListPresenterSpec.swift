@@ -30,7 +30,9 @@ class MoviesListPresenterSpec: QuickSpec {
                 context("and present movies is called") {
                     
                     let movies = (0..<3).map { id in
-                        Movie(id: id, genreIds: [], title: "", overview: "", releaseDate: Date(), posterPath: "")
+                        FetchMoviesListResponse(
+                            posterPath: "", title: "", isFavorite: true
+                        )
                     }
                     
                     beforeEach {
@@ -40,7 +42,8 @@ class MoviesListPresenterSpec: QuickSpec {
                     let viewModel = MoviesListViewModel(cellViewModels: movies.map { movie in
                         MovieCollectionViewCell.ViewModel(
                             imageURL: APIBase.posterImageURL(path: movie.posterPath),
-                            title: movie.title
+                            title: movie.title,
+                            favoriteButtonImage: UIImage()
                         )
                     })
                     

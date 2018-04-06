@@ -12,7 +12,7 @@ final class FavoritesListDataSource: NSObject, UITableViewDataSource, UITableVie
     
     private weak var tableView: UITableView?
     
-    var didUnfavoritedItem: ((Int) -> ())?
+    var didUnfavoriteItemAtIndex: ((Int) -> ())?
     
     var viewModels: [FavoriteTableViewCell.ViewModel] = [] {
         didSet {
@@ -28,7 +28,6 @@ final class FavoritesListDataSource: NSObject, UITableViewDataSource, UITableVie
         
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.reloadData()
     }
     
     private func registerCells(in tableView: UITableView) {
@@ -58,13 +57,13 @@ final class FavoritesListDataSource: NSObject, UITableViewDataSource, UITableVie
         
         let unfavoriteAction = UITableViewRowAction(style: .destructive, title: "Unfavorite") { (action, indexPath) in
             
-            self.didUnfavoritedItem?(indexPath.item)
-            self.viewModels.remove(at: indexPath.row)
+//            let viewModel = filteredViewModels[indexPath.item]
+//            let index = viewModels.index(of: viewModel)
+            self.didUnfavoriteItemAtIndex?(indexPath.item)
         }
         
         return [unfavoriteAction]
     }
-    
     
     // MARK: - UITableView Delegate
     

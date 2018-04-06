@@ -8,20 +8,7 @@
 
 import Foundation
 
-protocol MoviesListPresenterType {
-    
-    func presentMovies(_ movies: [FetchMoviesListResponse])
-    func presentError()
-}
-
-struct FetchMoviesListResponse {
-    
-    let posterPath: String
-    let title: String
-    let isFavorite: Bool
-}
-
-final class MoviesListInteractor: MoviesListInteractorType, FavoriteInteractorType {
+final class MoviesListInteractor: MoviesListInteractorType, MovieListFavoriteInteractorType {
     
     private var movies = [Movie]()
     
@@ -72,7 +59,7 @@ final class MoviesListInteractor: MoviesListInteractorType, FavoriteInteractorTy
         }
     }
     
-    // MARK: FavoriteInteractorType
+    // MARK: MovieListFavoriteInteractorType
     
     func toggleMovieFavorite(_ movie: Movie) {
         _ = favoriteMoviesListGateway.toggleMovieFavorite(movie)
