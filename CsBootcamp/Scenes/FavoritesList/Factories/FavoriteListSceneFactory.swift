@@ -6,11 +6,11 @@
 //  Copyright © 2018 Bootcampers. All rights reserved.
 //
 
-import Foundation
+import UIKit.UIViewController
 
 final class FavoritesListSceneFactory {
     
-    static func make() -> FavoritesListViewController {
+    static func make() -> UIViewController {
         
         let viewController = FavoritesListViewController()
         let presenter = FavoritesListPresenter(view: viewController)

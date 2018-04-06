@@ -6,9 +6,11 @@
 //  Copyright © 2018 Bootcampers. All rights reserved.
 //
 
+import UIKit.UIViewController
+
 final class MoviesListSceneFactory {
     
-    static func make() -> MoviesListViewController {
+    static func make() -> UIViewController {
         
         let viewController = MoviesListViewController()
         let presenter = MoviesListPresenter(view: viewController)

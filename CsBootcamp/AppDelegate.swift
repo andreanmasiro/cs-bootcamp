@@ -19,33 +19,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         print(docsPath)
         
         cacheGenresIfNeeded()
-        
-        let moviesListViewController = MoviesListSceneFactory.make()
-        let favoritesListViewController = FavoritesListSceneFactory.make()
-
-        let moviesNavigationController = UINavigationControllerFactory.make(with: moviesListViewController)
-        let favoritesNavigationController = UINavigationControllerFactory.make(with: favoritesListViewController)
-
-        let tabBarController = UITabBarControllerFactory.make(with: moviesNavigationController, favoritesNavigationController)
-        
-        let screen = UIScreen.main
-
-        let window = UIWindow(frame: screen.bounds)
-        window.rootViewController = tabBarController
-        window.backgroundColor = UIColor.white
-        window.makeKeyAndVisible()
-
-        self.window = window
+        window = MainWindowFactory.make()
         return true
     }
     
     func cacheGenresIfNeeded() {
-        
-        let coreDataStack = DefaultCoreDataStack()
-        let genresListGateway = GenresListMoyaGateway()
-        let genresCacheGateway = GenresCacheCoreDataGateway(coreDataStack: coreDataStack)
-        
-        let genresCacher = GenresCacher(genresListGateway: genresListGateway, genresCacheGateway: genresCacheGateway)
+        let genresCacher = GenresCacherFactory.make()
         genresCacher.cacheGenresIfNeeded()
     }
 }
