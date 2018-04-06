@@ -57,6 +57,7 @@ final class FavoriteTableViewCell: UITableViewCell {
         setupContraints()
         
         contentView.backgroundColor = .white
+        selectionStyle = .none
     }
     
     required init?(coder aDecoder: NSCoder) {
