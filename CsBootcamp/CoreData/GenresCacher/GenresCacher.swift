@@ -37,7 +37,7 @@ final class GenresCacher {
     
     private func getNeedsCache() -> Bool {
         
-        return UserDefaults.standard.bool(forKey: GenresCacher.cachedGenresKey)
+        return !UserDefaults.standard.bool(forKey: GenresCacher.cachedGenresKey)
     }
     
     private func setNeedsCache(_ needsCache: Bool) {

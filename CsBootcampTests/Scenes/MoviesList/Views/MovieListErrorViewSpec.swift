@@ -22,7 +22,7 @@ class MovieListErrorViewSpec: QuickSpec {
             context("when initialized") {
                 
                 beforeEach {
-                    errorView = MovieListErrorView(frame: .zero)
+                    errorView = MovieListErrorView(frame: .zero, iconDiameterRatio: 0.5)
                 }
                 
                 it("should setup the view hierarchy") {

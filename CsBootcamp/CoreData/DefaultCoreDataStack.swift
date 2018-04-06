@@ -11,7 +11,7 @@ import Foundation
 
 final class DefaultCoreDataStack: CoreDataStack {
     
-    lazy var persistentContainer: NSPersistentContainer = {
+    private lazy var persistentContainer: NSPersistentContainer = {
         
         let container = NSPersistentContainer(name: "Movies")
         container.loadPersistentStores { storeDescription, error in
@@ -23,13 +23,17 @@ final class DefaultCoreDataStack: CoreDataStack {
         return container
     }()
     
-    lazy var context = {
-        persistentContainer.viewContext
+    lazy var context: NSManagedObjectContext = {
+        let context = persistentContainer.viewContext
+        context.mergePolicy = NSMergePolicy.overwrite
+        
+        return context
     }()
     
     // MARK: - Core Data Saving support
     
     func saveContext() {
+
         if context.hasChanges {
             do {
                 try context.save()

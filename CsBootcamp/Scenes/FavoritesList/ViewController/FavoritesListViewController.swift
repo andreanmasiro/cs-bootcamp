@@ -45,7 +45,7 @@ final class FavoritesListViewController: UIViewController, FavoritesListView {
     lazy var dataSource: FavoritesListDataSource = {
        
         let dataSource = FavoritesListDataSource(tableView: tableView)
-        dataSource.didUnfavoritedItem = unfavoriteMovie
+        dataSource.didUnfavoriteItemAtIndex = unfavoriteMovie
         
         return dataSource
     }()
@@ -79,7 +79,7 @@ final class FavoritesListViewController: UIViewController, FavoritesListView {
     }
     
     func unfavoriteMovie(at index: Int) {
-        
+        interactor?.removeFavorite(at: index)
     }
     
     // MARK: Filter

@@ -14,10 +14,16 @@ final class MovieDetailSceneFactory {
         
         let viewController = MovieDetailViewController(movie: movie)
         let presenter = MovieDetailPresenter(view: viewController)
-        let gateway = GenresCacheCoreDataGateway(coreDataStack: DefaultCoreDataStack())
-        let interactor = MovieDetailInteractor(presenter: presenter, genresGateway: gateway)
+        
+        let coreDataStack = DefaultCoreDataStack()
+        
+        let genresGateway = GenresCacheCoreDataGateway(coreDataStack: coreDataStack)
+        let favoriteMoviesListGateway = FavoriteMoviesListCoreDataGateway(coreDataStack: coreDataStack)
+        
+        let interactor = MovieDetailInteractor(presenter: presenter, genresGateway: genresGateway, favoriteMoviesListGateway: favoriteMoviesListGateway)
         
         viewController.interactor = interactor
+        viewController.movieDetailFavoriteInteractor = interactor
         
         return viewController
     }

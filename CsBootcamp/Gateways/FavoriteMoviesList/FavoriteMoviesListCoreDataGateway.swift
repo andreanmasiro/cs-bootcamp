@@ -11,6 +11,17 @@ import CoreData
 
 final class FavoriteMoviesListCoreDataGateway: FavoriteMoviesListGateway {
     
+    enum Error: Swift.Error {
+        case invalidEntityDescription
+        case genresNotFound
+    }
+    
+    private let coreDataStack: CoreDataStack
+    
+    init(coreDataStack: CoreDataStack) {
+        self.coreDataStack = coreDataStack
+    }
+    
     func toggleMovieFavorite(_ movie: Movie) -> Result<Bool> {
         
         let checkResult = isMovieFavorite(movie)
@@ -19,16 +30,25 @@ final class FavoriteMoviesListCoreDataGateway: FavoriteMoviesListGateway {
             return checkResult
         }
         
-        let result: Result<Void>
-        if isFavorite {
-            result = removeMovie(movie)
-        } else {
-            result = addMovie(movie)
-        }
+        let result = setMovie(movie, favorite: !isFavorite)
         
         switch result {
             
         case .success: return .success(!isFavorite)
+        case .failure(let error): return .failure(error)
+        }
+    }
+    
+    @discardableResult
+    func setMovie(_ movie: Movie, favorite: Bool) -> Result<Void> {
+        
+        let result = favorite ?
+            addMovie(movie) :
+            removeMovie(movie)
+        
+        switch result {
+            
+        case .success: return .success(())
         case .failure(let error): return .failure(error)
         }
     }
@@ -112,17 +132,6 @@ final class FavoriteMoviesListCoreDataGateway: FavoriteMoviesListGateway {
         } catch {
             return .failure(error)
         }
-    }
-    
-    enum Error: Swift.Error {
-        case invalidEntityDescription
-        case genresNotFound
-    }
-    
-    private let coreDataStack: CoreDataStack
-    
-    init(coreDataStack: CoreDataStack) {
-        self.coreDataStack = coreDataStack
     }
     
     private func fetchGenres(withIds ids: [Int]) -> Result<[GenreCoreData]> {

@@ -12,6 +12,7 @@ import Foundation
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    private var genresCacher: GenresCacher?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 
@@ -37,7 +38,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func cacheGenresIfNeeded() {
-        let genresCacher = GenresCacherFactory.make()
-        genresCacher.cacheGenresIfNeeded()
+        genresCacher = GenresCacherFactory.make()
+        genresCacher?.cacheGenresIfNeeded()
     }
 }

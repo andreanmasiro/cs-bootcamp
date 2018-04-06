@@ -17,47 +17,49 @@ class MoviePosterTableViewCellSpec: QuickSpec {
     
     override func spec() {
         
-        describe("MoviePosterTableViewCell", closure:{
+        describe("MoviePosterTableViewCell") {
             
             var sut: MoviePosterTableViewCell!
             
-            context("when it's initialized", closure: {
+            context("when it's initialized") {
     
                 beforeEach {
                     sut = MoviePosterTableViewCell(style: .default, reuseIdentifier: nil)
                 }
                 
-                it("should setup the view hierarchy ", closure: {
+                it("should setup the view hierarchy ") {
                     expect(sut.contentView.subviews).to(contain([sut.titleLabel, sut.posterImageView]))
-                })
+                }
                 
-                context("and cell data is set", closure: {
+                context("and cell data is set") {
                     
-                    let viewModel = MoviePosterTableViewCell.ViewModel(imageURL: URL(string: "www.com")!, title: "")
+                    let viewModel = MoviePosterTableViewCell.ViewModel(
+                        imageURL: URL(string: "www.com")!,
+                        title: "",
+                        isFavoriteImage: UIImage()
+                    )
                     
                     beforeEach {
                         sut.setup(viewModel: viewModel)
                     }
                     
-                    it("should build a cell with correct data", closure: {
+                    it("should build a cell with correct data") {
                         expect(sut.titleLabel.text).to(equal(viewModel.title))
-                    })
-                })
-            })
+                    }
+                }
+            }
             
-            context("When is initialized with coder", {
+            context("When is initialized with coder") {
                 
                 beforeEach {
                     let coder = NSCoder()
                     sut = MoviePosterTableViewCell(coder: coder)
                 }
                 
-                it("should be nil", closure: {
+                it("should be nil") {
                     expect(sut).to(beNil())
-                })
-            })
-        })
-        
+                }
+            }
+        }
     }
-    
 }

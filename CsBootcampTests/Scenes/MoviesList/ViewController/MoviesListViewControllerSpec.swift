@@ -67,7 +67,8 @@ class MoviesListViewControllerSpec: QuickSpec {
                     let viewModel = MoviesListViewModel(cellViewModels: (0..<3).map { _ in
                         MovieCollectionViewCell.ViewModel(
                             imageURL: URL(string: "url.com")!,
-                            title: ""
+                            title: "",
+                            favoriteButtonImage: UIImage()
                         )
                     })
                     beforeEach {
@@ -89,7 +90,7 @@ class MoviesListViewControllerSpec: QuickSpec {
                 
                 context("and display error is called") {
                     
-                    let errorViewModel = MoviesListErrorViewModel()
+                    let errorViewModel = MoviesListErrorViewModel.defaultError
                     
                     beforeEach {
                         
@@ -168,7 +169,7 @@ class MoviesListViewControllerSpec: QuickSpec {
                 context("error") {
                     
                     beforeEach {
-                        let errorViewModel = MoviesListErrorViewModel()
+                        let errorViewModel = MoviesListErrorViewModel.defaultError
                         state = .error(errorViewModel)
                     }
                     

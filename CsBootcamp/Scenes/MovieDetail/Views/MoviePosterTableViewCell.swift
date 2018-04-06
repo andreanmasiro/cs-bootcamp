@@ -14,7 +14,7 @@ class MoviePosterTableViewCell: UITableViewCell {
     
     static var cellHeight: CGFloat = CGFloat(250).proportionalToWidth
     
-    var didFavoriteButtonPressed: (() -> ())?
+    var favoriteButtonTapped: (() -> ())?
     
     lazy var posterImageView: UIImageView = {
         let imageView = UIImageView()
@@ -36,8 +36,7 @@ class MoviePosterTableViewCell: UITableViewCell {
     lazy var favoriteButton: UIButton = {
         let button = UIButton(type: .custom)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(#imageLiteral(resourceName: "favorite_gray_icon"), for: .normal)
-        button.addTarget(self, action: #selector(favoriteButtonTapped), for: .touchUpInside)
+        button.addTarget(self, action: #selector(favoriteButtonAction), for: .touchUpInside)
         
         return button
     }()
@@ -56,6 +55,7 @@ class MoviePosterTableViewCell: UITableViewCell {
     func setup(viewModel: ViewModel) {
         self.titleLabel.text = viewModel.title
         imageFetcher.fetchImage(from: viewModel.imageURL, to: posterImageView) {}
+        favoriteButton.setImage(viewModel.isFavoriteImage, for: .normal)
     }
     
     private func setupViewHierarchy() {
@@ -83,8 +83,8 @@ class MoviePosterTableViewCell: UITableViewCell {
             .trailingAnchor(equalTo: contentView.trailingAnchor, constant: -16)
     }
     
-    @objc private func favoriteButtonTapped(_ sender: AnyObject) {
-        didFavoriteButtonPressed?()
+    @objc private func favoriteButtonAction(_ sender: AnyObject) {
+        favoriteButtonTapped?()
     }
 }
 
@@ -94,6 +94,7 @@ extension MoviePosterTableViewCell {
         
         let imageURL: URL
         let title: String
+        let isFavoriteImage: UIImage
     }
 }
 

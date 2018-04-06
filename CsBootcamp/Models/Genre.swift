@@ -6,7 +6,7 @@
 //  Copyright © 2018 Bootcampers. All rights reserved.
 //
 
-struct Genre: Decodable {
+struct Genre: Decodable, Equatable {
     
     let id: Int
     let name: String
