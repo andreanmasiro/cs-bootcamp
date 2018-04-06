@@ -10,31 +10,74 @@ import Foundation
 
 protocol MoviesListPresenterType {
     
-    func presentMovies(_ movies: [Movie])
+    func presentMovies(_ movies: [FetchMoviesListResponse])
     func presentError()
 }
 
-final class MoviesListInteractor: MoviesListInteractorType {
+struct FetchMoviesListResponse {
+    
+    let posterPath: String
+    let title: String
+    let isFavorite: Bool
+}
+
+final class MoviesListInteractor: MoviesListInteractorType, FavoriteInteractorType {
+    
+    private var movies = [Movie]()
     
     private let presenter: MoviesListPresenterType
     private let moviesListGateway: MoviesListGateway
+    private let favoriteMoviesListGateway: FavoriteMoviesListGateway
     
-    init(presenter: MoviesListPresenterType, moviesListGateway: MoviesListGateway) {
+    init(presenter: MoviesListPresenterType, moviesListGateway: MoviesListGateway, favoriteMoviesListGateway: FavoriteMoviesListGateway) {
         self.presenter = presenter
         self.moviesListGateway = moviesListGateway
+        self.favoriteMoviesListGateway = favoriteMoviesListGateway
     }
     
-    func fetchMovies() {
-     
-        moviesListGateway.fetchMovies { [weak self] result in
+    func movie(at index: Int) -> Movie {
+        return movies[index]
+    }
+    
+    func fetchMovies(from page: Int) {
+        moviesListGateway.fetchMovies(page: page) { [weak self] result in
+    
+            guard let `self` = self else { return }
             
             switch result {
                 
             case .success(let movies):
-                self?.presenter.presentMovies(movies)
-            case .failure(_):
-                 self?.presenter.presentError()
+                
+                self.movies.append(contentsOf: movies)
+                let responses = self.createResponses(with: self.movies)
+                
+                self.presenter.presentMovies(responses)
+            case .failure:
+                self.presenter.presentError()
             }
         }
     }
+    
+    private func createResponses(with movies: [Movie]) -> [FetchMoviesListResponse] {
+        return movies.map { movie -> FetchMoviesListResponse in
+            
+            let isMovieFavorite = self.favoriteMoviesListGateway
+                .isMovieFavorite(movie).value ?? false
+            
+            return FetchMoviesListResponse(
+                posterPath: movie.posterPath,
+                title: movie.title,
+                isFavorite: isMovieFavorite
+            )
+        }
+    }
+    
+    // MARK: FavoriteInteractorType
+    
+    func toggleMovieFavorite(_ movie: Movie) {
+        _ = favoriteMoviesListGateway.toggleMovieFavorite(movie)
+        let responses = createResponses(with: movies)
+        presenter.presentMovies(responses)
+    }
 }
+

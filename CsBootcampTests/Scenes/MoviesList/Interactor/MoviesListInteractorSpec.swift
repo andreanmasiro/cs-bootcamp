@@ -40,7 +40,7 @@ class MoviesListInteractorSpec: QuickSpec {
                         beforeEach {
                             
                             gateway.result = .success(movies)
-                            interactor.fetchMovies()
+                            interactor.fetchMovies(from: 1)
                         }
                         
                         it("should present the returned movies") {
@@ -56,7 +56,7 @@ class MoviesListInteractorSpec: QuickSpec {
                             
                             let error = NSError() as Error
                             gateway.result = .failure(error)
-                            interactor.fetchMovies()
+                            interactor.fetchMovies(from: 1)
                         }
                         
                         it("should present error") {
@@ -90,8 +90,7 @@ final class MoviesListGatewayStub: MoviesListGateway {
     
     var result: Result<[Movie]>!
     
-    func fetchMovies(_ completion: @escaping (Result<[Movie]>) -> ()) {
-        
+    func fetchMovies(page: Int, _ completion: @escaping (Result<[Movie]>) -> ()) {
         completion(result)
     }
 }

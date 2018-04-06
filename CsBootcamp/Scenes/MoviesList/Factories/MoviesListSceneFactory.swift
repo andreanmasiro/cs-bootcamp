@@ -6,19 +6,23 @@
 //  Copyright © 2018 Bootcampers. All rights reserved.
 //
 
+import UIKit.UIViewController
+
 final class MoviesListSceneFactory {
     
-    static func make() -> MoviesListViewController {
+    static func make() -> UIViewController {
         
         let viewController = MoviesListViewController()
         let presenter = MoviesListPresenter(view: viewController)
         
         let moviesListGateway = MoviesListGatewayFactory.make()
-        let listInteractor = MoviesListInteractor(presenter: presenter, moviesListGateway: moviesListGateway)
-        let showDetailInteractor = MoviesListShowDetailInteractor(moviesListGateway: moviesListGateway, showMovieDetailNavigator: viewController)
+        let favoriteMoviesListGateway = FavoriteMoviesListGatewayFactory.make()
+        let listInteractor = MoviesListInteractor(presenter: presenter, moviesListGateway: moviesListGateway, favoriteMoviesListGateway: favoriteMoviesListGateway)
+        let showDetailInteractor = MoviesListShowDetailInteractor(showMovieDetailNavigator: viewController)
         
         viewController.listInteractor = listInteractor
         viewController.showDetailInteractor = showDetailInteractor
+        viewController.favoriteInteractor = listInteractor
         
         return viewController
     }
@@ -28,5 +32,12 @@ final class MoviesListGatewayFactory {
     
     static func make() -> MoviesListGateway {
         return MoviesListMoyaGateway()
+    }
+}
+
+final class FavoriteMoviesListGatewayFactory {
+    
+    static func make() -> FavoriteMoviesListGateway {
+        return FavoriteMoviesListCoreDataGateway(coreDataStack: DefaultCoreDataStack())
     }
 }

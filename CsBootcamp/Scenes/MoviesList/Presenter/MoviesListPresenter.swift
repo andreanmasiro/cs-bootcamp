@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit.UIImage
 
 protocol MoviesListView: class {
     
@@ -23,12 +24,14 @@ final class MoviesListPresenter: MoviesListPresenterType {
         self.view = view
     }
     
-    func presentMovies(_ movies: [Movie]) {
+    func presentMovies(_ movies: [FetchMoviesListResponse]) {
         
-        let cellViewModels = movies.map { movie in
-            MovieCollectionViewCell.ViewModel(
+        let cellViewModels = movies.map { movie -> MovieCollectionViewCell.ViewModel in
+            let favoriteButtonImage = movie.isFavorite ? #imageLiteral(resourceName: "favorite_full_icon") : #imageLiteral(resourceName: "favorite_gray_icon")
+            return MovieCollectionViewCell.ViewModel(
                 imageURL: APIBase.posterImageURL(path: movie.posterPath),
-                title: movie.title
+                title: movie.title,
+                favoriteButtonImage: favoriteButtonImage
             )
         }
         

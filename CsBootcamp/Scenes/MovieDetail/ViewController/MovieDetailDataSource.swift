@@ -18,6 +18,8 @@ final class MovieDetailDataSource: NSObject, UITableViewDataSource, UITableViewD
         }
     }
     
+    var didFavoriteButtonPressed: (() -> ())?
+    
     init(tableView: UITableView) {
         self.tableView = tableView
         super.init()
@@ -33,6 +35,9 @@ final class MovieDetailDataSource: NSObject, UITableViewDataSource, UITableViewD
         tableView.register(MovieOverviewTableViewCell.self)
     }
     
+    private func favoriteButtonTapped() {
+        didFavoriteButtonPressed?()
+    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 4
@@ -46,6 +51,7 @@ final class MovieDetailDataSource: NSObject, UITableViewDataSource, UITableViewD
             let posterCell = tableView.dequeueReusableCell(MoviePosterTableViewCell.self, for: indexPath)
             viewModel.map { viewModel in
                 posterCell?.setup(viewModel: viewModel.poster)
+                posterCell?.didFavoriteButtonPressed = self.favoriteButtonTapped
             }
             cell = posterCell
         case 1:
@@ -81,11 +87,13 @@ final class MovieDetailDataSource: NSObject, UITableViewDataSource, UITableViewD
         case 2:
             return MovieTextTableViewCell.cellHeight
         case 3:
-//            return MovieOverviewTableViewCell.cellSize
             return UITableViewAutomaticDimension
         default:
             return 0
         }
     }
     
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return CGFloat.leastNonzeroMagnitude
+    }
 }

@@ -7,28 +7,22 @@
 //
 
 import UIKit
+import Foundation
 
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+
+        let docsPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        print(docsPath)
         
-        let rootViewController = MoviesListSceneFactory.make()
-        
-        let navigationController = UINavigationController(rootViewController: rootViewController)
-        navigationController.navigationBar.barTintColor = UIColor.Bootcamp.yellow
-        navigationController.navigationBar.tintColor = UIColor.black
-        navigationController.navigationBar.isTranslucent = false
-        
-        let window = UIWindow(frame: UIScreen.main.bounds)
-        window.rootViewController = navigationController
-        window.backgroundColor = UIColor.white
-        window.makeKeyAndVisible()
+        cacheGenresIfNeeded()
+        window = MainWindowFactory.make()
         
         setupSearchBarAppearance()
         
-        self.window = window
         return true
     }
     
@@ -39,5 +33,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let cancelButtonAppearance = UIBarButtonItem.appearance(whenContainedInInstancesOf: [UISearchBar.self])
         cancelButtonAppearance.tintColor = UIColor.Bootcamp.darkBlue
+        
+    }
+    
+    func cacheGenresIfNeeded() {
+        let genresCacher = GenresCacherFactory.make()
+        genresCacher.cacheGenresIfNeeded()
     }
 }

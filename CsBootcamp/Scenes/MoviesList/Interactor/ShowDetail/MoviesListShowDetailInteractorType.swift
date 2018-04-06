@@ -8,5 +8,5 @@
 
 protocol MoviesListShowDetailInteractorType {
     
-    func showDetail(forMovieAt index: Int)
+    func showDetail(forMovie movie: Movie)
 }

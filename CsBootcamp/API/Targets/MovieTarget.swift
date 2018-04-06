@@ -10,7 +10,7 @@ import Moya
 
 enum MovieTarget: TargetType {
     
-    case popular
+    case popular(Int)
     
     var baseURL: URL {
         return APIBase.baseUrl
@@ -40,7 +40,9 @@ enum MovieTarget: TargetType {
     
     var parameters: [String: Any] {
         
-        return ["api_key": APISettings.key]
+        switch self {
+        case .popular(let page): return ["api_key": APISettings.key, "page": page]
+        }
     }
     
     var validationType: ValidationType {

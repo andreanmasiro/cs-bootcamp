@@ -16,7 +16,9 @@ protocol MovieDetailInteractorType {
 final class MovieDetailViewController: UIViewController, MovieDetailView {
     
     lazy var tableView: UITableView = {
-        let tableView = UITableView(frame: .zero)
+        let tableView = UITableView.init(frame: .zero, style: .grouped)
+        
+        tableView.estimatedSectionHeaderHeight = 1
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.backgroundColor = .clear
         tableView.estimatedRowHeight = 150
@@ -28,8 +30,11 @@ final class MovieDetailViewController: UIViewController, MovieDetailView {
     let movie: Movie
     var interactor: MovieDetailInteractorType?
     
-    lazy var dataSource = {
-        MovieDetailDataSource(tableView: tableView)
+    lazy var dataSource: MovieDetailDataSource = {
+        let dataSource = MovieDetailDataSource(tableView: self.tableView)
+        dataSource.didFavoriteButtonPressed = self.favoriteButtonTapped
+        
+        return dataSource
     }()
     
     init(movie: Movie) {
@@ -55,6 +60,10 @@ final class MovieDetailViewController: UIViewController, MovieDetailView {
     func displayMovieDetail(viewModel: ViewModel) {
         
         dataSource.viewModel = viewModel
+    }
+    
+    private func favoriteButtonTapped() {
+        
     }
     
     private func setupViewHierarchy() {

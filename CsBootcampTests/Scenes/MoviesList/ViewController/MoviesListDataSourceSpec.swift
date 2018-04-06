@@ -18,6 +18,7 @@ class MoviesListDataSourceSpec: QuickSpec {
         describe("MoviesListDataSource") {
             
             var collectionView: UICollectionView!
+            var indicatorView: UIActivityIndicatorView!
             var moviesListDataSource: MoviesListDataSource!
             
             context("when initialized") {
@@ -28,7 +29,8 @@ class MoviesListDataSourceSpec: QuickSpec {
                 
                 beforeEach {
                     collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
-                    moviesListDataSource = MoviesListDataSource(collectionView: collectionView)
+                    indicatorView = UIActivityIndicatorView(frame: .zero)
+                    moviesListDataSource = MoviesListDataSource(collectionView: collectionView, indicatorView: indicatorView)
                     moviesListDataSource.viewModels = viewModels
                 }
                 
