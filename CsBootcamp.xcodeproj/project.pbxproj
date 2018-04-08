@@ -1040,7 +1040,6 @@
 				BA18249020654743004405A3 /* Frameworks */,
 				BA18249120654743004405A3 /* Resources */,
 				364B5853930676A542AD8609 /* [CP] Embed Pods Frameworks */,
-				52F886A9A0D0256E6C9E0F29 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1060,7 +1059,6 @@
 				BA1824E1206AC417004405A3 /* Frameworks */,
 				BA1824E2206AC417004405A3 /* Resources */,
 				3EDC0ED74395D1400D47D1A3 /* [CP] Embed Pods Frameworks */,
-				B554CB7FF9131CCB2DF9EA39 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1201,21 +1199,6 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CsBootcampTests/Pods-CsBootcampTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		52F886A9A0D0256E6C9E0F29 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CsBootcamp/Pods-CsBootcamp-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		8EC1ACE055A101289EEF3986 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1232,21 +1215,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		B554CB7FF9131CCB2DF9EA39 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CsBootcampTests/Pods-CsBootcampTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */

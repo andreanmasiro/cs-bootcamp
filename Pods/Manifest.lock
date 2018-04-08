@@ -30,6 +30,16 @@ DEPENDENCIES:
   - OHHTTPStubs/Swift (~> 6.1.0)
   - Quick (~> 1.2.0)
 
+SPEC REPOS:
+  https://github.com/CocoaPods/Specs.git:
+    - Alamofire
+    - Kingfisher
+    - Moya
+    - Nimble
+    - OHHTTPStubs
+    - Quick
+    - Result
+
 SPEC CHECKSUMS:
   Alamofire: 907e0a98eb68cdb7f9d1f541a563d6ac5dc77b25
   Kingfisher: 98e6d5b5e807645743e8ed5ececd25d688d38452
@@ -41,4 +51,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 2be0612f88c8c1c50189f516279533e0b1037249
 
-COCOAPODS: 1.4.0
+COCOAPODS: 1.5.0
