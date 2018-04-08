@@ -15,6 +15,7 @@ protocol MoviesFilterInteractorType: class {
 class MoviesFilterViewController: UIViewController, FilterView {
 
     private var lastSelectedIndex: Int = 0
+    var updateDetailLabelOption: (([String]) -> (Int) -> ()) = { _ in { _ in } }
     
     lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero)
@@ -61,7 +62,7 @@ class MoviesFilterViewController: UIViewController, FilterView {
     }
     
     private func filterSelected(at index: Int) {
-        lastSelectedIndex = index
+        setUpdateDetailLabel(withIndex: index)
         moviesFilterInteractor?.showFilterDetail(at: index)
     }
 
@@ -70,10 +71,19 @@ class MoviesFilterViewController: UIViewController, FilterView {
     }
     
     func navigateToDetailOfFilter(options: [String]) {
-        let vc = MoviesFilterDetailViewControllerFactory.make(withOptions: options) { index in
-            self.dataSource.filterOptions[self.lastSelectedIndex] = options[index]
-        }
+        let vc = MoviesFilterDetailViewControllerFactory.make(
+            withOptions: options,
+            didSelectOptionAtIndex: updateDetailLabelOption(options)
+        )
         show(vc, sender: nil)
+    }
+    
+    private func setUpdateDetailLabel(withIndex index: Int) {
+        updateDetailLabelOption = { options in
+            { optionIndex in
+                self.dataSource.filterOptions[index] = options[optionIndex]
+            }
+        }
     }
     
     private func setupViewHierarchy() {
