@@ -46,11 +46,7 @@ class MoviesFilterViewController: UIViewController, FilterView {
     
     init() {
         super.init(nibName: nil, bundle: nil)
-        title = "Filtro"
-        view.backgroundColor = .white
         dataSource.didSelectItem = self.filterSelected
-        setupViewHierarchy()
-        setupConstraints()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -59,6 +55,11 @@ class MoviesFilterViewController: UIViewController, FilterView {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        title = "Filtro"
+        view.backgroundColor = .white
+        setupViewHierarchy()
+        setupConstraints()
     }
     
     private func filterSelected(at index: Int) {
