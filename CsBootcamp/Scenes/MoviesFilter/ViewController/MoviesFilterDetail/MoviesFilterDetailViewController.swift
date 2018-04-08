@@ -11,7 +11,6 @@ import UIKit
 class MoviesFilterDetailViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     var didSelectOptionAtIndex: ((Int) -> ())?
-    
     let options: [String]
     
     lazy var tableView: UITableView = {

@@ -10,10 +10,17 @@ import UIKit
 
 class MoviesFilterDataSource: NSObject, UITableViewDelegate, UITableViewDataSource {
     
+    private let cellReuseIdentifier = "cell"
     private weak var tableView: UITableView?
     var didSelectItem: ((Int) -> ())?
     
-    var viewModels: [String] = [] {
+    var filterOptionTypes: [String] = [] {
+        didSet {
+            tableView?.reloadData()
+        }
+    }
+    
+    var filterOptions: [Int: String] = [:] {
         didSet {
             tableView?.reloadData()
         }
@@ -29,15 +36,18 @@ class MoviesFilterDataSource: NSObject, UITableViewDelegate, UITableViewDataSour
     // MARK: UITableViewDataSource conforms
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        return filterOptionTypes.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let filter = ["Data", "Gênero"]
-        let cell = UITableViewCell(style: UITableViewCellStyle.value1, reuseIdentifier: "cell")
+
+        let cell = UITableViewCell(style: UITableViewCellStyle.value1, reuseIdentifier: cellReuseIdentifier)
+        cell.detailTextLabel?.textColor = UIColor.Bootcamp.yellow
         cell.accessoryType = UITableViewCellAccessoryType.disclosureIndicator
-        cell.textLabel?.text = filter[indexPath.item]
-        //cell.detailTextLabel?.text = "2008"
+        
+        cell.textLabel?.text = filterOptionTypes[indexPath.item]
+        cell.detailTextLabel?.text = filterOptions[indexPath.item]
+        
         return cell
     }
     
@@ -52,14 +62,12 @@ class MoviesFilterDataSource: NSObject, UITableViewDelegate, UITableViewDataSour
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         didSelectItem?(indexPath.item)
     }
-    
 }
 
 extension MoviesFilterDataSource {
     
     struct ViewModel {
-        
         let filter: String
-        let itemSelected: String
+        let itemSelected: String?
     }
 }

@@ -23,19 +23,14 @@ final class MoviesFilterPresenter: MoviesFilterPresenterType {
     func showFilterByGenres(_ genres: [Genre]) {
         
         let genres = genres.map { genre in
-            
             genre.name
         }
-        
         view?.displayFilterDetail(viewModels: genres)
-
     }
     
     func showFilterByReleaseDates(_ releaseYears: [Int]) {
         
         let releaseYears = releaseYears.map(String.init)
-        
         view?.displayFilterDetail(viewModels: releaseYears)
     }
-
 }

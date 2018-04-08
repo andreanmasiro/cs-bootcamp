@@ -14,8 +14,8 @@ protocol MoviesFilterInteractorType: class {
 
 class MoviesFilterViewController: UIViewController, FilterView {
 
-    var viewModels: [String] = []
-
+    private var lastSelectedIndex: Int = 0
+    
     lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero)
         tableView.backgroundColor = .clear
@@ -37,6 +37,7 @@ class MoviesFilterViewController: UIViewController, FilterView {
     lazy var dataSource: MoviesFilterDataSource = {
         
         let dataSource = MoviesFilterDataSource(tableView: tableView)
+        dataSource.filterOptionTypes = ["Data", "Genero"]
         return dataSource
     }()
     
@@ -52,7 +53,7 @@ class MoviesFilterViewController: UIViewController, FilterView {
     }
     
     required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        return nil
     }
     
     override func viewDidLoad() {
@@ -60,17 +61,17 @@ class MoviesFilterViewController: UIViewController, FilterView {
     }
     
     private func filterSelected(at index: Int) {
+        lastSelectedIndex = index
         moviesFilterInteractor?.showFilterDetail(at: index)
     }
 
     func displayFilterDetail(viewModels: [String]) {
         navigateToDetailOfFilter(options: viewModels)
-        self.viewModels = viewModels
     }
     
     func navigateToDetailOfFilter(options: [String]) {
         let vc = MoviesFilterDetailViewControllerFactory.make(withOptions: options) { index in
-            print(self.viewModels[index])
+            self.dataSource.filterOptions[self.lastSelectedIndex] = options[index]
         }
         show(vc, sender: nil)
     }
@@ -93,6 +94,5 @@ class MoviesFilterViewController: UIViewController, FilterView {
             .trailingAnchor(equalTo: view.trailingAnchor, constant: -32)
             .leadingAnchor(equalTo: view.leadingAnchor, constant: 32)
             .heightAnchor(equalTo: 44)
-        
     }
 }
