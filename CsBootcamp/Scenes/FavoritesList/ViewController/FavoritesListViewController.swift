@@ -10,6 +10,7 @@ import UIKit
 
 final class FavoritesListViewController: UIViewController, FavoritesListView {
     
+    let movieFilter = MovieFilter()
     private var filteringGenre: Genre?
     private var filteringReleaseYear: Int?
     
@@ -90,7 +91,7 @@ final class FavoritesListViewController: UIViewController, FavoritesListView {
     
     @objc func rightBarButtonAction(sender: UIBarButtonItem) {
         
-        let moviesFilterViewController = MoviesFilterSceneFactory.make(applyFilter: applyFilter)
+        let moviesFilterViewController = MoviesFilterSceneFactory.make(movieFilter: movieFilter, applyFilter: applyFilter)
         show(moviesFilterViewController, sender: nil)
     }
     

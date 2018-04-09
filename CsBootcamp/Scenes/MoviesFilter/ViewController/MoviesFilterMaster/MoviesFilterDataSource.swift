@@ -64,11 +64,3 @@ class MoviesFilterDataSource: NSObject, UITableViewDelegate, UITableViewDataSour
         didSelectItem?(indexPath.item)
     }
 }
-
-extension MoviesFilterDataSource {
-    
-    struct ViewModel {
-        let filter: String
-        let itemSelected: String?
-    }
-}

@@ -10,9 +10,9 @@ import UIKit
 
 final class MoviesFilterSceneFactory {
     
-    static func make(applyFilter: ((Genre?, Int?) -> ())?) -> UIViewController {
+    static func make(movieFilter: MovieFilter, applyFilter: ((Genre?, Int?) -> ())?) -> UIViewController {
         
-        let viewController = MoviesFilterViewController()
+        let viewController = MoviesFilterViewController(movieFilter: movieFilter)
         let presenter = MoviesFilterPresenter(view: viewController)
         
         let gateway = GenresCacheCoreDataGateway(coreDataStack: DefaultCoreDataStack.shared)

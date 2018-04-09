@@ -8,13 +8,15 @@
 
 import Foundation
 
-protocol MoviesFilterPresenterType: class{
+protocol MoviesFilterPresenterType: class {
+    func presentFilterOptions(types: [String], releaseYearOption: Int?, genreOption: Genre?)
     func showFilterByGenres(_ genres: [Genre])
     func showFilterByReleaseDates(_ releaseYears: [Int])
 }
 
 final class MoviesFilterInteractor: MoviesFilterInteractorType {
- 
+    
+    private let filterOptionTypes =  ["Date", "Genres"]
     let presenter: MoviesFilterPresenterType
     let gateway: GenresCacheGateway
     
@@ -24,6 +26,11 @@ final class MoviesFilterInteractor: MoviesFilterInteractorType {
     init(presenter: MoviesFilterPresenterType, gateway: GenresCacheGateway) {
         self.presenter = presenter
         self.gateway = gateway
+    }
+    
+    func fetchDetailOptionTypes(movieFilter: MovieFilter) {
+        
+        presenter.presentFilterOptions(types: filterOptionTypes, releaseYearOption: movieFilter.releaseYearFilter, genreOption: movieFilter.genreFilter)
     }
     
     func showFilterDetail(at index: Int) {

@@ -10,6 +10,7 @@ import UIKit
 
 protocol MoviesFilterInteractorType: class {
     
+    func fetchDetailOptionTypes(movieFilter: MovieFilter)
     func showFilterDetail(at index: Int)
     func genre(at index: Int) -> Genre
     func releaseYear(at index: Int) -> Int
@@ -17,10 +18,10 @@ protocol MoviesFilterInteractorType: class {
 
 class MoviesFilterViewController: UIViewController, FilterView {
 
+    let movieFilter: MovieFilter
     var applyFilter: ((Genre?, Int?) -> ())?
     
-    var updateDetailLabelOption: (([String]) -> (Int) -> ()) = { _ in { _ in } }
-    private let filterOptionTypes =  ["Date", "Genres"]
+    var updateFilter: (([String]) -> (Int) -> ()) = { _ in { _ in } }
     private var presentingOptionsIndex = 0
     private var curentSelectedOptionIndexes: [Int: Int] = [:]
     
@@ -51,9 +52,11 @@ class MoviesFilterViewController: UIViewController, FilterView {
     
     var moviesFilterInteractor: MoviesFilterInteractorType?
     
-    init() {
+    init(movieFilter: MovieFilter) {
+        
+        self.movieFilter = movieFilter
+        
         super.init(nibName: nil, bundle: nil)
-        dataSource.didSelectItem = self.filterSelected
         hidesBottomBarWhenPushed = true
     }
     
@@ -64,17 +67,24 @@ class MoviesFilterViewController: UIViewController, FilterView {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        dataSource.filterOptionTypes = filterOptionTypes
         title = "Filter"
         view.backgroundColor = .white
         setupViewHierarchy()
         setupConstraints()
+        
+        dataSource.didSelectItem = self.filterSelected
+        moviesFilterInteractor?.fetchDetailOptionTypes(movieFilter: movieFilter)
     }
     
     private func filterSelected(at index: Int) {
-        setUpdateDetailLabel(withIndex: index)
-        moviesFilterInteractor?.showFilterDetail(at: index)
         presentingOptionsIndex = index
+        setUpdateFilter(withIndex: index)
+        moviesFilterInteractor?.showFilterDetail(at: index)
+    }
+    
+    func displayFilterOptions(types: [String], options: [Int: String]) {
+        dataSource.filterOptionTypes = types
+        dataSource.filterOptions = options
     }
 
     func displayFilterDetail(viewModels: [String]) {
@@ -82,34 +92,52 @@ class MoviesFilterViewController: UIViewController, FilterView {
     }
     
     func navigateToDetailOfFilter(options: [String]) {
+        
+        let currentSelectedOptionIndex: Int?
+        if presentingOptionsIndex == 0 {
+            currentSelectedOptionIndex = movieFilter.releaseYearFilterIndex
+        } else if presentingOptionsIndex == 1 {
+            currentSelectedOptionIndex = movieFilter.genreFilterIndex
+        } else {
+            currentSelectedOptionIndex = nil
+        }
+        
         let vc = MoviesFilterDetailViewControllerFactory.make(
             withOptions: options,
-            currentSelectedOptionIndex:
-            curentSelectedOptionIndexes[presentingOptionsIndex],
-            didSelectOptionAtIndex: updateDetailLabelOption(options)
+            currentSelectedOptionIndex: currentSelectedOptionIndex,
+            didSelectOptionAtIndex: updateFilter(options)
         )
         show(vc, sender: nil)
     }
     
     @objc private func applyFilterAction(sender: UIButton) {
 
-        let releaseYear = curentSelectedOptionIndexes[0].flatMap {
-            moviesFilterInteractor?.releaseYear(at: $0)
-        }
-        
-        let genre = curentSelectedOptionIndexes[1].flatMap {
-            moviesFilterInteractor?.genre(at: $0)
-        }
-        applyFilter?(genre, releaseYear)
+        applyFilter?(movieFilter.genreFilter, movieFilter.releaseYearFilter)
     }
     
-    private func setUpdateDetailLabel(withIndex index: Int) {
-        updateDetailLabelOption = { options in
+    private func setUpdateFilter(withIndex index: Int) {
+        updateFilter = { options in
             { optionIndex in
-                self.dataSource.filterOptions[index] = options[optionIndex]
-                self.curentSelectedOptionIndexes[index] = optionIndex
+                let option = options[optionIndex]
+                self.dataSource.filterOptions[index] = option
+                
+                if index == 0 {
+                    self.setReleaseYearFilter(at: optionIndex)
+                } else if index == 1 {
+                    self.setGenreFilter(at: optionIndex)
+                }
             }
         }
+    }
+    
+    private func setReleaseYearFilter(at index: Int) {
+        movieFilter.releaseYearFilterIndex = index
+        movieFilter.releaseYearFilter = moviesFilterInteractor?.releaseYear(at: index)
+    }
+    
+    private func setGenreFilter(at index: Int) {
+        movieFilter.genreFilterIndex = index
+        movieFilter.genreFilter = moviesFilterInteractor?.genre(at: index)
     }
     
     private func setupViewHierarchy() {
