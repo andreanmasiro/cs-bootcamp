@@ -23,7 +23,7 @@ final class FavoritesListViewController: UIViewController, FavoritesListView {
         button.setTitle("Remove Filter", for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
         button.translatesAutoresizingMaskIntoConstraints = false
-//        button.addTarget(self, action: #selector(applyFilterAction), for: .touchUpInside)
+        button.addTarget(self, action: #selector(removeFilterAction), for: .touchUpInside)
         return button
     }()
     
@@ -95,7 +95,7 @@ final class FavoritesListViewController: UIViewController, FavoritesListView {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        interactor?.fetchFavorites(filteringWithGenre: filteringGenre, releaseYear: filteringReleaseYear)
+        fetchFavorites()
     }
     
     override func viewDidLayoutSubviews() {
@@ -109,11 +109,22 @@ final class FavoritesListViewController: UIViewController, FavoritesListView {
     
     @objc func rightBarButtonAction(sender: UIBarButtonItem) {
         
-        let moviesFilterViewController = MoviesFilterSceneFactory.make(movieFilter: movieFilter, applyFilter: applyFilter)
+        let moviesFilterViewController = MoviesFilterSceneFactory.make(movieFilter: movieFilter)
         show(moviesFilterViewController, sender: nil)
     }
     
+    private func fetchFavorites() {
+        interactor?.fetchFavorites(filteringWithGenre: movieFilter.genreFilter, releaseYear: movieFilter.releaseYearFilter)
+    }
+    
     // MARK: Filter
+    
+    @objc private func removeFilterAction(sender: UIButton) {
+        movieFilter.clearFilter()
+        movieFilter.commit()
+        updateRemoveFilterButtonLayout()
+        fetchFavorites()
+    }
     
     private func updateRemoveFilterButtonLayout() {
         let constant = movieFilter.hasFilter ?
@@ -123,11 +134,6 @@ final class FavoritesListViewController: UIViewController, FavoritesListView {
     
     private func setSearchPredicate(_ predicate: String) {
         dataSource.searchPredicate = predicate
-    }
-    
-    private func applyFilter(withGenre genre: Genre?, releaseYear: Int?) {
-        filteringGenre = genre
-        filteringReleaseYear = releaseYear
     }
     
     // MARK: FavoritesListView Protocol

@@ -10,7 +10,7 @@ import UIKit
 
 final class MoviesFilterSceneFactory {
     
-    static func make(movieFilter: MovieFilter, applyFilter: ((Genre?, Int?) -> ())?) -> UIViewController {
+    static func make(movieFilter: MovieFilter) -> UIViewController {
         
         let viewController = MoviesFilterViewController(movieFilter: movieFilter)
         let presenter = MoviesFilterPresenter(view: viewController)
@@ -18,8 +18,6 @@ final class MoviesFilterSceneFactory {
         let gateway = GenresCacheCoreDataGateway(coreDataStack: DefaultCoreDataStack.shared)
         let interactor = MoviesFilterInteractor(presenter: presenter, gateway: gateway)
         viewController.moviesFilterInteractor = interactor
-        
-        viewController.applyFilter = applyFilter
         
         return viewController
     }

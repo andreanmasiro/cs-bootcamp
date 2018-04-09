@@ -19,7 +19,6 @@ protocol MoviesFilterInteractorType: class {
 class MoviesFilterViewController: UIViewController, FilterView {
 
     let movieFilter: MovieFilter
-    var applyFilter: ((Genre?, Int?) -> ())?
     
     var updateFilter: (([String]) -> (Int) -> ()) = { _ in { _ in } }
     private var presentingOptionsIndex = 0
@@ -76,6 +75,11 @@ class MoviesFilterViewController: UIViewController, FilterView {
         moviesFilterInteractor?.fetchDetailOptionTypes(movieFilter: movieFilter)
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        movieFilter.rollback()
+    }
+    
     private func filterSelected(at index: Int) {
         presentingOptionsIndex = index
         setUpdateFilter(withIndex: index)
@@ -111,8 +115,7 @@ class MoviesFilterViewController: UIViewController, FilterView {
     }
     
     @objc private func applyFilterAction(sender: UIButton) {
-
-        applyFilter?(movieFilter.genreFilter, movieFilter.releaseYearFilter)
+        movieFilter.commit()
     }
     
     private func setUpdateFilter(withIndex index: Int) {
