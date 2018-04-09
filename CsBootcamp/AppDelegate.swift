@@ -34,7 +34,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         let cancelButtonAppearance = UIBarButtonItem.appearance(whenContainedInInstancesOf: [UISearchBar.self])
         cancelButtonAppearance.tintColor = UIColor.Bootcamp.darkBlue
-
     }
 
     func cacheGenresIfNeeded() {

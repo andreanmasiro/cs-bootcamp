@@ -16,9 +16,7 @@ final class MoviesFilterSceneFactory {
         let presenter = MoviesFilterPresenter(view: viewController)
         
         let gateway = GenresCacheCoreDataGateway(coreDataStack: DefaultCoreDataStack())
-        
         let interactor = MoviesFilterInteractor(presenter: presenter, gateway: gateway)
-        
         viewController.moviesFilterInteractor = interactor
         
         return viewController

@@ -14,7 +14,9 @@ protocol MoviesFilterInteractorType: class {
 
 class MoviesFilterViewController: UIViewController, FilterView {
 
-    private var lastSelectedIndex: Int = 0
+    private let filterOptionTypes =  ["Date", "Genres"]
+    private var presentingOptionsIndex = 0
+    private var curentSelectedOptionIndexes: [Int: Int] = [:]
     var updateDetailLabelOption: (([String]) -> (Int) -> ()) = { _ in { _ in } }
     
     lazy var tableView: UITableView = {
@@ -28,7 +30,7 @@ class MoviesFilterViewController: UIViewController, FilterView {
         let button = UIButton(frame: .zero)
         button.backgroundColor = UIColor.Bootcamp.yellow
         button.setTitleColor(.black, for: .normal)
-        button.setTitle("Aplicar", for: .normal)
+        button.setTitle("Apply", for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
         button.layer.cornerRadius = 5
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -38,7 +40,6 @@ class MoviesFilterViewController: UIViewController, FilterView {
     lazy var dataSource: MoviesFilterDataSource = {
         
         let dataSource = MoviesFilterDataSource(tableView: tableView)
-        dataSource.filterOptionTypes = ["Data", "Genero"]
         return dataSource
     }()
     
@@ -47,6 +48,7 @@ class MoviesFilterViewController: UIViewController, FilterView {
     init() {
         super.init(nibName: nil, bundle: nil)
         dataSource.didSelectItem = self.filterSelected
+        hidesBottomBarWhenPushed = true
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -56,7 +58,8 @@ class MoviesFilterViewController: UIViewController, FilterView {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = "Filtro"
+        dataSource.filterOptionTypes = filterOptionTypes
+        title = "Filter"
         view.backgroundColor = .white
         setupViewHierarchy()
         setupConstraints()
@@ -65,6 +68,7 @@ class MoviesFilterViewController: UIViewController, FilterView {
     private func filterSelected(at index: Int) {
         setUpdateDetailLabel(withIndex: index)
         moviesFilterInteractor?.showFilterDetail(at: index)
+        presentingOptionsIndex = index
     }
 
     func displayFilterDetail(viewModels: [String]) {
@@ -74,6 +78,8 @@ class MoviesFilterViewController: UIViewController, FilterView {
     func navigateToDetailOfFilter(options: [String]) {
         let vc = MoviesFilterDetailViewControllerFactory.make(
             withOptions: options,
+            currentSelectedOptionIndex:
+            curentSelectedOptionIndexes[presentingOptionsIndex],
             didSelectOptionAtIndex: updateDetailLabelOption(options)
         )
         show(vc, sender: nil)
@@ -83,6 +89,7 @@ class MoviesFilterViewController: UIViewController, FilterView {
         updateDetailLabelOption = { options in
             { optionIndex in
                 self.dataSource.filterOptions[index] = options[optionIndex]
+                self.curentSelectedOptionIndexes[index] = optionIndex
             }
         }
     }
@@ -101,7 +108,7 @@ class MoviesFilterViewController: UIViewController, FilterView {
             .leadingAnchor(equalTo: view.leadingAnchor)
         
         applyButton
-            .bottomAnchor(equalTo: view.bottomAnchor, constant: -64)
+            .bottomAnchor(equalTo: view.bottomAnchor, constant: -16)
             .trailingAnchor(equalTo: view.trailingAnchor, constant: -32)
             .leadingAnchor(equalTo: view.leadingAnchor, constant: 32)
             .heightAnchor(equalTo: 44)

@@ -60,16 +60,18 @@ final class FavoritesListViewController: UIViewController, FavoritesListView {
         setupConstraints()
         
         tabBarItem = UITabBarItem(title: "Favorites", image: #imageLiteral(resourceName: "favorite_empty_icon"), tag: 1)
+        
+        let rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "filter_icon"), style: .plain, target: self, action: #selector(rightBarButtonAction))
+        navigationItem.rightBarButtonItem = rightBarButtonItem
     }
     
     required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        return nil
     }
     
     override func viewDidLoad() {
         
-        searchBarDelegate.textDidChange = setSearchPredicate(_:)
-        dataSource.searchDidReturnCount = searchResults
+        searchBarDelegate.textDidChange = setSearchPredicate
         super.viewDidLoad()
     }
     
@@ -82,16 +84,17 @@ final class FavoritesListViewController: UIViewController, FavoritesListView {
         interactor?.removeFavorite(at: index)
     }
     
+    @objc func rightBarButtonAction(sender: UIBarButtonItem) {
+        
+        let moviesFilterViewController = MoviesFilterSceneFactory.make()
+        show(moviesFilterViewController, sender: nil)
+    }
+    
     // MARK: Filter
     
     private func setSearchPredicate(_ predicate: String) {
         dataSource.searchPredicate = predicate
     }
-
-    private func searchResults(from predicate: String, didReturnCount count: Int) {
-
-    }
-    
     
     // MARK: FavoritesListView Protocol
     

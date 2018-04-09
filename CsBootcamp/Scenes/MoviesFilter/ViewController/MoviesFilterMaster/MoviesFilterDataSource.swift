@@ -42,6 +42,7 @@ class MoviesFilterDataSource: NSObject, UITableViewDelegate, UITableViewDataSour
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
         let cell = UITableViewCell(style: UITableViewCellStyle.value1, reuseIdentifier: cellReuseIdentifier)
+        cell.selectionStyle = .none
         cell.detailTextLabel?.textColor = UIColor.Bootcamp.yellow
         cell.accessoryType = UITableViewCellAccessoryType.disclosureIndicator
         
