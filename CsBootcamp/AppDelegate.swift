@@ -18,25 +18,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         let docsPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
         print(docsPath)
-        
+
         cacheGenresIfNeeded()
         window = MainWindowFactory.make()
-        
+
         setupSearchBarAppearance()
-        
+
         return true
     }
-    
+
     private func setupSearchBarAppearance() {
-        
+
         let textFieldAppearance = UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self])
         textFieldAppearance.backgroundColor = UIColor.Bootcamp.darkYellow
-        
+
         let cancelButtonAppearance = UIBarButtonItem.appearance(whenContainedInInstancesOf: [UISearchBar.self])
         cancelButtonAppearance.tintColor = UIColor.Bootcamp.darkBlue
-        
     }
-    
+
     func cacheGenresIfNeeded() {
         genresCacher = GenresCacherFactory.make()
         genresCacher?.cacheGenresIfNeeded()

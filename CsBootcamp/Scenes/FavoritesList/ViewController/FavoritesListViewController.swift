@@ -10,6 +10,21 @@ import UIKit
 
 final class FavoritesListViewController: UIViewController, FavoritesListView {
     
+    let movieFilter = MovieFilterTransaction()
+    
+    var removeFilterButtonTopConstraint: NSLayoutConstraint?
+    
+    lazy var removeFilterButton: UIButton = {
+        let button = UIButton(frame: .zero)
+        button.backgroundColor = UIColor.Bootcamp.darkBlue
+        button.setTitleColor(UIColor.Bootcamp.yellow, for: .normal)
+        button.setTitle("Remove Filter", for: .normal)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(removeFilterAction), for: .touchUpInside)
+        return button
+    }()
+    
     lazy var tableView: UITableView = {
         
         let tableView = UITableView(frame: .zero, style: .grouped)
@@ -54,44 +69,70 @@ final class FavoritesListViewController: UIViewController, FavoritesListView {
         super.init(nibName: nil, bundle: nil)
         title = "Favorites"
         
+        tabBarItem = UITabBarItem(title: "Favorites", image: #imageLiteral(resourceName: "favorite_empty_icon"), tag: 1)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        return nil
+    }
+    
+    override func viewDidLoad() {
+        
+        searchBarDelegate.textDidChange = setSearchPredicate
+        
         view.backgroundColor = .white
         
         setupViewHierarchy()
         setupConstraints()
         
-        tabBarItem = UITabBarItem(title: "Favorites", image: #imageLiteral(resourceName: "favorite_empty_icon"), tag: 1)
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func viewDidLoad() {
+        let rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "filter_icon"), style: .plain, target: self, action: #selector(rightBarButtonAction))
+        navigationItem.rightBarButtonItem = rightBarButtonItem
         
-        searchBarDelegate.textDidChange = setSearchPredicate(_:)
-        dataSource.searchDidReturnCount = searchResults
         super.viewDidLoad()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        interactor?.fetchFavorites()
+        fetchFavorites()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        updateRemoveFilterButtonLayout()
     }
     
     func unfavoriteMovie(at index: Int) {
         interactor?.removeFavorite(at: index)
     }
     
+    @objc func rightBarButtonAction(sender: UIBarButtonItem) {
+        
+        let moviesFilterViewController = MoviesFilterSceneFactory.make(movieFilter: movieFilter)
+        show(moviesFilterViewController, sender: nil)
+    }
+    
+    private func fetchFavorites() {
+        interactor?.fetchFavorites(filteringWithGenre: movieFilter.genreFilter, releaseYear: movieFilter.releaseYearFilter)
+    }
+    
     // MARK: Filter
+    
+    @objc private func removeFilterAction(sender: UIButton) {
+        movieFilter.clearFilter()
+        movieFilter.commit()
+        updateRemoveFilterButtonLayout()
+        fetchFavorites()
+    }
+    
+    private func updateRemoveFilterButtonLayout() {
+        let constant = movieFilter.hasFilter ?
+            0 : -searchBar.bounds.height
+        removeFilterButtonTopConstraint?.constant = constant
+    }
     
     private func setSearchPredicate(_ predicate: String) {
         dataSource.searchPredicate = predicate
     }
-
-    private func searchResults(from predicate: String, didReturnCount count: Int) {
-
-    }
-    
     
     // MARK: FavoritesListView Protocol
     
@@ -108,25 +149,35 @@ final class FavoritesListViewController: UIViewController, FavoritesListView {
         if case let .list(viewModels) = state {
             dataSource.viewModels = viewModels
         }
-        
     }
     
     private func setupViewHierarchy() {
         
         view.addSubview(searchBar)
         view.addSubview(tableView)
+        view.insertSubview(removeFilterButton, belowSubview: searchBar)
     }
     
     private func setupConstraints() {
         
+        let viewHeights = CGFloat(48)
+        
         searchBar
             .topAnchor(equalTo: view.topAnchor)
-            .heightAnchor(equalTo: 48.0)
+            .heightAnchor(equalTo: viewHeights)
             .leadingAnchor(equalTo: view.leadingAnchor)
             .trailingAnchor(equalTo: view.trailingAnchor)
         
+        removeFilterButton
+            .heightAnchor(equalTo: viewHeights)
+            .leadingAnchor(equalTo: view.leadingAnchor)
+            .trailingAnchor(equalTo: view.trailingAnchor)
+        
+        removeFilterButtonTopConstraint = removeFilterButton.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: -viewHeights)
+        removeFilterButtonTopConstraint!.isActive = true
+        
         tableView
-            .topAnchor(equalTo: searchBar.bottomAnchor)
+            .topAnchor(equalTo: removeFilterButton.bottomAnchor)
             .bottomAnchor(equalTo: view.bottomAnchor)
             .trailingAnchor(equalTo: view.trailingAnchor)
             .leadingAnchor(equalTo: view.leadingAnchor)

@@ -206,8 +206,7 @@ final class MoviesListViewController: UIViewController, MoviesListView, ShowMovi
             
             errorView.setup(viewModel: viewModel)
         }
-
-        // MARK: INDICATOR
+        
         collectionView.isHidden = state.hidesCollectionView
         activityIndicator.setAnimating(state.animatesActivityIndicator)
         

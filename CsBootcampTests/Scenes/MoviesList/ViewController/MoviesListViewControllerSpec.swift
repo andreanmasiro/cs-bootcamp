@@ -202,6 +202,7 @@ class MoviesListInteractorSpy: MoviesListInteractorType {
         return Movie(id: 1, genreIds: [], title: "", overview: "", releaseDate: Date(), posterPath: "www.com")
     }
     
-    
-    
+    func reloadMovies() {
+        
+    }
 }

@@ -70,7 +70,12 @@ class FavoriteMoviesListGatewayFake: FavoriteMoviesListGateway {
 
 class GenresCacheGatewayStub: GenresCacheGateway {
     
+    
     var stubbedResult: Result<[Genre]>!
+    
+    func fetchGenres(_ completion: @escaping (Result<[Genre]>) -> ()) {
+        
+    }
     
     func addGenres(_ genres: [Genre], _ completion: @escaping (Result<Void>) -> ()) {
         

@@ -38,6 +38,6 @@ final class MoviesListGatewayFactory {
 final class FavoriteMoviesListGatewayFactory {
     
     static func make() -> FavoriteMoviesListGateway {
-        return FavoriteMoviesListCoreDataGateway(coreDataStack: DefaultCoreDataStack())
+        return FavoriteMoviesListCoreDataGateway(coreDataStack: DefaultCoreDataStack.shared)
     }
 }

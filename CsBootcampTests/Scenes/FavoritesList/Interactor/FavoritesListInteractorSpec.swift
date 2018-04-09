@@ -19,6 +19,7 @@ class FavoritesListInteractorSpec: QuickSpec {
             
             var presenter: FavoritesListPresenterSpy!
             var gateway: FavoriteMoviesListGatewayStub!
+            var genresCacheGateway: GenresCacheGatewayStub!
             var sut: FavoritesListInteractor!
             
             context("when it's initialized") {
@@ -26,7 +27,8 @@ class FavoritesListInteractorSpec: QuickSpec {
                 beforeEach {
                     presenter = FavoritesListPresenterSpy()
                     gateway = FavoriteMoviesListGatewayStub()
-                    sut = FavoritesListInteractor(presenter: presenter, favoriteMoviesListGateway: gateway)
+                    genresCacheGateway = GenresCacheGatewayStub()
+                    sut = FavoritesListInteractor(presenter: presenter, favoriteMoviesListGateway: gateway, genresCacheGateway: genresCacheGateway)
                 }
                 
                 context("and result is failure") {
@@ -40,7 +42,7 @@ class FavoritesListInteractorSpec: QuickSpec {
                     context("and fetch movies is called") {
                         
                         beforeEach {
-                            sut.fetchFavorites()
+                            sut.fetchFavorites(filteringWithGenre: nil, releaseYear: nil)
                         }
                         
                         it("should not call present favorites") {
@@ -59,7 +61,7 @@ class FavoritesListInteractorSpec: QuickSpec {
                     context("and fetch movies is called") {
                         
                         beforeEach {
-                            sut.fetchFavorites()
+                            sut.fetchFavorites(filteringWithGenre: nil, releaseYear: nil)
                         }
                         
                         it("should call present favorites") {
