@@ -116,6 +116,7 @@ class MoviesFilterViewController: UIViewController, FilterView {
     
     @objc private func applyFilterAction(sender: UIButton) {
         movieFilter.commit()
+        navigationController?.popViewController(animated: true)
     }
     
     private func setUpdateFilter(withIndex index: Int) {

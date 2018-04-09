@@ -11,8 +11,6 @@ import UIKit
 final class FavoritesListViewController: UIViewController, FavoritesListView {
     
     let movieFilter = MovieFilterTransaction()
-    private var filteringGenre: Genre?
-    private var filteringReleaseYear: Int?
     
     var removeFilterButtonTopConstraint: NSLayoutConstraint?
     
