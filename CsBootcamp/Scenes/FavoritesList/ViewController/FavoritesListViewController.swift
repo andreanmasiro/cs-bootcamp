@@ -14,6 +14,19 @@ final class FavoritesListViewController: UIViewController, FavoritesListView {
     private var filteringGenre: Genre?
     private var filteringReleaseYear: Int?
     
+    var removeFilterButtonTopConstraint: NSLayoutConstraint?
+    
+    lazy var removeFilterButton: UIButton = {
+        let button = UIButton(frame: .zero)
+        button.backgroundColor = UIColor.Bootcamp.darkBlue
+        button.setTitleColor(UIColor.Bootcamp.yellow, for: .normal)
+        button.setTitle("Remove Filter", for: .normal)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
+        button.translatesAutoresizingMaskIntoConstraints = false
+//        button.addTarget(self, action: #selector(applyFilterAction), for: .touchUpInside)
+        return button
+    }()
+    
     lazy var tableView: UITableView = {
         
         let tableView = UITableView(frame: .zero, style: .grouped)
@@ -85,6 +98,11 @@ final class FavoritesListViewController: UIViewController, FavoritesListView {
         interactor?.fetchFavorites(filteringWithGenre: filteringGenre, releaseYear: filteringReleaseYear)
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        updateRemoveFilterButtonLayout()
+    }
+    
     func unfavoriteMovie(at index: Int) {
         interactor?.removeFavorite(at: index)
     }
@@ -96,6 +114,12 @@ final class FavoritesListViewController: UIViewController, FavoritesListView {
     }
     
     // MARK: Filter
+    
+    private func updateRemoveFilterButtonLayout() {
+        let constant = movieFilter.hasFilter ?
+            0 : -searchBar.bounds.height
+        removeFilterButtonTopConstraint?.constant = constant
+    }
     
     private func setSearchPredicate(_ predicate: String) {
         dataSource.searchPredicate = predicate
@@ -127,18 +151,29 @@ final class FavoritesListViewController: UIViewController, FavoritesListView {
         
         view.addSubview(searchBar)
         view.addSubview(tableView)
+        view.insertSubview(removeFilterButton, belowSubview: searchBar)
     }
     
     private func setupConstraints() {
         
+        let viewHeights = CGFloat(48)
+        
         searchBar
             .topAnchor(equalTo: view.topAnchor)
-            .heightAnchor(equalTo: 48.0)
+            .heightAnchor(equalTo: viewHeights)
             .leadingAnchor(equalTo: view.leadingAnchor)
             .trailingAnchor(equalTo: view.trailingAnchor)
         
+        removeFilterButton
+            .heightAnchor(equalTo: viewHeights)
+            .leadingAnchor(equalTo: view.leadingAnchor)
+            .trailingAnchor(equalTo: view.trailingAnchor)
+        
+        removeFilterButtonTopConstraint = removeFilterButton.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: -viewHeights)
+        removeFilterButtonTopConstraint!.isActive = true
+        
         tableView
-            .topAnchor(equalTo: searchBar.bottomAnchor)
+            .topAnchor(equalTo: removeFilterButton.bottomAnchor)
             .bottomAnchor(equalTo: view.bottomAnchor)
             .trailingAnchor(equalTo: view.trailingAnchor)
             .leadingAnchor(equalTo: view.leadingAnchor)

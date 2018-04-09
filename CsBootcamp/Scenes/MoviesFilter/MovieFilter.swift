@@ -13,4 +13,15 @@ final class MovieFilter {
     
     var genreFilterIndex: Int?
     var releaseYearFilterIndex: Int?
+    
+    var hasFilter: Bool {
+        return genreFilter != nil || releaseYearFilter != nil
+    }
+    
+    func clearFilter() {
+        genreFilter = nil
+        releaseYearFilter = nil
+        genreFilterIndex = nil
+        releaseYearFilterIndex = nil
+    }
 }
