@@ -10,6 +10,9 @@ import UIKit
 
 final class FavoritesListViewController: UIViewController, FavoritesListView {
     
+    private var filteringGenre: Genre?
+    private var filteringReleaseYear: Int?
+    
     lazy var tableView: UITableView = {
         
         let tableView = UITableView(frame: .zero, style: .grouped)
@@ -54,15 +57,7 @@ final class FavoritesListViewController: UIViewController, FavoritesListView {
         super.init(nibName: nil, bundle: nil)
         title = "Favorites"
         
-        view.backgroundColor = .white
-        
-        setupViewHierarchy()
-        setupConstraints()
-        
         tabBarItem = UITabBarItem(title: "Favorites", image: #imageLiteral(resourceName: "favorite_empty_icon"), tag: 1)
-        
-        let rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "filter_icon"), style: .plain, target: self, action: #selector(rightBarButtonAction))
-        navigationItem.rightBarButtonItem = rightBarButtonItem
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -72,12 +67,21 @@ final class FavoritesListViewController: UIViewController, FavoritesListView {
     override func viewDidLoad() {
         
         searchBarDelegate.textDidChange = setSearchPredicate
+        
+        view.backgroundColor = .white
+        
+        setupViewHierarchy()
+        setupConstraints()
+        
+        let rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "filter_icon"), style: .plain, target: self, action: #selector(rightBarButtonAction))
+        navigationItem.rightBarButtonItem = rightBarButtonItem
+        
         super.viewDidLoad()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        interactor?.fetchFavorites()
+        interactor?.fetchFavorites(filteringWithGenre: filteringGenre, releaseYear: filteringReleaseYear)
     }
     
     func unfavoriteMovie(at index: Int) {
@@ -86,7 +90,7 @@ final class FavoritesListViewController: UIViewController, FavoritesListView {
     
     @objc func rightBarButtonAction(sender: UIBarButtonItem) {
         
-        let moviesFilterViewController = MoviesFilterSceneFactory.make()
+        let moviesFilterViewController = MoviesFilterSceneFactory.make(applyFilter: applyFilter)
         show(moviesFilterViewController, sender: nil)
     }
     
@@ -94,6 +98,11 @@ final class FavoritesListViewController: UIViewController, FavoritesListView {
     
     private func setSearchPredicate(_ predicate: String) {
         dataSource.searchPredicate = predicate
+    }
+    
+    private func applyFilter(withGenre genre: Genre?, releaseYear: Int?) {
+        filteringGenre = genre
+        filteringReleaseYear = releaseYear
     }
     
     // MARK: FavoritesListView Protocol
@@ -111,7 +120,6 @@ final class FavoritesListViewController: UIViewController, FavoritesListView {
         if case let .list(viewModels) = state {
             dataSource.viewModels = viewModels
         }
-        
     }
     
     private func setupViewHierarchy() {

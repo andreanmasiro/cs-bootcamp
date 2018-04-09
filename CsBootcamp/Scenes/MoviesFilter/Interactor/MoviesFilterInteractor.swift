@@ -16,12 +16,10 @@ protocol MoviesFilterPresenterType: class{
 final class MoviesFilterInteractor: MoviesFilterInteractorType {
  
     let presenter: MoviesFilterPresenterType
-    
     let gateway: GenresCacheGateway
     
-    var genres: [Genre] = []
-    
-    var releaseYears: [Int] = []
+    private var genres: [Genre] = []
+    private var releaseYears: [Int] = []
     
     init(presenter: MoviesFilterPresenterType, gateway: GenresCacheGateway) {
         self.presenter = presenter
@@ -35,6 +33,14 @@ final class MoviesFilterInteractor: MoviesFilterInteractorType {
         } else if index == 1 {
             showFilterByGenres()
         }
+    }
+    
+    func genre(at index: Int) -> Genre {
+        return genres[index]
+    }
+    
+    func releaseYear(at index: Int) -> Int {
+        return releaseYears[index]
     }
     
     private func showFilterByGenres() {

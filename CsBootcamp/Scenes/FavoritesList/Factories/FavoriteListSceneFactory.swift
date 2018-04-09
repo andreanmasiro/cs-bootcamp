@@ -15,10 +15,11 @@ final class FavoritesListSceneFactory {
         let viewController = FavoritesListViewController()
         let presenter = FavoritesListPresenter(view: viewController)
         
-        let coreDataStack = DefaultCoreDataStack()
+        let coreDataStack = DefaultCoreDataStack.shared
         let favoriteMoviesListGateway = FavoriteMoviesListCoreDataGateway(coreDataStack: coreDataStack)
-
-        let interactor = FavoritesListInteractor(presenter: presenter, favoriteMoviesListGateway: favoriteMoviesListGateway)
+        let genresCacheGateway = GenresCacheCoreDataGateway(coreDataStack: coreDataStack)
+        
+        let interactor = FavoritesListInteractor(presenter: presenter, favoriteMoviesListGateway: favoriteMoviesListGateway, genresCacheGateway: genresCacheGateway)
 
         viewController.interactor = interactor
         

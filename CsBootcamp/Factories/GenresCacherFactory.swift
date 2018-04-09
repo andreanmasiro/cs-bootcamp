@@ -12,7 +12,7 @@ final class GenresCacherFactory {
     
     static func make() -> GenresCacher {
         
-        let coreDataStack = DefaultCoreDataStack()
+        let coreDataStack = DefaultCoreDataStack.shared
         let genresListGateway = GenresListMoyaGateway()
         let genresCacheGateway = GenresCacheCoreDataGateway(coreDataStack: coreDataStack)
         

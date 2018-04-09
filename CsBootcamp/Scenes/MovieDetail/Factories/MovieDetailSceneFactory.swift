@@ -15,7 +15,7 @@ final class MovieDetailSceneFactory {
         let viewController = MovieDetailViewController(movie: movie)
         let presenter = MovieDetailPresenter(view: viewController)
         
-        let coreDataStack = DefaultCoreDataStack()
+        let coreDataStack = DefaultCoreDataStack.shared
         
         let genresGateway = GenresCacheCoreDataGateway(coreDataStack: coreDataStack)
         let favoriteMoviesListGateway = FavoriteMoviesListCoreDataGateway(coreDataStack: coreDataStack)

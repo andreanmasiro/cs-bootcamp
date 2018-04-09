@@ -11,11 +11,9 @@ import UIKit
 final class FavoritesListDataSource: NSObject, UITableViewDataSource, UITableViewDelegate {
 
     private weak var tableView: UITableView?
-
     var didUnfavoriteItemAtIndex: ((Int) -> ())?
-
     var searchDidReturnCount: ((String, Int) -> ())?
-
+    
     var searchPredicate: String = "" {
         didSet {
             if oldValue != searchPredicate {
@@ -36,12 +34,10 @@ final class FavoritesListDataSource: NSObject, UITableViewDataSource, UITableVie
 
         let viewModels = searchPredicate.isEmpty ?
             enumeratedViewModels :
-            enumeratedViewModels.filter { (args) -> Bool in
+            enumeratedViewModels.filter({ args -> Bool in
                 args.element.title.lowercased()
                     .contains(self.searchPredicate.lowercased())
-            }
-
-
+            })
         searchDidReturnCount?(searchPredicate, viewModels.count)
 
         return viewModels

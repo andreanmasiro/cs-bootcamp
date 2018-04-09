@@ -11,6 +11,10 @@ import Foundation
 
 final class DefaultCoreDataStack: CoreDataStack {
     
+    static var shared: DefaultCoreDataStack = {
+        return DefaultCoreDataStack()
+    }()
+    
     private lazy var persistentContainer: NSPersistentContainer = {
         
         let container = NSPersistentContainer(name: "Movies")
@@ -29,6 +33,8 @@ final class DefaultCoreDataStack: CoreDataStack {
         
         return context
     }()
+    
+    private init() { }
     
     // MARK: - Core Data Saving support
     

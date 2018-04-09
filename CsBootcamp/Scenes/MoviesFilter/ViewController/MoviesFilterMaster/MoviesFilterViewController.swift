@@ -9,15 +9,20 @@
 import UIKit
 
 protocol MoviesFilterInteractorType: class {
+    
     func showFilterDetail(at index: Int)
+    func genre(at index: Int) -> Genre
+    func releaseYear(at index: Int) -> Int
 }
 
 class MoviesFilterViewController: UIViewController, FilterView {
 
+    var applyFilter: ((Genre?, Int?) -> ())?
+    
+    var updateDetailLabelOption: (([String]) -> (Int) -> ()) = { _ in { _ in } }
     private let filterOptionTypes =  ["Date", "Genres"]
     private var presentingOptionsIndex = 0
     private var curentSelectedOptionIndexes: [Int: Int] = [:]
-    var updateDetailLabelOption: (([String]) -> (Int) -> ()) = { _ in { _ in } }
     
     lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero)
@@ -34,6 +39,7 @@ class MoviesFilterViewController: UIViewController, FilterView {
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
         button.layer.cornerRadius = 5
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(applyFilterAction), for: .touchUpInside)
         return button
     }()
     
@@ -83,6 +89,18 @@ class MoviesFilterViewController: UIViewController, FilterView {
             didSelectOptionAtIndex: updateDetailLabelOption(options)
         )
         show(vc, sender: nil)
+    }
+    
+    @objc private func applyFilterAction(sender: UIButton) {
+
+        let releaseYear = curentSelectedOptionIndexes[0].flatMap {
+            moviesFilterInteractor?.releaseYear(at: $0)
+        }
+        
+        let genre = curentSelectedOptionIndexes[1].flatMap {
+            moviesFilterInteractor?.genre(at: $0)
+        }
+        applyFilter?(genre, releaseYear)
     }
     
     private func setUpdateDetailLabel(withIndex index: Int) {
