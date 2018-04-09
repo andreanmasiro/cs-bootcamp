@@ -10,7 +10,7 @@ import UIKit
 
 final class MoviesFilterSceneFactory {
     
-    static func make(movieFilter: MovieFilter) -> UIViewController {
+    static func make(movieFilter: MovieFilterTransaction) -> UIViewController {
         
         let viewController = MoviesFilterViewController(movieFilter: movieFilter)
         let presenter = MoviesFilterPresenter(view: viewController)

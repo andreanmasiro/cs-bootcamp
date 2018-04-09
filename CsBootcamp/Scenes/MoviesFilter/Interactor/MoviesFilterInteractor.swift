@@ -28,7 +28,7 @@ final class MoviesFilterInteractor: MoviesFilterInteractorType {
         self.gateway = gateway
     }
     
-    func fetchDetailOptionTypes(movieFilter: MovieFilter) {
+    func fetchDetailOptionTypes(movieFilter: MovieFilterTransaction) {
         
         presenter.presentFilterOptions(types: filterOptionTypes, releaseYearOption: movieFilter.releaseYearFilter, genreOption: movieFilter.genreFilter)
     }

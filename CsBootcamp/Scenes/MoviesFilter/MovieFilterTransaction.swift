@@ -1,12 +1,12 @@
 //
-//  MovieFilter.swift
+//  MovieFilterTransaction.swift
 //  CsBootcamp
 //
 //  Created by André Marques da Silva Rodrigues on 08/04/18.
 //  Copyright © 2018 Bootcampers. All rights reserved.
 //
 
-final class MovieFilter {
+final class MovieFilterTransaction {
     
     private var commitSnapshot: (
     genreFilter: Genre?,

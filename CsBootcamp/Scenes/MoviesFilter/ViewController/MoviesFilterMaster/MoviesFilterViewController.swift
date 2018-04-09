@@ -10,7 +10,7 @@ import UIKit
 
 protocol MoviesFilterInteractorType: class {
     
-    func fetchDetailOptionTypes(movieFilter: MovieFilter)
+    func fetchDetailOptionTypes(movieFilter: MovieFilterTransaction)
     func showFilterDetail(at index: Int)
     func genre(at index: Int) -> Genre
     func releaseYear(at index: Int) -> Int
@@ -18,7 +18,7 @@ protocol MoviesFilterInteractorType: class {
 
 class MoviesFilterViewController: UIViewController, FilterView {
 
-    let movieFilter: MovieFilter
+    let movieFilter: MovieFilterTransaction
     
     var updateFilter: (([String]) -> (Int) -> ()) = { _ in { _ in } }
     private var presentingOptionsIndex = 0
@@ -51,7 +51,7 @@ class MoviesFilterViewController: UIViewController, FilterView {
     
     var moviesFilterInteractor: MoviesFilterInteractorType?
     
-    init(movieFilter: MovieFilter) {
+    init(movieFilter: MovieFilterTransaction) {
         
         self.movieFilter = movieFilter
         
