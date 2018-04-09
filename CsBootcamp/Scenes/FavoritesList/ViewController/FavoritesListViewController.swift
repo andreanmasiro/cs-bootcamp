@@ -41,9 +41,10 @@ final class FavoritesListViewController: UIViewController, FavoritesListView {
         
         let searchBar = UISearchBar(frame: .zero)
         searchBar.translatesAutoresizingMaskIntoConstraints = false
-        searchBar.barTintColor = UIColor.Bootcamp.yellow
         searchBar.layer.borderWidth = 1
         searchBar.layer.borderColor = UIColor.Bootcamp.yellow.cgColor
+        searchBar.barTintColor = UIColor.Bootcamp.yellow
+        searchBar.setTextBackgroundColor(UIColor.Bootcamp.darkYellow)
         searchBar.placeholder = "Search"
         
         return searchBar

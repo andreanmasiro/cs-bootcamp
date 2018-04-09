@@ -15,7 +15,7 @@ final class UINavigationControllerFactory {
         let navigationController = UINavigationController(rootViewController: rootViewController)
         
         navigationController.navigationBar.barTintColor = UIColor.Bootcamp.yellow
-        navigationController.navigationBar.tintColor = .black
+        navigationController.navigationBar.tintColor = UIColor.Bootcamp.darkBlue
         navigationController.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         navigationController.navigationBar.shadowImage = UIImage()
         navigationController.navigationBar.isTranslucent = false
