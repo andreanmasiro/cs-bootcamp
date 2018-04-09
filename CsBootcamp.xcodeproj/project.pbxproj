@@ -127,6 +127,7 @@
 		BA3134DD2077F97A00DE9418 /* GenresCacheCoreDataGatewaySpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3134DC2077F97A00DE9418 /* GenresCacheCoreDataGatewaySpec.swift */; };
 		BA3134E020780AC000DE9418 /* InMemoryCoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3134DF20780AC000DE9418 /* InMemoryCoreDataStack.swift */; };
 		BA3134E320780B4100DE9418 /* FavoriteMoviesListCoreDataGatewaySpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3134E220780B4100DE9418 /* FavoriteMoviesListCoreDataGatewaySpec.swift */; };
+		BADA1B58207BBAE6009F90F1 /* UISearchBar+TextBackgroundColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADA1B57207BBAE6009F90F1 /* UISearchBar+TextBackgroundColor.swift */; };
 		BAF652742073E8A500EBED1D /* SearchBarDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF652732073E8A500EBED1D /* SearchBarDelegate.swift */; };
 /* End PBXBuildFile section */
 
@@ -270,6 +271,7 @@
 		BA3134DC2077F97A00DE9418 /* GenresCacheCoreDataGatewaySpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenresCacheCoreDataGatewaySpec.swift; sourceTree = "<group>"; };
 		BA3134DF20780AC000DE9418 /* InMemoryCoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InMemoryCoreDataStack.swift; sourceTree = "<group>"; };
 		BA3134E220780B4100DE9418 /* FavoriteMoviesListCoreDataGatewaySpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteMoviesListCoreDataGatewaySpec.swift; sourceTree = "<group>"; };
+		BADA1B57207BBAE6009F90F1 /* UISearchBar+TextBackgroundColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UISearchBar+TextBackgroundColor.swift"; sourceTree = "<group>"; };
 		BAF652732073E8A500EBED1D /* SearchBarDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarDelegate.swift; sourceTree = "<group>"; };
 		D084F98AD9600783CCEC119C /* Pods-CsBootcampTests.test.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CsBootcampTests.test.xcconfig"; path = "Pods/Target Support Files/Pods-CsBootcampTests/Pods-CsBootcampTests.test.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -488,6 +490,7 @@
 				BA0867B0206C160400CDA3D9 /* UIActivityIndicatorView+SetAnimating.swift */,
 				BA3134C62075727600DE9418 /* NSManagedObject+EntityName.swift */,
 				BA3134C8207572FF00DE9418 /* NSEntityDescription+EntityName.swift */,
+				BADA1B57207BBAE6009F90F1 /* UISearchBar+TextBackgroundColor.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1285,6 +1288,7 @@
 				BA0867EF206D8BF800CDA3D9 /* MoviesListSceneFactory.swift in Sources */,
 				620EEAAA2076B4D60091A468 /* MovieListFavoriteInteractorType.swift in Sources */,
 				BA1824B6206562E0004405A3 /* MoviesListInteractor.swift in Sources */,
+				BADA1B58207BBAE6009F90F1 /* UISearchBar+TextBackgroundColor.swift in Sources */,
 				BA18250E206AFBC9004405A3 /* MoviesListViewModel.swift in Sources */,
 				627377E220754C3C006C2694 /* FavoriteListSceneFactory.swift in Sources */,
 				BA3134BE20753F1900DE9418 /* GenreCoreData+CoreDataClass.swift in Sources */,
@@ -1436,7 +1440,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 83C3V38WSB;
+				DEVELOPMENT_TEAM = BEVC4JDNZX;
 				INFOPLIST_FILE = CsBootcamp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = cs.CsBootcamp;
@@ -1578,7 +1582,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 83C3V38WSB;
+				DEVELOPMENT_TEAM = BEVC4JDNZX;
 				INFOPLIST_FILE = CsBootcamp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = cs.CsBootcamp;
@@ -1594,7 +1598,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 83C3V38WSB;
+				DEVELOPMENT_TEAM = BEVC4JDNZX;
 				INFOPLIST_FILE = CsBootcamp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = cs.CsBootcamp;

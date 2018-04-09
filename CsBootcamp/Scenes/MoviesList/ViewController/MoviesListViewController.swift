@@ -71,6 +71,7 @@ final class MoviesListViewController: UIViewController, MoviesListView, ShowMovi
         searchBar.barTintColor = UIColor.Bootcamp.yellow
         searchBar.layer.borderWidth = 1
         searchBar.layer.borderColor = UIColor.Bootcamp.yellow.cgColor
+        searchBar.setTextBackgroundColor(UIColor.Bootcamp.darkYellow)
         searchBar.placeholder = "Search"
         
         return searchBar
@@ -209,8 +210,8 @@ final class MoviesListViewController: UIViewController, MoviesListView, ShowMovi
         
         collectionView.isHidden = state.hidesCollectionView
         activityIndicator.setAnimating(state.animatesActivityIndicator)
-        
         errorView.isHidden = state.hidesErrorView
+        searchBar.isUserInteractionEnabled = state.enablesSearchBar
     }
 
     private func setupViewHierarchy() {
@@ -284,6 +285,14 @@ extension MoviesListViewController {
             switch self {
             case .loading: return true
             case .list, .error: return false
+            }
+        }
+        
+        var enablesSearchBar: Bool {
+            
+            switch self {
+            case .list: return true
+            case .loading, .error: return false
             }
         }
     }
